@@ -392,3 +392,93 @@ nac_asis_2019$anio = 2019
 
 #R Bind
 nac_asis <- rbind(nac_asis_2010, nac_asis_2011, nac_asis_2012, nac_asis_2013, nac_asis_2014, nac_asis_2015, nac_asis_2016, nac_asis_2017, nac_asis_2018, nac_asis_2019)
+
+# Nacimientos por lugar donde ocurrió el nacimiento, según departamento y municipio de residencia de la madre
+
+# No se agrego 2010 al R Bind porque no tienen informacion si fue hospital publico o privado
+nac_lugar_2010 <- as.data.frame(dt_2010[18])
+nac_lugar_2010$anio = 2010
+nac_lugar_2010$Seguro.social = 0
+nac_lugar_2010$Otro = 0
+
+
+nac_lugar_2011 <- as.data.frame(dt_2011[18])
+nac_lugar_2011$anio = 2011
+nac_lugar_2012 <- as.data.frame(dt_2012[18])
+nac_lugar_2012$anio = 2012
+nac_lugar_2013 <- as.data.frame(dt_2013[18])
+nac_lugar_2013$anio = 2013
+nac_lugar_2014 <- as.data.frame(dt_2014[18])
+nac_lugar_2014$anio = 2014
+nac_lugar_2015 <- as.data.frame(dt_2015[18])
+nac_lugar_2015$anio = 2015
+nac_lugar_2015$Otro = 0
+nac_lugar_2016 <- as.data.frame(dt_2016[18])
+nac_lugar_2016$anio = 2016
+nac_lugar_2016$Otro = 0
+nac_lugar_2017 <- as.data.frame(dt_2017[18])
+nac_lugar_2017$anio = 2017
+nac_lugar_2017$Otro = 0
+nac_lugar_2018 <- as.data.frame(dt_2018[18])
+nac_lugar_2018$anio = 2018
+nac_lugar_2018$Otro = 0
+nac_lugar_2019 <- as.data.frame(dt_2019[18])
+nac_lugar_2019$anio = 2019
+nac_lugar_2019$Otro = 0
+
+#R Bind
+nac_lugar <- rbind(nac_lugar_2011, nac_lugar_2012, nac_lugar_2013, nac_lugar_2014, nac_lugar_2015, nac_lugar_2016, nac_lugar_2017, nac_lugar_2018, nac_lugar_2019)
+
+# Nacimientos por escolaridad de la madre, según número de hijos(as) tenidos
+
+nac_escolaridad_madre_2010 <- as.data.frame(dt_2010[19])
+nac_escolaridad_madre_2010$anio = 2010
+nac_escolaridad_madre_2011 <- as.data.frame(dt_2011[19])
+nac_escolaridad_madre_2011$anio = 2011
+nac_escolaridad_madre_2012 <- as.data.frame(dt_2012[19])
+nac_escolaridad_madre_2012$anio = 2012
+nac_escolaridad_madre_2013 <- as.data.frame(dt_2013[19])
+nac_escolaridad_madre_2013$anio = 2013
+nac_escolaridad_madre_2013$Doctorado = 0
+nac_escolaridad_madre_2014 <- as.data.frame(dt_2014[19])
+nac_escolaridad_madre_2014$anio = 2014
+nac_escolaridad_madre_2015 <- as.data.frame(dt_2015[20])
+nac_escolaridad_madre_2015$anio = 2015 
+nac_escolaridad_madre_2016 <- as.data.frame(dt_2016[20])
+nac_escolaridad_madre_2016$anio = 2016
+nac_escolaridad_madre_2017 <- as.data.frame(dt_2017[20])
+nac_escolaridad_madre_2017$anio = 2017
+nac_escolaridad_madre_2017$Doctorado = 0
+nac_escolaridad_madre_2017 <- nac_escolaridad_madre_2017 %>% rename(Post.Grado = Post.grado)
+nac_escolaridad_madre_2018 <- as.data.frame(dt_2018[20])
+nac_escolaridad_madre_2018$anio = 2018
+nac_escolaridad_madre_2018$Doctorado = 0
+nac_escolaridad_madre_2018 <- nac_escolaridad_madre_2018 %>% rename(Post.Grado = Post.grado)
+nac_escolaridad_madre_2019 <- as.data.frame(dt_2019[20])
+nac_escolaridad_madre_2019$anio = 2019
+nac_escolaridad_madre_2019$Doctorado = 0
+nac_escolaridad_madre_2019 <- nac_escolaridad_madre_2019 %>% rename(Post.Grado = Post.grado)
+
+#R Bind
+nac_escolaridad_madre <- rbind(nac_escolaridad_madre_2010, nac_escolaridad_madre_2011, nac_escolaridad_madre_2012, nac_escolaridad_madre_2013, nac_escolaridad_madre_2014, nac_escolaridad_madre_2015, nac_escolaridad_madre_2016, nac_escolaridad_madre_2017, nac_escolaridad_madre_2018, nac_escolaridad_madre_2019)
+
+
+save(
+    dpto_res_ocu,
+    nac_por_dpto,
+    nac_por_dpto_edades_simples,
+    nac_por_dia_por_mes,
+    nac_por_estado_civil,
+    nac_por_estado_civil_por_edad,
+    nac_por_estado_civil_padre_por_edad,
+    nac_vivos_muertos_por_dpto,
+    nac_depto_sexo_peso,
+    nac_edad_madre_sexo_peso,
+    nac_edad_madre_departamento_municipio,
+    nac_edad_madre_ocupacion,
+    nac_edad_madre_depto_area_etnia,
+    nac_asis,
+    nac_lugar,
+    nac_escolaridad_madre,
+    file = "DataMiningP1Proyect.RData"                     
+)
