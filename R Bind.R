@@ -214,3 +214,181 @@ nac_vivos_muertos_por_dpto_2019$Múltiples = 0
 # R Bind
 nac_vivos_muertos_por_dpto <- rbind(nac_vivos_muertos_por_dpto_2010, nac_vivos_muertos_por_dpto_2011, nac_vivos_muertos_por_dpto_2012, nac_vivos_muertos_por_dpto_2013, nac_vivos_muertos_por_dpto_2014, nac_vivos_muertos_por_dpto_2015, nac_vivos_muertos_por_dpto_2016, nac_vivos_muertos_por_dpto_2017, nac_vivos_muertos_por_dpto_2018, nac_vivos_muertos_por_dpto_2019)
 
+# Nacimientos por departamento de residencia de la madre, según sexo y peso del niño(a) al nacer, año 2010
+
+nac_depto_sexo_peso_2010 <- as.data.frame(dt_2010[12])
+nac_depto_sexo_peso_2010$anio = 2010
+nac_depto_sexo_peso_2010 <- nac_depto_sexo_peso_2010 %>% rename(Hombres = Niños, Mujeres = Niñas)
+nac_depto_sexo_peso_2011 <- as.data.frame(dt_2011[12])
+nac_depto_sexo_peso_2011$anio = 2011
+nac_depto_sexo_peso_2011 <- nac_depto_sexo_peso_2011 %>% rename(Hombres = Niños, Mujeres = Niñas)
+nac_depto_sexo_peso_2012 <- as.data.frame(dt_2012[12])
+nac_depto_sexo_peso_2012$anio = 2012
+nac_depto_sexo_peso_2012 <- nac_depto_sexo_peso_2012 %>% rename(Hombres = Niños, Mujeres = Niñas)
+nac_depto_sexo_peso_2013 <- as.data.frame(dt_2013[12])
+nac_depto_sexo_peso_2013$anio = 2013
+nac_depto_sexo_peso_2014 <- as.data.frame(dt_2014[12])
+nac_depto_sexo_peso_2014$anio = 2014
+nac_depto_sexo_peso_2015 <- as.data.frame(dt_2015[12])
+nac_depto_sexo_peso_2015$anio = 2015
+nac_depto_sexo_peso_2016 <- as.data.frame(dt_2016[12])
+nac_depto_sexo_peso_2016$anio = 2016
+nac_depto_sexo_peso_2017 <- as.data.frame(dt_2017[12])
+nac_depto_sexo_peso_2017$anio = 2017
+nac_depto_sexo_peso_2018 <- as.data.frame(dt_2018[12])
+nac_depto_sexo_peso_2018$anio = 2018
+nac_depto_sexo_peso_2019 <- as.data.frame(dt_2019[12])
+nac_depto_sexo_peso_2019$anio = 2019
+
+
+
+#R Bind
+nac_depto_sexo_peso <- rbind(nac_depto_sexo_peso_2010, nac_depto_sexo_peso_2011, nac_depto_sexo_peso_2012, nac_depto_sexo_peso_2013, nac_depto_sexo_peso_2014, nac_depto_sexo_peso_2015, nac_depto_sexo_peso_2016, nac_depto_sexo_peso_2017, nac_depto_sexo_peso_2018, nac_depto_sexo_peso_2019)
+
+
+#Nacimientos por grupos de edad de la madre, según sexo y peso del niño(a) al nacer
+
+nac_edad_madre_sexo_peso_2010 <- as.data.frame(dt_2010[13])
+nac_edad_madre_sexo_peso_2010$anio = 2010
+nac_edad_madre_sexo_peso_2010 <- nac_edad_madre_sexo_peso_2010 %>% rename(Hombres = Niño, Mujeres = Niña)
+nac_edad_madre_sexo_peso_2011 <- as.data.frame(dt_2011[13])
+nac_edad_madre_sexo_peso_2011$anio = 2011
+nac_edad_madre_sexo_peso_2011 <- nac_edad_madre_sexo_peso_2011 %>% rename(Hombres = Niño, Mujeres = Niña)
+nac_edad_madre_sexo_peso_2012 <- as.data.frame(dt_2012[13])
+nac_edad_madre_sexo_peso_2012$anio = 2012
+nac_edad_madre_sexo_peso_2012 <- nac_edad_madre_sexo_peso_2012 %>% rename(Hombres = Niño, Mujeres = Niña)
+nac_edad_madre_sexo_peso_2013 <- as.data.frame(dt_2013[13])
+nac_edad_madre_sexo_peso_2013$anio = 2013
+nac_edad_madre_sexo_peso_2014 <- as.data.frame(dt_2014[13])
+nac_edad_madre_sexo_peso_2014$anio = 2014
+nac_edad_madre_sexo_peso_2015 <- as.data.frame(dt_2015[13])
+nac_edad_madre_sexo_peso_2015$anio = 2015
+nac_edad_madre_sexo_peso_2016 <- as.data.frame(dt_2016[13])
+nac_edad_madre_sexo_peso_2016$anio = 2016
+nac_edad_madre_sexo_peso_2017 <- as.data.frame(dt_2017[13])
+nac_edad_madre_sexo_peso_2017$anio = 2017
+nac_edad_madre_sexo_peso_2018 <- as.data.frame(dt_2018[13])
+nac_edad_madre_sexo_peso_2018$anio = 2018
+nac_edad_madre_sexo_peso_2019 <- as.data.frame(dt_2019[13])
+nac_edad_madre_sexo_peso_2019$anio = 2019
+
+#R Bind
+nac_edad_madre_sexo_peso <- rbind(nac_edad_madre_sexo_peso_2010, nac_edad_madre_sexo_peso_2011, nac_edad_madre_sexo_peso_2012, nac_edad_madre_sexo_peso_2013, nac_edad_madre_sexo_peso_2014, nac_edad_madre_sexo_peso_2015, nac_edad_madre_sexo_peso_2016, nac_edad_madre_sexo_peso_2017, nac_edad_madre_sexo_peso_2018, nac_edad_madre_sexo_peso_2019)
+
+# Nacimientos por grupos de edad de la madre, según departamento y municipio de su residencia, año 2010
+
+nac_edad_madre_departamento_municipio_2010 <- as.data.frame(dt_2010[14])
+nac_edad_madre_departamento_municipio_2010$anio = 2010
+nac_edad_madre_departamento_municipio_2011 <- as.data.frame(dt_2011[14])
+nac_edad_madre_departamento_municipio_2011$anio = 2011
+nac_edad_madre_departamento_municipio_2012 <- as.data.frame(dt_2012[14])
+nac_edad_madre_departamento_municipio_2012$anio = 2012
+nac_edad_madre_departamento_municipio_2013 <- as.data.frame(dt_2013[14])
+nac_edad_madre_departamento_municipio_2013$anio = 2013
+nac_edad_madre_departamento_municipio_2014 <- as.data.frame(dt_2014[14])
+nac_edad_madre_departamento_municipio_2014$anio = 2014
+nac_edad_madre_departamento_municipio_2015 <- as.data.frame(dt_2015[14])
+nac_edad_madre_departamento_municipio_2015$anio = 2015
+nac_edad_madre_departamento_municipio_2016 <- as.data.frame(dt_2016[14])
+nac_edad_madre_departamento_municipio_2016$anio = 2016
+nac_edad_madre_departamento_municipio_2017 <- as.data.frame(dt_2017[14])
+nac_edad_madre_departamento_municipio_2017$anio = 2017
+nac_edad_madre_departamento_municipio_2018 <- as.data.frame(dt_2018[14])
+nac_edad_madre_departamento_municipio_2018$anio = 2018
+nac_edad_madre_departamento_municipio_2019 <- as.data.frame(dt_2019[14])
+nac_edad_madre_departamento_municipio_2019$anio = 2019
+
+#R Bind
+nac_edad_madre_departamento_municipio <- rbind(nac_edad_madre_departamento_municipio_2010, nac_edad_madre_departamento_municipio_2011, nac_edad_madre_departamento_municipio_2012, nac_edad_madre_departamento_municipio_2013, nac_edad_madre_departamento_municipio_2014, nac_edad_madre_departamento_municipio_2015, nac_edad_madre_departamento_municipio_2016, nac_edad_madre_departamento_municipio_2017, nac_edad_madre_departamento_municipio_2018, nac_edad_madre_departamento_municipio_2019)
+
+# Nacimientos por grupos de edad de la madre, según grandes grupos ocupacionales de la madre
+
+nac_edad_madre_ocupacion_2010 <- as.data.frame(dt_2010[15])
+nac_edad_madre_ocupacion_2010$anio = 2010
+nac_edad_madre_ocupacion_2011 <- as.data.frame(dt_2011[15])
+nac_edad_madre_ocupacion_2011$anio = 2011
+nac_edad_madre_ocupacion_2012 <- as.data.frame(dt_2012[15])
+nac_edad_madre_ocupacion_2012$anio = 2012
+nac_edad_madre_ocupacion_2013 <- as.data.frame(dt_2013[15])
+nac_edad_madre_ocupacion_2013$anio = 2013
+nac_edad_madre_ocupacion_2014 <- as.data.frame(dt_2014[15])
+nac_edad_madre_ocupacion_2014$anio = 2014
+nac_edad_madre_ocupacion_2015 <- as.data.frame(dt_2015[15])
+nac_edad_madre_ocupacion_2015$anio = 2015
+nac_edad_madre_ocupacion_2016 <- as.data.frame(dt_2016[15])
+nac_edad_madre_ocupacion_2016$anio = 2016
+nac_edad_madre_ocupacion_2017 <- as.data.frame(dt_2017[15])
+nac_edad_madre_ocupacion_2017$anio = 2017
+nac_edad_madre_ocupacion_2018 <- as.data.frame(dt_2018[15])
+nac_edad_madre_ocupacion_2018$anio = 2018
+nac_edad_madre_ocupacion_2019 <- as.data.frame(dt_2019[15])
+nac_edad_madre_ocupacion_2019$anio = 2019
+
+#R Bind
+nac_edad_madre_ocupacion <- rbind(nac_edad_madre_ocupacion_2010, nac_edad_madre_ocupacion_2011, nac_edad_madre_ocupacion_2012, nac_edad_madre_ocupacion_2013, nac_edad_madre_ocupacion_2014, nac_edad_madre_ocupacion_2015, nac_edad_madre_ocupacion_2016, nac_edad_madre_ocupacion_2017, nac_edad_madre_ocupacion_2018, nac_edad_madre_ocupacion_2019)
+
+# Nacimientos por edad de la madre, según departamento de residencia, área geográfica de ocurrencia, y grupo étnico de la madre
+
+nac_edad_madre_depto_area_etnia_2010 <- as.data.frame(dt_2010[16])
+nac_edad_madre_depto_area_etnia_2010$anio = 2010
+nac_edad_madre_depto_area_etnia_2010$Área.geográfica <- NULL
+nac_edad_madre_depto_area_etnia_2010 <- nac_edad_madre_depto_area_etnia_2010 %>% rename(Pueblo.de.pertenencia.de.la.madre = Grupo.étnico)
+nac_edad_madre_depto_area_etnia_2011 <- as.data.frame(dt_2011[16])
+nac_edad_madre_depto_area_etnia_2011$anio = 2011
+nac_edad_madre_depto_area_etnia_2011$Área.geográfica <- NULL
+nac_edad_madre_depto_area_etnia_2011 <- nac_edad_madre_depto_area_etnia_2011 %>% rename(Pueblo.de.pertenencia.de.la.madre = Grupo.étnico)
+nac_edad_madre_depto_area_etnia_2012 <- as.data.frame(dt_2012[16])
+nac_edad_madre_depto_area_etnia_2012$anio = 2012
+nac_edad_madre_depto_area_etnia_2012 <- nac_edad_madre_depto_area_etnia_2012 %>% rename(Pueblo.de.pertenencia.de.la.madre = Grupo.étnico)
+nac_edad_madre_depto_area_etnia_2013 <- as.data.frame(dt_2013[16])
+nac_edad_madre_depto_area_etnia_2013$anio = 2013
+nac_edad_madre_depto_area_etnia_2014 <- as.data.frame(dt_2014[16])
+nac_edad_madre_depto_area_etnia_2014$anio = 2014
+nac_edad_madre_depto_area_etnia_2015 <- as.data.frame(dt_2015[16])
+nac_edad_madre_depto_area_etnia_2015$anio = 2015
+nac_edad_madre_depto_area_etnia_2016 <- as.data.frame(dt_2016[16])
+nac_edad_madre_depto_area_etnia_2016$anio = 2016
+nac_edad_madre_depto_area_etnia_2017 <- as.data.frame(dt_2017[16])
+nac_edad_madre_depto_area_etnia_2017$anio = 2017
+nac_edad_madre_depto_area_etnia_2018 <- as.data.frame(dt_2018[16])
+nac_edad_madre_depto_area_etnia_2018$anio = 2018
+nac_edad_madre_depto_area_etnia_2018 <- nac_edad_madre_depto_area_etnia_2018 %>% rename(Departamento.de.ocurrencia = Departamento.de.residencia)
+nac_edad_madre_depto_area_etnia_2019 <- as.data.frame(dt_2019[16])
+nac_edad_madre_depto_area_etnia_2019$anio = 2019
+nac_edad_madre_depto_area_etnia_2019 <- nac_edad_madre_depto_area_etnia_2019 %>% rename(Departamento.de.ocurrencia = Departamento.de.residencia)
+
+#R Bind
+nac_edad_madre_depto_area_etnia <- rbind(nac_edad_madre_depto_area_etnia_2010, nac_edad_madre_depto_area_etnia_2011, nac_edad_madre_depto_area_etnia_2012, nac_edad_madre_depto_area_etnia_2013, nac_edad_madre_depto_area_etnia_2014, nac_edad_madre_depto_area_etnia_2015, nac_edad_madre_depto_area_etnia_2016, nac_edad_madre_depto_area_etnia_2017, nac_edad_madre_depto_area_etnia_2018, nac_edad_madre_depto_area_etnia_2019)
+
+# Nacimientos por tipo de asistencia recibida, según departamento y municipio de residencia de la madre
+
+nac_asis_2010 <- as.data.frame(dt_2010[17])
+nac_asis_2010$anio = 2010
+nac_asis_2010$Ignorado = 0
+nac_asis_2011 <- as.data.frame(dt_2011[17])
+nac_asis_2011$anio = 2011
+nac_asis_2011$Ignorado = 0
+nac_asis_2012 <- as.data.frame(dt_2012[17])
+nac_asis_2012$anio = 2012
+nac_asis_2012$Ignorado = 0
+nac_asis_2013 <- as.data.frame(dt_2013[17])
+nac_asis_2013$anio = 2013
+nac_asis_2013$Ignorado = 0
+nac_asis_2014 <- as.data.frame(dt_2014[17])
+nac_asis_2014$anio = 2014
+nac_asis_2014$Ignorado = 0
+nac_asis_2015 <- as.data.frame(dt_2015[17])
+nac_asis_2015$anio = 2015
+nac_asis_2015$Ignorado = 0
+nac_asis_2016 <- as.data.frame(dt_2016[17])
+nac_asis_2016$anio = 2016
+nac_asis_2016$Ignorado = 0
+nac_asis_2017 <- as.data.frame(dt_2017[17])
+nac_asis_2017$anio = 2017
+nac_asis_2018 <- as.data.frame(dt_2018[17])
+nac_asis_2018$anio = 2018
+nac_asis_2019 <- as.data.frame(dt_2019[17])
+nac_asis_2019$anio = 2019
+
+#R Bind
+nac_asis <- rbind(nac_asis_2010, nac_asis_2011, nac_asis_2012, nac_asis_2013, nac_asis_2014, nac_asis_2015, nac_asis_2016, nac_asis_2017, nac_asis_2018, nac_asis_2019)
