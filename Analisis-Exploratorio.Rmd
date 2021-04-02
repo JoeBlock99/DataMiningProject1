@@ -1,0 +1,33 @@
+---
+title: "Proyecto 1"
+author: "Juan De Leon, Maria Jose Castro, Jose Block"
+date: "5/4/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+# Analisis Exlporatorio
+
+## Situación  Problemática
+
+## Problema científico
+
+## Objetivos
+
+## Descripción  de  los  datos
+
+## Análisis Exploratorio
+### - Estadística Descriptiva
+### - Gráficos  Exploratorios
+### - Correlaciones  Entre  las  Variables
+### - Variables Categóricas
+### - Número de Clusters
+### - Agrupamiento
+### - Calidad del Agrupamiento
+
+## Hallazgos y conclusiones
+### - Hallazgos en el análisis exploratorio
+### - Nombre a los grupos
+### - Conclusiones
