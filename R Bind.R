@@ -480,5 +480,5 @@ save(
     nac_asis,
     nac_lugar,
     nac_escolaridad_madre,
-    file = "DataMiningP1Proyect.RData"                     
+    file = "DataMiningP1Project.RData"                     
 )
