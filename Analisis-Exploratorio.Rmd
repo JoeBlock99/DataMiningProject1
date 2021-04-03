@@ -48,14 +48,52 @@ knitr::opts_chunk$set(echo = TRUE)
 A continuación, mostramos una clasificación de las variables por cada set de datos:
 
 *	Nacimientos por departamento de residencia de la madre, según edades simples de la madre
+
+    * Edad: variable cuantitativa discreta.
+    * Departamento: Variable cualitativa nominal
+
 *	Nacimientos por estado civil de la madre, según departamento de su residencia
+    
+    * Departamento: Variable cualitativa nominal
+    * Estado Civil: Variable cualitativa nominal
+    
 *	Nacimientos por estado civil de la madre, según grupos de edad
+
+    * Grupo de Edad: Variable cuantitativa discreta
+    * Estado Civil: Variable cualitativa nominal
+
 *	Nacimientos por grupos de edad de la madre, según grupos de edad del padre
+
+    * Grupo de Edad Madre: Variable cuantitativa discreta
+    * Grupo de Edad Padre: Variable cuantitativa discreta
+
 *	Número de hijos(as) tenidos, según edades simples de la madre
+
+    * Edad: Variable cuantitativa discreta
+    * Numero de Hijos: Variable cuantitativa discreta
+
 *	Nacimientos por grupos de edad de la madre, según departamento y municipio de su residencia
+
+    * Departamento: Variable cualitativa nominal
+    * Municipio: Variable cualitativa nominal
+    * Grupo de Edad: Variable cuantitativa discreta
+
 *	Nacimientos por grupos de edad de la madre, según grandes grupos ocupacionales de la madre
+
+    * Grupos Ocupacionales: Variable cualitativa nominal
+    * Grupo de Edad: Variable cuantitativa discreta
+
 *	Nacimientos por edad de la madre, según departamento de residencia, área geográfica de ocurrencia, y grupo étnico de la madre
+
+    * Departamento: Variable cualitativa nominal
+    * Area Geografica: Variable cualitativa nominal
+    * Grupo Etnico: Variable cualitativa nominal
+    * Grupo de Edad: Variable cuantitativa discreta
+
 *	Nacimientos por escolaridad de la madre, según número de hijos(as) tenidos
+
+    * Numero de hijos: variable cuantitativa discreta
+    * Escolaridad de la madre: varibale cualitativa nominal
 
 ## Análisis Exploratorio
 ***
