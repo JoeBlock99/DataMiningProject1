@@ -9,16 +9,56 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 # Analisis Exlporatorio
+***
 
 ## Situación  Problemática
+***
 
 ## Problema científico
+***
 
 ## Objetivos
+***
 
 ## Descripción  de  los  datos
+***
+
+  Para el desarrollo de este proyecto se trabajó con la base de datos de [Estadísticas Vitales](https://www.ine.gob.gt/ine/vitales/) del Instituto Nacional de Estadística de Guatemala (INE) desde el año 2010 al año 2019. Estas estadísticas provienen de registros administrativos de nacimientos, defunciones, matrimonios y divorcios. Las estadísticas vitales brindan información importante sobre los cambios de patrones en las áreas antes mencionadas, brindando así, una visión dinámica de la población.
+  
+  
+  Dado que esta información está en archivos .xls el paso inicial que tomo el grupo fue juntar todos los sets de datos en un solo data frame por hoja que cada archivo contiene. Dado que se trabajo con información de 10 años distintos no en todos se cuantifica la misma información, por lo que fue necesario excluir ciertos datos que en archivos recientes si hay. Se agrego una columna a cada data frame para diferenciar el año en el que se obtuvo esa información. Seguido de esto se guardaron todos los data frames, habiendo unido la informacion de los 10 archivos distintos, en un archivo .RData.
+  
+  
+  Luego de juntar los sets de datos se clasifico cuales iban a ser relevantes para solventar la problemática anteriormente planteada. Por lo que se escogieron los siguientes sets de datos: 
+
+
+*	Nacimientos por departamento de residencia de la madre, según edades simples de la madre
+*	Nacimientos por estado civil de la madre, según departamento de su residencia
+*	Nacimientos por estado civil de la madre, según grupos de edad
+*	Nacimientos por grupos de edad de la madre, según grupos de edad del padre
+*	Número de hijos(as) tenidos, según edades simples de la madre
+*	Nacimientos por grupos de edad de la madre, según departamento y municipio de su residencia
+*	Nacimientos por grupos de edad de la madre, según grandes grupos ocupacionales de la madre
+*	Nacimientos por edad de la madre, según departamento de residencia, área geográfica de ocurrencia, y grupo étnico de la madre
+*	Nacimientos por escolaridad de la madre, según número de hijos(as) tenidos
+
+  
+  Una de las ventajas que se tuvo al trabajar con este set de datos es que no fue sumamente necesaria la limpieza de datos. La mayoría de las hojas se encuentran llena de datos, no hay datos N/A. Sin embargo, a lo largo de los años se agregaron nuevas columnas o cambiaron de nombre, lo que se volvió un tanto tedioso. Fue necesario que variables cambiaron o que nueva información se agregó, ya que no se trabajó con datos que no se encontraran en los 10 años.
+
+A continuación, mostramos una clasificación de las variables por cada set de datos:
+
+*	Nacimientos por departamento de residencia de la madre, según edades simples de la madre
+*	Nacimientos por estado civil de la madre, según departamento de su residencia
+*	Nacimientos por estado civil de la madre, según grupos de edad
+*	Nacimientos por grupos de edad de la madre, según grupos de edad del padre
+*	Número de hijos(as) tenidos, según edades simples de la madre
+*	Nacimientos por grupos de edad de la madre, según departamento y municipio de su residencia
+*	Nacimientos por grupos de edad de la madre, según grandes grupos ocupacionales de la madre
+*	Nacimientos por edad de la madre, según departamento de residencia, área geográfica de ocurrencia, y grupo étnico de la madre
+*	Nacimientos por escolaridad de la madre, según número de hijos(as) tenidos
 
 ## Análisis Exploratorio
+***
 ### - Estadística Descriptiva
 ### - Gráficos  Exploratorios
 ### - Correlaciones  Entre  las  Variables
@@ -28,6 +68,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ### - Calidad del Agrupamiento
 
 ## Hallazgos y conclusiones
+***
 ### - Hallazgos en el análisis exploratorio
 ### - Nombre a los grupos
 ### - Conclusiones
