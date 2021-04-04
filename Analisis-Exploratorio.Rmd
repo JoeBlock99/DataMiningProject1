@@ -135,11 +135,11 @@ data.frame("Variable"=c(colnames(dpto_res_ocu)), "Tipo de Variable"=c("Cualitati
 
 
 ### - Gráficos  Exploratorios
-```{r echo=FALSE}
+```{r echo=FALSE, message=FALSE, warning=FALSE}
 #Separar la info para dar graficos 
 library(tidyverse)
 dpto_res_ocu_tot <- dpto_res_ocu %>% filter(...1 == "Todos los departamentos")
-dpto_res_ocu = dpto_res_ocu %>% filter(...1 != "Todos los departamentos")
+dpto_res_ocuf = dpto_res_ocu %>% filter(...1 != "Todos los departamentos")
 
 #Graficar
 library(ggplot2)
@@ -176,6 +176,79 @@ ggplot(d, aes(x = anio,value)) + geom_line() + facet_wrap(~variable, ncol = 1, s
 ```
 
 ### - Correlaciones  Entre  las  Variables
+
+Para hacer el estudio de correlación para cada tabla, solo se puede aplicar a variables cuantitativas, se investigó si se puede convertir las variables cuantitativas a numeros diferentes aleatorios, pero las únicas formas que encontramos eran muy complejas en cuestion de tiempo. Por esta razón, se hizo el estudio de correlaión solo entre vaariables cuantitativas actuales.
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+# Check correlation
+library(corrplot)
+frstselect <- subset (dpto_res_ocu, select = c(2:27))
+M <- cor(frstselect)
+col <- colorRampPalette(c("#BB4444", "#EE9988", "#FFFFFF", "#77AADD", "#4477AA"))
+corrplot(M,  method = "color", col = col(200), order = "hclust", number.cex = .35,
+         addCoef.col = "black", # Add coefficient of correlation
+         tl.col = "black", 
+         # Text label color and rotation
+         # Combine with significance
+         sig.level = 0.50, insig = "blank", 
+         # hide correlation coefficient on the principal diagonal
+         diag = FALSE)
+
+scndselect <- subset (nac_edad_madre_departamento_municipio, select = c(3:14))
+M2 <- cor(scndselect)
+corrplot(M2,  method = "color", col = col(200), order = "hclust", number.cex = .7,
+         addCoef.col = "black", # Add coefficient of correlation
+         tl.col = "black", 
+         # Text label color and rotation
+         # Combine with significance
+         sig.level = 0.50, insig = "blank", 
+         # hide correlation coefficient on the principal diagonal
+         diag = FALSE)
+
+trdselect <- subset (nac_depto_sexo_peso, select = c(3:6))
+M3 <- cor(trdselect)
+corrplot(M3,  method = "color", col = col(200), order = "hclust", number.cex = 1.5,
+         addCoef.col = "black", # Add coefficient of correlation
+         tl.col = "black", 
+         # Text label color and rotation
+         # Combine with significance
+         sig.level = 0.50, insig = "blank", 
+         # hide correlation coefficient on the principal diagonal
+         diag = FALSE)
+frthselect <- subset (nac_por_estado_civil, select = c(2:7))
+M4 <- cor(frthselect)
+corrplot(M4,  method = "color", col = col(200), order = "hclust", number.cex = 1.5,
+         addCoef.col = "black", # Add coefficient of correlation
+         tl.col = "black", 
+         # Text label color and rotation
+         # Combine with significance
+         sig.level = 0.50, insig = "blank", 
+         # hide correlation coefficient on the principal diagonal
+         diag = FALSE)
+fthselect <- subset (nac_vivos_muertos_por_dpto, select = c(2:9))
+fthselect = fthselect[rowSums(is.na(fthselect)) == 0, ]
+M5 <- cor(fthselect)
+corrplot(M5,  method = "color", col = col(200), order = "hclust", number.cex = 1,
+         addCoef.col = "black", # Add coefficient of correlation
+         tl.col = "black", 
+         # Text label color and rotation
+         # Combine with significance
+         sig.level = 0.50, insig = "blank", 
+         # hide correlation coefficient on the principal diagonal
+         diag = FALSE)
+
+sthselect <- subset (nac_edad_madre_depto_area_etnia, select = c(3:14))
+sthselect = sthselect[rowSums(is.na(sthselect)) == 0, ]
+M6 <- cor(sthselect)
+corrplot(M6,  method = "color", col = col(200), order = "hclust", number.cex = .8,
+         addCoef.col = "black", # Add coefficient of correlation
+         tl.col = "black", 
+         # Text label color and rotation
+         # Combine with significance
+         sig.level = 0.50, insig = "blank", 
+         # hide correlation coefficient on the principal diagonal
+         diag = FALSE)
+```
+
 ### - Variables Categóricas
 ### - Número de Clusters
 ### - Agrupamiento
