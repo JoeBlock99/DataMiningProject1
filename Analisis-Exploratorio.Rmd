@@ -104,19 +104,49 @@ A continuación, mostramos una clasificación de las variables por cada set de d
 
 ## Análisis Exploratorio
 ***
+Para realizar el analisis, pensamos verificar que informacion nos es mas util entre las siguientes tablas:
+
 ### - Estadística Descriptiva
 ```{r echo=FALSE}
 load("DataMiningP1Project.RData")
-library(tidyverse)
-dpto_res_ocu_tot <- dpto_res_ocu %>% filter(...1 == "Todos los departamentos")
-dpto_res_ocu = dpto_res_ocu %>% filter(...1 != "Todos los departamentos")
 ```
+
+
+- Nacimientos por departamento de residencia de la madre, segun departamento de ocurrencia
+
+
+```{r echo=FALSE}
+data.frame("Variable"=c(colnames(dpto_res_ocu)), "Tipo de Variable"=c("Cualitativa Nominal", "Cuantitativa Discreta","Cuantitativa Discreta","Cuantitativa Discreta", "Cuantitativa Discreta","Cuantitativa Discreta","Cuantitativa Discreta", "Cuantitativa Discreta","Cuantitativa Discreta","Cuantitativa Discreta", "Cuantitativa Discreta","Cuantitativa Discreta","Cuantitativa Discreta", "Cuantitativa Discreta","Cuantitativa Discreta","Cuantitativa Discreta", "Cuantitativa Discreta","Cuantitativa Discreta","Cuantitativa Discreta", "Cuantitativa Discreta","Cuantitativa Discreta","Cuantitativa Discreta", "Cuantitativa Discreta","Cuantitativa Discreta","Cuantitativa Discreta", "Cuantitativa Discreta","Cuantitativa Discreta"))
+```
+
+- Nacimientos por estado civil de la madre, según departamento de su residencia							
+
+- Nacimientos vivos y muertos por tipo de parto, según departamento de residencia de la madre							
+
+- Nacimientos por sexo, según departamento de residencia de la madre y peso del niño(a) al nacer							
+
+- Nacimientos por grupos de edad de la madre, según departamento y municipio de su residencia							
+
+- Nacimientos por grupos de edad de la madre, según departamento y pueblo de pertenencia de la madre							
+
+- Nacimientos por tipo de asistencia recibida,  según departamento y municipio de residencia de la madre							
+
+- Nacimientos por lugar donde ocurrió el nacimiento, según departamento y municipio de residencia de la madre
+
 
 ### - Gráficos  Exploratorios
 ```{r echo=FALSE}
+#Separar la info para dar graficos 
+library(tidyverse)
+dpto_res_ocu_tot <- dpto_res_ocu %>% filter(...1 == "Todos los departamentos")
+dpto_res_ocu = dpto_res_ocu %>% filter(...1 != "Todos los departamentos")
+
+#Graficar
 library(ggplot2)
 library(reshape2)
 library(grid)
+#Cantidad de nacimientos en el transcurso del tiempo 
+#por cada departamento.
 #Selecciono la info para tener los departamentos en una variable
 deptotanio <- dpto_res_ocu_tot %>% select(3,4,5,27)
 d <- melt(deptotanio, id.vars="anio")

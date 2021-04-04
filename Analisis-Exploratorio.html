@@ -290,8 +290,52 @@ summary {
 <div id="análisis-exploratorio" class="section level2">
 <h2>Análisis Exploratorio</h2>
 <hr />
+<p>Para realizar el analisis, pensamos verificar que informacion nos es mas util entre las siguientes tablas:</p>
 <div id="estadística-descriptiva" class="section level3">
 <h3>- Estadística Descriptiva</h3>
+<ul>
+<li>Nacimientos por departamento de residencia de la madre, segun departamento de ocurrencia</li>
+</ul>
+<pre><code>##          Variable      Tipo.de.Variable
+## 1            ...1   Cualitativa Nominal
+## 2           Total Cuantitativa Discreta
+## 3       Guatemala Cuantitativa Discreta
+## 4     El.Progreso Cuantitativa Discreta
+## 5    Sacatepéquez Cuantitativa Discreta
+## 6   Chimaltenango Cuantitativa Discreta
+## 7       Escuintla Cuantitativa Discreta
+## 8      Santa.Rosa Cuantitativa Discreta
+## 9          Sololá Cuantitativa Discreta
+## 10    Totonicapán Cuantitativa Discreta
+## 11 Quetzaltenango Cuantitativa Discreta
+## 12  Suchitepéquez Cuantitativa Discreta
+## 13     Retalhuleu Cuantitativa Discreta
+## 14     San.Marcos Cuantitativa Discreta
+## 15  Huehuetenango Cuantitativa Discreta
+## 16         Quiché Cuantitativa Discreta
+## 17   Baja.Verapaz Cuantitativa Discreta
+## 18   Alta.Verapaz Cuantitativa Discreta
+## 19          Petén Cuantitativa Discreta
+## 20         Izabal Cuantitativa Discreta
+## 21         Zacapa Cuantitativa Discreta
+## 22     Chiquimula Cuantitativa Discreta
+## 23         Jalapa Cuantitativa Discreta
+## 24        Jutiapa Cuantitativa Discreta
+## 25     Extranjero Cuantitativa Discreta
+## 26       Ignorado Cuantitativa Discreta
+## 27           anio Cuantitativa Discreta</code></pre>
+<ul>
+<li><p>Nacimientos por estado civil de la madre, según departamento de su residencia</p></li>
+<li><p>Nacimientos vivos y muertos por tipo de parto, según departamento de residencia de la madre</p></li>
+<li><p>Nacimientos por sexo, según departamento de residencia de la madre y peso del niño(a) al nacer</p></li>
+<li><p>Nacimientos por grupos de edad de la madre, según departamento y municipio de su residencia</p></li>
+<li><p>Nacimientos por grupos de edad de la madre, según departamento y pueblo de pertenencia de la madre</p></li>
+<li><p>Nacimientos por tipo de asistencia recibida, según departamento y municipio de residencia de la madre</p></li>
+<li><p>Nacimientos por lugar donde ocurrió el nacimiento, según departamento y municipio de residencia de la madre</p></li>
+</ul>
+</div>
+<div id="gráficos-exploratorios" class="section level3">
+<h3>- Gráficos Exploratorios</h3>
 <pre><code>## -- Attaching packages --------------------------------------- tidyverse 1.3.0 --</code></pre>
 <pre><code>## v ggplot2 3.3.3     v purrr   0.3.4
 ## v tibble  3.0.6     v dplyr   1.0.3
@@ -300,9 +344,6 @@ summary {
 <pre><code>## -- Conflicts ------------------------------------------ tidyverse_conflicts() --
 ## x dplyr::filter() masks stats::filter()
 ## x dplyr::lag()    masks stats::lag()</code></pre>
-</div>
-<div id="gráficos-exploratorios" class="section level3">
-<h3>- Gráficos Exploratorios</h3>
 <pre><code>## 
 ## Attaching package: &#39;reshape2&#39;</code></pre>
 <pre><code>## The following object is masked from &#39;package:tidyr&#39;:
