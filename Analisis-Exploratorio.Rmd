@@ -107,11 +107,44 @@ A continuación, mostramos una clasificación de las variables por cada set de d
 ### - Estadística Descriptiva
 ```{r echo=FALSE}
 load("DataMiningP1Project.RData")
-
-
+library(tidyverse)
+dpto_res_ocu_tot <- dpto_res_ocu %>% filter(...1 == "Todos los departamentos")
+dpto_res_ocu = dpto_res_ocu %>% filter(...1 != "Todos los departamentos")
 ```
 
 ### - Gráficos  Exploratorios
+```{r echo=FALSE}
+library(ggplot2)
+library(reshape2)
+library(grid)
+#Selecciono la info para tener los departamentos en una variable
+deptotanio <- dpto_res_ocu_tot %>% select(3,4,5,27)
+d <- melt(deptotanio, id.vars="anio")
+ggplot(d, aes(x = anio,value)) + geom_line() + facet_wrap(~variable, ncol = 1, scales = "free")
+#Se repite...
+deptotanio <- dpto_res_ocu_tot %>% select(6,7,8,27)
+d <- melt(deptotanio, id.vars="anio")
+ggplot(d, aes(x = anio,value)) + geom_line() + facet_wrap(~variable, ncol = 1, scales = "free")
+deptotanio <- dpto_res_ocu_tot %>% select(8,10,11,27)
+d <- melt(deptotanio, id.vars="anio")
+ggplot(d, aes(x = anio,value)) + geom_line() + facet_wrap(~variable, ncol = 1, scales = "free")
+deptotanio <- dpto_res_ocu_tot %>% select(12,13,14,27)
+d <- melt(deptotanio, id.vars="anio")
+ggplot(d, aes(x = anio,value)) + geom_line() + facet_wrap(~variable, ncol = 1, scales = "free")
+deptotanio <- dpto_res_ocu_tot %>% select(15,16,17,27)
+d <- melt(deptotanio, id.vars="anio")
+ggplot(d, aes(x = anio,value)) + geom_line() + facet_wrap(~variable, ncol = 1, scales = "free")
+deptotanio <- dpto_res_ocu_tot %>% select(18,19,20,27)
+d <- melt(deptotanio, id.vars="anio")
+ggplot(d, aes(x = anio,value)) + geom_line() + facet_wrap(~variable, ncol = 1, scales = "free")
+deptotanio <- dpto_res_ocu_tot %>% select(21,22,23,27)
+d <- melt(deptotanio, id.vars="anio")
+ggplot(d, aes(x = anio,value)) + geom_line() + facet_wrap(~variable, ncol = 1, scales = "free")
+deptotanio <- dpto_res_ocu_tot %>% select(24,25,26,27)
+d <- melt(deptotanio, id.vars="anio")
+ggplot(d, aes(x = anio,value)) + geom_line() + facet_wrap(~variable, ncol = 1, scales = "free")
+```
+
 ### - Correlaciones  Entre  las  Variables
 ### - Variables Categóricas
 ### - Número de Clusters
