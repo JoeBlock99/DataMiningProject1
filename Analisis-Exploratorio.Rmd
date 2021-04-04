@@ -20,12 +20,19 @@ load("DataMiningP1Project.RData")
 
 ## Situación  Problemática
 ***
+En Guatemala pasa que al hacer inversiones en ciertas areas como la educacion, se hace la inversion sin pensar en que sectores es mas eficiente invertir en educacion y resulta ser una inversion con un bajo impacto en el pais, porque resulta que hay sectores que lo necesitan.
 
 ## Problema científico
 ***
+Con la informacion de nacimientos de 2009 a 2019 queremos hacer un analisis de datos para la inversion de educacion segun departamento tomando en cuenta cantidad de nacimientos por departamento y las condiciones de la madre de cada parto.
 
 ## Objetivos
 ***
+- Averiguar que variables influyen mas en que la madre este soltera con un modelo.
+
+- Determinar mayor taza de nacimientos por departamento y determinar orden de mayor a menor crecimiento o probabilidad de crecimiento.
+
+- Decidir un orden de departamentos en los que se debe invertir en educacion segun los datos analizados.
 
 ## Descripción  de  los  datos
 ***
@@ -104,40 +111,151 @@ A continuación, mostramos una clasificación de las variables por cada set de d
 
 ## Análisis Exploratorio
 ***
+Para realizar el analisis, pensamos verificar que informacion nos es mas util entre las siguientes tablas:
+
 ### - Estadística Descriptiva
-
-*	Nacimientos por departamento de residencia de la madre, según edades simples de la madre
-
 ```{r echo=FALSE}
-
-# Luego de cargar los datos veremos la estructura de cada data frame
-
-#	Nacimientos por departamento de residencia de la madre, según edades simples de la madre
-
-print("Cantidad de filas")
-nrow(nac_por_dpto) #Cantidad de filas
-print("Cantidad de columnas")
-ncol(nac_por_dpto) #Cantidad de columnas
-print("Estructura de los datos")
-str(nac_por_dpto) #Estructura de los datos
-
-head(nac_por_dpto,3) #Muestra las primeras filas 
-tail(nac_por_dpto,3) #Muestra las últimas filas
-
-#	Nacimientos por estado civil de la madre, según departamento de su residencia
-#	Nacimientos por estado civil de la madre, según grupos de edad
-#	Nacimientos por grupos de edad de la madre, según grupos de edad del padre
-#	Número de hijos(as) tenidos, según edades simples de la madre
-#	Nacimientos por grupos de edad de la madre, según departamento y municipio de su residencia
-#	Nacimientos por grupos de edad de la madre, según grandes grupos ocupacionales de la madre
-#	Nacimientos por edad de la madre, según departamento de residencia, área geográfica de ocurrencia, y grupo étnico de la madre
-#	Nacimientos por escolaridad de la madre, según número de hijos(as) tenidos
-
-
+load("DataMiningP1Project.RData")
 ```
 
+
+- Nacimientos por departamento de residencia de la madre, segun departamento de ocurrencia
+
+
+```{r echo=FALSE}
+data.frame("Variable"=c(colnames(dpto_res_ocu)), "Tipo de Variable"=c("Cualitativa Nominal", "Cuantitativa Discreta","Cuantitativa Discreta","Cuantitativa Discreta", "Cuantitativa Discreta","Cuantitativa Discreta","Cuantitativa Discreta", "Cuantitativa Discreta","Cuantitativa Discreta","Cuantitativa Discreta", "Cuantitativa Discreta","Cuantitativa Discreta","Cuantitativa Discreta", "Cuantitativa Discreta","Cuantitativa Discreta","Cuantitativa Discreta", "Cuantitativa Discreta","Cuantitativa Discreta","Cuantitativa Discreta", "Cuantitativa Discreta","Cuantitativa Discreta","Cuantitativa Discreta", "Cuantitativa Discreta","Cuantitativa Discreta","Cuantitativa Discreta", "Cuantitativa Discreta","Cuantitativa Discreta"))
+```
+
+- Nacimientos por estado civil de la madre, según departamento de su residencia							
+
+- Nacimientos vivos y muertos por tipo de parto, según departamento de residencia de la madre							
+
+- Nacimientos por sexo, según departamento de residencia de la madre y peso del niño(a) al nacer							
+
+- Nacimientos por grupos de edad de la madre, según departamento y municipio de su residencia							
+
+- Nacimientos por grupos de edad de la madre, según departamento y pueblo de pertenencia de la madre							
+
+- Nacimientos por tipo de asistencia recibida,  según departamento y municipio de residencia de la madre							
+
+- Nacimientos por lugar donde ocurrió el nacimiento, según departamento y municipio de residencia de la madre
+
+
 ### - Gráficos  Exploratorios
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+#Separar la info para dar graficos 
+library(tidyverse)
+dpto_res_ocu_tot <- dpto_res_ocu %>% filter(...1 == "Todos los departamentos")
+dpto_res_ocuf = dpto_res_ocu %>% filter(...1 != "Todos los departamentos")
+
+#Graficar
+library(ggplot2)
+library(reshape2)
+library(grid)
+#Cantidad de nacimientos en el transcurso del tiempo 
+#por cada departamento.
+#Selecciono la info para tener los departamentos en una variable
+deptotanio <- dpto_res_ocu_tot %>% select(3,4,5,27)
+d <- melt(deptotanio, id.vars="anio")
+ggplot(d, aes(x = anio,value)) + geom_line() + facet_wrap(~variable, ncol = 1, scales = "free")
+#Se repite...
+deptotanio <- dpto_res_ocu_tot %>% select(6,7,8,27)
+d <- melt(deptotanio, id.vars="anio")
+ggplot(d, aes(x = anio,value)) + geom_line() + facet_wrap(~variable, ncol = 1, scales = "free")
+deptotanio <- dpto_res_ocu_tot %>% select(8,10,11,27)
+d <- melt(deptotanio, id.vars="anio")
+ggplot(d, aes(x = anio,value)) + geom_line() + facet_wrap(~variable, ncol = 1, scales = "free")
+deptotanio <- dpto_res_ocu_tot %>% select(12,13,14,27)
+d <- melt(deptotanio, id.vars="anio")
+ggplot(d, aes(x = anio,value)) + geom_line() + facet_wrap(~variable, ncol = 1, scales = "free")
+deptotanio <- dpto_res_ocu_tot %>% select(15,16,17,27)
+d <- melt(deptotanio, id.vars="anio")
+ggplot(d, aes(x = anio,value)) + geom_line() + facet_wrap(~variable, ncol = 1, scales = "free")
+deptotanio <- dpto_res_ocu_tot %>% select(18,19,20,27)
+d <- melt(deptotanio, id.vars="anio")
+ggplot(d, aes(x = anio,value)) + geom_line() + facet_wrap(~variable, ncol = 1, scales = "free")
+deptotanio <- dpto_res_ocu_tot %>% select(21,22,23,27)
+d <- melt(deptotanio, id.vars="anio")
+ggplot(d, aes(x = anio,value)) + geom_line() + facet_wrap(~variable, ncol = 1, scales = "free")
+deptotanio <- dpto_res_ocu_tot %>% select(24,25,26,27)
+d <- melt(deptotanio, id.vars="anio")
+ggplot(d, aes(x = anio,value)) + geom_line() + facet_wrap(~variable, ncol = 1, scales = "free")
+```
+
 ### - Correlaciones  Entre  las  Variables
+
+Para hacer el estudio de correlación para cada tabla, solo se puede aplicar a variables cuantitativas, se investigó si se puede convertir las variables cuantitativas a numeros diferentes aleatorios, pero las únicas formas que encontramos eran muy complejas en cuestion de tiempo. Por esta razón, se hizo el estudio de correlaión solo entre vaariables cuantitativas actuales.
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+# Check correlation
+library(corrplot)
+frstselect <- subset (dpto_res_ocu, select = c(2:27))
+M <- cor(frstselect)
+col <- colorRampPalette(c("#BB4444", "#EE9988", "#FFFFFF", "#77AADD", "#4477AA"))
+corrplot(M,  method = "color", col = col(200), order = "hclust", number.cex = .35,
+         addCoef.col = "black", # Add coefficient of correlation
+         tl.col = "black", 
+         # Text label color and rotation
+         # Combine with significance
+         sig.level = 0.50, insig = "blank", 
+         # hide correlation coefficient on the principal diagonal
+         diag = FALSE)
+
+scndselect <- subset (nac_edad_madre_departamento_municipio, select = c(3:14))
+M2 <- cor(scndselect)
+corrplot(M2,  method = "color", col = col(200), order = "hclust", number.cex = .7,
+         addCoef.col = "black", # Add coefficient of correlation
+         tl.col = "black", 
+         # Text label color and rotation
+         # Combine with significance
+         sig.level = 0.50, insig = "blank", 
+         # hide correlation coefficient on the principal diagonal
+         diag = FALSE)
+
+trdselect <- subset (nac_depto_sexo_peso, select = c(3:6))
+M3 <- cor(trdselect)
+corrplot(M3,  method = "color", col = col(200), order = "hclust", number.cex = 1.5,
+         addCoef.col = "black", # Add coefficient of correlation
+         tl.col = "black", 
+         # Text label color and rotation
+         # Combine with significance
+         sig.level = 0.50, insig = "blank", 
+         # hide correlation coefficient on the principal diagonal
+         diag = FALSE)
+frthselect <- subset (nac_por_estado_civil, select = c(2:7))
+M4 <- cor(frthselect)
+corrplot(M4,  method = "color", col = col(200), order = "hclust", number.cex = 1.5,
+         addCoef.col = "black", # Add coefficient of correlation
+         tl.col = "black", 
+         # Text label color and rotation
+         # Combine with significance
+         sig.level = 0.50, insig = "blank", 
+         # hide correlation coefficient on the principal diagonal
+         diag = FALSE)
+fthselect <- subset (nac_vivos_muertos_por_dpto, select = c(2:9))
+fthselect = fthselect[rowSums(is.na(fthselect)) == 0, ]
+M5 <- cor(fthselect)
+corrplot(M5,  method = "color", col = col(200), order = "hclust", number.cex = 1,
+         addCoef.col = "black", # Add coefficient of correlation
+         tl.col = "black", 
+         # Text label color and rotation
+         # Combine with significance
+         sig.level = 0.50, insig = "blank", 
+         # hide correlation coefficient on the principal diagonal
+         diag = FALSE)
+
+sthselect <- subset (nac_edad_madre_depto_area_etnia, select = c(3:14))
+sthselect = sthselect[rowSums(is.na(sthselect)) == 0, ]
+M6 <- cor(sthselect)
+corrplot(M6,  method = "color", col = col(200), order = "hclust", number.cex = .8,
+         addCoef.col = "black", # Add coefficient of correlation
+         tl.col = "black", 
+         # Text label color and rotation
+         # Combine with significance
+         sig.level = 0.50, insig = "blank", 
+         # hide correlation coefficient on the principal diagonal
+         diag = FALSE)
+```
+
 ### - Variables Categóricas
 ### - Número de Clusters
 ### - Agrupamiento
