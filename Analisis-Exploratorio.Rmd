@@ -7,6 +7,13 @@ output: html_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+
+# Import libraries
+library(ggplot2)
+
+# Load Data
+load("DataMiningP1Project.RData")
+
 ```
 # Analisis Exlporatorio
 ***
@@ -98,6 +105,37 @@ A continuación, mostramos una clasificación de las variables por cada set de d
 ## Análisis Exploratorio
 ***
 ### - Estadística Descriptiva
+
+*	Nacimientos por departamento de residencia de la madre, según edades simples de la madre
+
+```{r echo=FALSE}
+
+# Luego de cargar los datos veremos la estructura de cada data frame
+
+#	Nacimientos por departamento de residencia de la madre, según edades simples de la madre
+
+print("Cantidad de filas")
+nrow(nac_por_dpto) #Cantidad de filas
+print("Cantidad de columnas")
+ncol(nac_por_dpto) #Cantidad de columnas
+print("Estructura de los datos")
+str(nac_por_dpto) #Estructura de los datos
+
+head(nac_por_dpto,3) #Muestra las primeras filas 
+tail(nac_por_dpto,3) #Muestra las últimas filas
+
+#	Nacimientos por estado civil de la madre, según departamento de su residencia
+#	Nacimientos por estado civil de la madre, según grupos de edad
+#	Nacimientos por grupos de edad de la madre, según grupos de edad del padre
+#	Número de hijos(as) tenidos, según edades simples de la madre
+#	Nacimientos por grupos de edad de la madre, según departamento y municipio de su residencia
+#	Nacimientos por grupos de edad de la madre, según grandes grupos ocupacionales de la madre
+#	Nacimientos por edad de la madre, según departamento de residencia, área geográfica de ocurrencia, y grupo étnico de la madre
+#	Nacimientos por escolaridad de la madre, según número de hijos(as) tenidos
+
+
+```
+
 ### - Gráficos  Exploratorios
 ### - Correlaciones  Entre  las  Variables
 ### - Variables Categóricas
