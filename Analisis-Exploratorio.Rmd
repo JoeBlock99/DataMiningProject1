@@ -132,25 +132,25 @@ tail(nac_por_dpto_edades_simples,3) #Muestra las últimas filas
 
 # 1.0 Data Introduction
 
-nac_por_dpto_edades_simples %>% introduce()
-nac_por_dpto_edades_simples %>% plot_intro()
+nac_por_dpto_edades_simples %>% filter(Edad != "Todas las edades") %>% select(-2) %>% introduce()
+nac_por_dpto_edades_simples %>% filter(Edad != "Todas las edades") %>% select(-2) %>% plot_intro()
 
 # 2.0 Missing Values
 
-nac_por_dpto_edades_simples %>% profile_missing()
+nac_por_dpto_edades_simples %>% filter(Edad != "Todas las edades") %>% select(-2) %>% profile_missing()
 
 # 3.0 Continuos Features
 
-nac_por_dpto_edades_simples %>% plot_density()
-nac_por_dpto_edades_simples %>% plot_histogram()
+nac_por_dpto_edades_simples %>% filter(Edad != "Todas las edades") %>% select(-2) %>% plot_density()
+nac_por_dpto_edades_simples %>% filter(Edad != "Todas las edades") %>% select(-2) %>% plot_histogram()
 
 # 4.0 Categorical Features
 
-# nac_por_dpto_edades_simples %>% plot_bar()
+# nac_por_dpto_edades_simples %>% filter(Edad != "Todas las edades") %>% select(-2) %>% plot_bar()
 
 # 5.0 Relationships
 
-# nac_por_dpto_edades_simples %>% plot_correlation()
+# nac_por_dpto_edades_simples %>% filter(Edad != "Todas las edades") %>% select(-2) %>% plot_correlation()
 
 ```
 
@@ -170,25 +170,25 @@ tail(nac_por_dpto,3) #Muestra las últimas filas
 
 # 1.0 Data Introduction
 
-nac_por_dpto %>% introduce()
-nac_por_dpto %>% plot_intro()
+nac_por_dpto %>% filter(Mes != "Todos los meses") %>% filter(Departamento.de.residencia != "Todos los departamentos") %>% select(-3) %>% introduce()
+nac_por_dpto %>% filter(Mes != "Todos los meses") %>% filter(Departamento.de.residencia != "Todos los departamentos") %>% select(-3) %>% plot_intro()
 
 # 2.0 Missing Values
 
-nac_por_dpto %>% profile_missing()
+nac_por_dpto %>% filter(Mes != "Todos los meses") %>% filter(Departamento.de.residencia != "Todos los departamentos") %>% select(-3) %>% profile_missing()
 
 # 3.0 Continuos Features
 
-nac_por_dpto %>% plot_density()
-nac_por_dpto %>% plot_histogram()
+nac_por_dpto %>% filter(Mes != "Todos los meses") %>% filter(Departamento.de.residencia != "Todos los departamentos") %>% select(-3) %>% plot_density()
+nac_por_dpto %>% filter(Mes != "Todos los meses") %>% filter(Departamento.de.residencia != "Todos los departamentos") %>% select(-3) %>% plot_histogram()
 
 # 4.0 Categorical Features
 
-nac_por_dpto %>% plot_bar()
+nac_por_dpto %>% filter(Mes != "Todos los meses") %>% filter(Departamento.de.residencia != "Todos los departamentos") %>% select(-3) %>% plot_bar()
 
 # 5.0 Relationships
 
-nac_por_dpto %>% plot_correlation()
+# nac_por_dpto %>% filter(Mes != "Todos los meses") %>% filter(Departamento.de.residencia != "Todos los departamentos") %>% select(-3) %>% plot_correlation()
 
 ```
 
@@ -207,25 +207,25 @@ tail(nac_por_estado_civil,3) #Muestra las últimas filas
 
 # 1.0 Data Introduction
 
-nac_por_estado_civil %>% introduce()
-nac_por_estado_civil %>% plot_intro()
+nac_por_estado_civil %>% filter(Departamento.de.residencia != "Todos los departamentos") %>% select(-2) %>% introduce()
+nac_por_estado_civil %>% filter(Departamento.de.residencia != "Todos los departamentos") %>% select(-2) %>% plot_intro()
 
 # 2.0 Missing Values
 
-nac_por_estado_civil %>% profile_missing()
+nac_por_estado_civil %>% filter(Departamento.de.residencia != "Todos los departamentos") %>% select(-2) %>% profile_missing()
 
 # 3.0 Continuos Features
 
-nac_por_estado_civil %>% plot_density()
-nac_por_estado_civil %>% plot_histogram()
+nac_por_estado_civil %>% filter(Departamento.de.residencia != "Todos los departamentos") %>% select(-2) %>% plot_density()
+nac_por_estado_civil %>% filter(Departamento.de.residencia != "Todos los departamentos") %>% select(-2) %>% plot_histogram()
 
 # 4.0 Categorical Features
 
-nac_por_estado_civil %>% plot_bar()
+nac_por_estado_civil %>% filter(Departamento.de.residencia != "Todos los departamentos") %>% select(-2) %>% plot_bar()
 
 # 5.0 Relationships
 
-nac_por_estado_civil %>% plot_correlation()
+nac_por_estado_civil %>% filter(Departamento.de.residencia != "Todos los departamentos") %>% select(-2) %>% plot_correlation()
 
 ```
 
@@ -244,25 +244,25 @@ tail(nac_por_estado_civil_por_edad,3) #Muestra las últimas filas
 
 # 1.0 Data Introduction
 
-nac_por_estado_civil_por_edad %>% introduce()
-nac_por_estado_civil_por_edad %>% plot_intro()
+nac_por_estado_civil_por_edad %>% filter(Grupos.de.edad != "Todas las edades") %>% select(-2) %>% introduce()
+nac_por_estado_civil_por_edad %>% filter(Grupos.de.edad != "Todas las edades") %>% select(-2) %>% plot_intro()
 
 # 2.0 Missing Values
 
-nac_por_estado_civil_por_edad %>% profile_missing()
+nac_por_estado_civil_por_edad %>% filter(Grupos.de.edad != "Todas las edades") %>% select(-2) %>% profile_missing()
 
 # 3.0 Continuos Features
 
-nac_por_estado_civil_por_edad %>% plot_density()
-nac_por_estado_civil_por_edad %>% plot_histogram()
+nac_por_estado_civil_por_edad %>% filter(Grupos.de.edad != "Todas las edades") %>% select(-2) %>% plot_density()
+nac_por_estado_civil_por_edad %>% filter(Grupos.de.edad != "Todas las edades") %>% select(-2) %>% plot_histogram()
 
 # 4.0 Categorical Features
 
-nac_por_estado_civil_por_edad %>% plot_bar()
+nac_por_estado_civil_por_edad %>% filter(Grupos.de.edad != "Todas las edades") %>% select(-2) %>% plot_bar()
 
 # 5.0 Relationships
 
-nac_por_estado_civil_por_edad %>% plot_correlation()
+nac_por_estado_civil_por_edad %>% filter(Grupos.de.edad != "Todas las edades") %>% select(-2) %>% plot_correlation()
 
 ```
 
@@ -281,25 +281,25 @@ tail(nac_por_estado_civil_padre_por_edad,3) #Muestra las últimas filas
 
 # 1.0 Data Introduction
 
-nac_por_estado_civil_padre_por_edad %>% introduce()
-nac_por_estado_civil_padre_por_edad %>% plot_intro()
+nac_por_estado_civil_padre_por_edad %>% filter(Grupos.de.edad != "Todas las edades") %>% select(-2) %>% introduce()
+nac_por_estado_civil_padre_por_edad %>% filter(Grupos.de.edad != "Todas las edades") %>% select(-2) %>% plot_intro()
 
 # 2.0 Missing Values
 
-nac_por_estado_civil_padre_por_edad %>% profile_missing()
+nac_por_estado_civil_padre_por_edad %>% filter(Grupos.de.edad != "Todas las edades") %>% select(-2) %>% profile_missing()
 
 # 3.0 Continuos Features
 
-nac_por_estado_civil_padre_por_edad %>% plot_density()
-nac_por_estado_civil_padre_por_edad %>% plot_histogram()
+nac_por_estado_civil_padre_por_edad %>% filter(Grupos.de.edad != "Todas las edades") %>% select(-2) %>% plot_density()
+nac_por_estado_civil_padre_por_edad %>% filter(Grupos.de.edad != "Todas las edades") %>% select(-2) %>% plot_histogram()
 
 # 4.0 Categorical Features
 
-nac_por_estado_civil_padre_por_edad %>% plot_bar()
+nac_por_estado_civil_padre_por_edad %>% filter(Grupos.de.edad != "Todas las edades") %>% select(-2) %>% plot_bar()
 
 # 5.0 Relationships
 
-nac_por_estado_civil_padre_por_edad %>% plot_correlation()
+nac_por_estado_civil_padre_por_edad %>% filter(Grupos.de.edad != "Todas las edades") %>% select(-2) %>% plot_correlation()
 
 ```
 
@@ -318,25 +318,25 @@ tail(nac_edad_madre_departamento_municipio,3) #Muestra las últimas filas
 
 # 1.0 Data Introduction
 
-nac_edad_madre_departamento_municipio %>% introduce()
-nac_edad_madre_departamento_municipio %>% plot_intro()
+nac_edad_madre_departamento_municipio %>% filter(Departamento.de.residencia != "Todos los departamentos") %>% filter(Municipios != "Todos los municipios") %>% select(-3) %>% introduce()
+nac_edad_madre_departamento_municipio %>% filter(Departamento.de.residencia != "Todos los departamentos") %>% filter(Municipios != "Todos los municipios") %>% select(-3) %>% plot_intro()
 
 # 2.0 Missing Values
 
-nac_edad_madre_departamento_municipio %>% profile_missing()
+nac_edad_madre_departamento_municipio %>% filter(Departamento.de.residencia != "Todos los departamentos") %>% filter(Municipios != "Todos los municipios") %>% select(-3) %>% profile_missing()
 
 # 3.0 Continuos Features
 
-nac_edad_madre_departamento_municipio %>% plot_density()
-nac_edad_madre_departamento_municipio %>% plot_histogram()
+nac_edad_madre_departamento_municipio %>% filter(Departamento.de.residencia != "Todos los departamentos") %>% filter(Municipios != "Todos los municipios") %>% select(-3) %>% plot_density()
+nac_edad_madre_departamento_municipio %>% filter(Departamento.de.residencia != "Todos los departamentos") %>% filter(Municipios != "Todos los municipios") %>% select(-3) %>% plot_histogram()
 
 # 4.0 Categorical Features
 
-nac_edad_madre_departamento_municipio %>% plot_bar()
+nac_edad_madre_departamento_municipio %>% filter(Departamento.de.residencia != "Todos los departamentos") %>% filter(Municipios != "Todos los municipios") %>% select(-3) %>% plot_bar()
 
 # 5.0 Relationships
 
-nac_edad_madre_departamento_municipio %>% plot_correlation()
+nac_edad_madre_departamento_municipio %>% filter(Departamento.de.residencia != "Todos los departamentos") %>% filter(Municipios != "Todos los municipios") %>% select(-3) %>% plot_correlation()
 
 ```
 
@@ -355,25 +355,25 @@ tail(nac_edad_madre_ocupacion,3) #Muestra las últimas filas
 
 # 1.0 Data Introduction
 
-nac_edad_madre_ocupacion %>% introduce()
-nac_edad_madre_ocupacion %>% plot_intro()
+nac_edad_madre_ocupacion %>% filter(Grupos.ocupacionales != "Todos los grupos ocupacionales") %>% select(-2) %>% introduce()
+nac_edad_madre_ocupacion %>% filter(Grupos.ocupacionales != "Todos los grupos ocupacionales") %>% select(-2) %>% plot_intro()
 
 # 2.0 Missing Values
 
-nac_edad_madre_ocupacion %>% profile_missing()
+nac_edad_madre_ocupacion %>% filter(Grupos.ocupacionales != "Todos los grupos ocupacionales") %>% select(-2) %>% profile_missing()
 
 # 3.0 Continuos Features
 
-nac_edad_madre_ocupacion %>% plot_density()
-nac_edad_madre_ocupacion %>% plot_histogram()
+nac_edad_madre_ocupacion %>% filter(Grupos.ocupacionales != "Todos los grupos ocupacionales") %>% select(-2) %>% plot_density()
+nac_edad_madre_ocupacion %>% filter(Grupos.ocupacionales != "Todos los grupos ocupacionales") %>% select(-2) %>% plot_histogram()
 
 # 4.0 Categorical Features
 
-nac_edad_madre_ocupacion %>% plot_bar()
+nac_edad_madre_ocupacion %>% filter(Grupos.ocupacionales != "Todos los grupos ocupacionales") %>% select(-2) %>% plot_bar()
 
 # 5.0 Relationships
 
-# nac_edad_madre_ocupacion %>% plot_correlation()
+# nac_edad_madre_ocupacion %>% filter(Grupos.ocupacionales != "Todos los grupos ocupacionales") %>% select(-2) %>% plot_correlation()
 
 ```
 
@@ -392,25 +392,25 @@ tail(nac_edad_madre_depto_area_etnia,3) #Muestra las últimas filas
 
 # 1.0 Data Introduction
 
-nac_edad_madre_depto_area_etnia %>% introduce()
-nac_edad_madre_depto_area_etnia %>% plot_intro()
+nac_edad_madre_depto_area_etnia %>% filter(Departamento.de.ocurrencia != "Todos los departamentos") %>% filter(Pueblo.de.pertenencia.de.la.madre != "Todos los grupos étnicos") %>% select(-3) %>% introduce()
+nac_edad_madre_depto_area_etnia %>% filter(Departamento.de.ocurrencia != "Todos los departamentos") %>% filter(Pueblo.de.pertenencia.de.la.madre != "Todos los grupos étnicos") %>% select(-3) %>% plot_intro()
 
 # 2.0 Missing Values
 
-nac_edad_madre_depto_area_etnia %>% profile_missing()
+nac_edad_madre_depto_area_etnia %>% filter(Departamento.de.ocurrencia != "Todos los departamentos") %>% filter(Pueblo.de.pertenencia.de.la.madre != "Todos los grupos étnicos") %>% select(-3) %>% profile_missing()
 
 # 3.0 Continuos Features
 
-nac_edad_madre_depto_area_etnia %>% plot_density()
-nac_edad_madre_depto_area_etnia %>% plot_histogram()
+nac_edad_madre_depto_area_etnia %>% filter(Departamento.de.ocurrencia != "Todos los departamentos") %>% filter(Pueblo.de.pertenencia.de.la.madre != "Todos los grupos étnicos") %>% select(-3) %>% plot_density()
+nac_edad_madre_depto_area_etnia %>% filter(Departamento.de.ocurrencia != "Todos los departamentos") %>% filter(Pueblo.de.pertenencia.de.la.madre != "Todos los grupos étnicos") %>% select(-3) %>% plot_histogram()
 
 # 4.0 Categorical Features
 
-nac_edad_madre_depto_area_etnia %>% plot_bar()
+nac_edad_madre_depto_area_etnia %>% filter(Departamento.de.ocurrencia != "Todos los departamentos") %>% filter(Pueblo.de.pertenencia.de.la.madre != "Todos los grupos étnicos") %>% select(-3) %>% plot_bar()
 
 # 5.0 Relationships
 
-nac_edad_madre_depto_area_etnia %>% plot_correlation()
+nac_edad_madre_depto_area_etnia %>% filter(Departamento.de.ocurrencia != "Todos los departamentos") %>% filter(Pueblo.de.pertenencia.de.la.madre != "Todos los grupos étnicos") %>% select(-3) %>% plot_correlation()
 
 ```
 
@@ -429,25 +429,25 @@ tail(nac_escolaridad_madre,3) #Muestra las últimas filas
 
 # 1.0 Data Introduction
 
-nac_escolaridad_madre %>% introduce()
-nac_escolaridad_madre %>% plot_intro()
+nac_escolaridad_madre %>% filter(Número.de.hijos.as. != "Todos los hijos") %>% select(-2) %>% introduce()
+nac_escolaridad_madre %>% filter(Número.de.hijos.as. != "Todos los hijos") %>% select(-2) %>% plot_intro()
 
 # 2.0 Missing Values
 
-nac_escolaridad_madre %>% profile_missing()
+nac_escolaridad_madre %>% filter(Número.de.hijos.as. != "Todos los hijos") %>% select(-2) %>% profile_missing()
 
 # 3.0 Continuos Features
 
-nac_escolaridad_madre %>% plot_density()
-nac_escolaridad_madre %>% plot_histogram()
+nac_escolaridad_madre %>% filter(Número.de.hijos.as. != "Todos los hijos") %>% select(-2) %>% plot_density()
+nac_escolaridad_madre %>% filter(Número.de.hijos.as. != "Todos los hijos") %>% select(-2) %>% plot_histogram()
 
 # 4.0 Categorical Features
 
-nac_escolaridad_madre %>% plot_bar()
+nac_escolaridad_madre %>% filter(Número.de.hijos.as. != "Todos los hijos") %>% select(-2) %>% plot_bar()
 
 # 5.0 Relationships
 
-nac_escolaridad_madre %>% plot_correlation()
+nac_escolaridad_madre %>% filter(Número.de.hijos.as. != "Todos los hijos") %>% select(-2) %>% plot_correlation()
 
 ```
 
