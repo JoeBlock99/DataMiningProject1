@@ -330,6 +330,44 @@ ggplot(data=nac_depto_sexo_peso0, aes(x=anio, y=Total, group=1)) + geom_line() +
 
 d <- melt(list(Suchitepequez = nac_depto_sexo_peso1,Zacapa = nac_depto_sexo_peso2,Totonicapan = nac_depto_sexo_peso3,Solola = nac_depto_sexo_peso4,Santa_Rosa = nac_depto_sexo_peso5,San_Marcos = nac_depto_sexo_peso6, Sacatepequez = nac_depto_sexo_peso7), id.vars = c("anio", "Total"))
 ggplot(d, aes(x=anio, y=Total, colour = L1)) + geom_line() + geom_point() + ggtitle("Nacimientos por año en departamentos de Guatemala") + theme(axis.text.x = element_text(angle = 90, vjust = 0.5)) + scale_x_continuous("Año", labels = as.character(nac_depto_sexo_peso1$anio), breaks = nac_depto_sexo_peso1$anio)
+
+
+d2 <- melt(list(Retalhuleu = nac_depto_sexo_peso8,Quiche = nac_depto_sexo_peso9,Quetzaltenango = nac_depto_sexo_peso10,Peten = nac_depto_sexo_peso11,Jutiapa = nac_depto_sexo_peso12,Jalapa = nac_depto_sexo_peso13, Izabal = nac_depto_sexo_peso14), id.vars = c("anio", "Total"))
+ggplot(d2, aes(x=anio, y=Total, colour = L1)) + geom_line() + geom_point() + ggtitle("Nacimientos por año en departamentos de Guatemala") + theme(axis.text.x = element_text(angle = 90, vjust = 0.5)) + scale_x_continuous("Año", labels = as.character(nac_depto_sexo_peso1$anio), breaks = nac_depto_sexo_peso1$anio)
+
+d3 <- melt(list(Huehuetenango = nac_depto_sexo_peso15,Escuintla = nac_depto_sexo_peso16,El_Progreso = nac_depto_sexo_peso17,Chiquimula = nac_depto_sexo_peso18,Chimaltenango = nac_depto_sexo_peso19,Baja_Verapaz = nac_depto_sexo_peso20, Alta_Verapaz = nac_depto_sexo_peso21), id.vars = c("anio", "Total"))
+ggplot(d3, aes(x=anio, y=Total, colour = L1)) + geom_line() + geom_point() + ggtitle("Nacimientos por año en departamentos de Guatemala") + theme(axis.text.x = element_text(angle = 90, vjust = 0.5)) + scale_x_continuous("Año", labels = as.character(nac_depto_sexo_peso1$anio), breaks = nac_depto_sexo_peso1$anio)
+
+
+#Graficar
+#Cantidad de nacimientos en el transcurso del tiempo 
+#por cada departamento.
+#Selecciono la info para tener los departamentos en una variable
+#deptotanio <- dpto_res_ocu_tot %>% select(3,4,5,27)
+#d <- melt(deptotanio, id.vars="anio")
+#ggplot(d, aes(x = anio,value)) + geom_line() + facet_wrap(~variable, #ncol = 1, scales = "free")
+##Se repite...
+#deptotanio <- dpto_res_ocu_tot %>% select(6,7,8,27)
+#d <- melt(deptotanio, id.vars="anio")
+#ggplot(d, aes(x = anio,value)) + geom_line() + facet_wrap(~variable, #ncol = 1, scales = "free")
+#deptotanio <- dpto_res_ocu_tot %>% select(8,10,11,27)
+#d <- melt(deptotanio, id.vars="anio")
+#ggplot(d, aes(x = anio,value)) + geom_line() + facet_wrap(~variable, #ncol = 1, scales = "free")
+#deptotanio <- dpto_res_ocu_tot %>% select(12,13,14,27)
+#d <- melt(deptotanio, id.vars="anio")
+#ggplot(d, aes(x = anio,value)) + geom_line() + facet_wrap(~variable, #ncol = 1, scales = "free")
+#deptotanio <- dpto_res_ocu_tot %>% select(15,16,17,27)
+#d <- melt(deptotanio, id.vars="anio")
+#ggplot(d, aes(x = anio,value)) + geom_line() + facet_wrap(~variable, #ncol = 1, scales = "free")
+#deptotanio <- dpto_res_ocu_tot %>% select(18,19,20,27)
+#d <- melt(deptotanio, id.vars="anio")
+#ggplot(d, aes(x = anio,value)) + geom_line() + facet_wrap(~variable, #ncol = 1, scales = "free")
+#deptotanio <- dpto_res_ocu_tot %>% select(21,22,23,27)
+#d <- melt(deptotanio, id.vars="anio")
+#ggplot(d, aes(x = anio,value)) + geom_line() + facet_wrap(~variable, #ncol = 1, scales = "free")
+#deptotanio <- dpto_res_ocu_tot %>% select(24,25,26,27)
+#d <- melt(deptotanio, id.vars="anio")
+#ggplot(d, aes(x = anio,value)) + geom_line() + facet_wrap(~variable, #ncol = 1, scales = "free")
 ```
 Si analizamos individualmente los departamentos observamos que las cifras van en aumento, alcanzan un maximo y luego descienden.
 
@@ -369,46 +407,6 @@ nac_por_edad <- head(nac_por_edad, - 1)
 barplot(nac_por_edad$x, names.arg = nac_por_edad$Group.1, las=2)
 ```
 
-- Nacimientos por departamento
-
-```{r echo=FALSE}
-d2 <- melt(list(Retalhuleu = nac_depto_sexo_peso8,Quiche = nac_depto_sexo_peso9,Quetzaltenango = nac_depto_sexo_peso10,Peten = nac_depto_sexo_peso11,Jutiapa = nac_depto_sexo_peso12,Jalapa = nac_depto_sexo_peso13, Izabal = nac_depto_sexo_peso14), id.vars = c("anio", "Total"))
-ggplot(d2, aes(x=anio, y=Total, colour = L1)) + geom_line() + geom_point() + ggtitle("Nacimientos por año en departamentos de Guatemala") + theme(axis.text.x = element_text(angle = 90, vjust = 0.5)) + scale_x_continuous("Año", labels = as.character(nac_depto_sexo_peso1$anio), breaks = nac_depto_sexo_peso1$anio)
-
-d3 <- melt(list(Huehuetenango = nac_depto_sexo_peso15,Escuintla = nac_depto_sexo_peso16,El_Progreso = nac_depto_sexo_peso17,Chiquimula = nac_depto_sexo_peso18,Chimaltenango = nac_depto_sexo_peso19,Baja_Verapaz = nac_depto_sexo_peso20, Alta_Verapaz = nac_depto_sexo_peso21), id.vars = c("anio", "Total"))
-ggplot(d3, aes(x=anio, y=Total, colour = L1)) + geom_line() + geom_point() + ggtitle("Nacimientos por año en departamentos de Guatemala") + theme(axis.text.x = element_text(angle = 90, vjust = 0.5)) + scale_x_continuous("Año", labels = as.character(nac_depto_sexo_peso1$anio), breaks = nac_depto_sexo_peso1$anio)
-
-
-#Graficar
-#Cantidad de nacimientos en el transcurso del tiempo 
-#por cada departamento.
-#Selecciono la info para tener los departamentos en una variable
-#deptotanio <- dpto_res_ocu_tot %>% select(3,4,5,27)
-#d <- melt(deptotanio, id.vars="anio")
-#ggplot(d, aes(x = anio,value)) + geom_line() + facet_wrap(~variable, #ncol = 1, scales = "free")
-##Se repite...
-#deptotanio <- dpto_res_ocu_tot %>% select(6,7,8,27)
-#d <- melt(deptotanio, id.vars="anio")
-#ggplot(d, aes(x = anio,value)) + geom_line() + facet_wrap(~variable, #ncol = 1, scales = "free")
-#deptotanio <- dpto_res_ocu_tot %>% select(8,10,11,27)
-#d <- melt(deptotanio, id.vars="anio")
-#ggplot(d, aes(x = anio,value)) + geom_line() + facet_wrap(~variable, #ncol = 1, scales = "free")
-#deptotanio <- dpto_res_ocu_tot %>% select(12,13,14,27)
-#d <- melt(deptotanio, id.vars="anio")
-#ggplot(d, aes(x = anio,value)) + geom_line() + facet_wrap(~variable, #ncol = 1, scales = "free")
-#deptotanio <- dpto_res_ocu_tot %>% select(15,16,17,27)
-#d <- melt(deptotanio, id.vars="anio")
-#ggplot(d, aes(x = anio,value)) + geom_line() + facet_wrap(~variable, #ncol = 1, scales = "free")
-#deptotanio <- dpto_res_ocu_tot %>% select(18,19,20,27)
-#d <- melt(deptotanio, id.vars="anio")
-#ggplot(d, aes(x = anio,value)) + geom_line() + facet_wrap(~variable, #ncol = 1, scales = "free")
-#deptotanio <- dpto_res_ocu_tot %>% select(21,22,23,27)
-#d <- melt(deptotanio, id.vars="anio")
-#ggplot(d, aes(x = anio,value)) + geom_line() + facet_wrap(~variable, #ncol = 1, scales = "free")
-#deptotanio <- dpto_res_ocu_tot %>% select(24,25,26,27)
-#d <- melt(deptotanio, id.vars="anio")
-#ggplot(d, aes(x = anio,value)) + geom_line() + facet_wrap(~variable, #ncol = 1, scales = "free")
-```
 
 ### - Correlaciones  Entre  las  Variables
 
