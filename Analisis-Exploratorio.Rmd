@@ -32,7 +32,7 @@ Con la informacion de nacimientos de 2009 a 2019 queremos hacer un analisis de d
 ***
 - Averiguar que variables influyen mas en que la madre este soltera con un modelo.
 
-- Determinar mayor taza de nacimientos por departamento y determinar orden de mayor a menor crecimiento o probabilidad de crecimiento.
+- Determinar mayor taza de nacimientos por departamento y determinar orden de mayor a menor crecimiento o probabilidad de crecimiento de taza de nacimientos.
 
 - Decidir un orden de departamentos en los que se debe invertir en educacion segun los datos analizados.
 
@@ -113,363 +113,118 @@ A continuación, mostramos una clasificación de las variables por cada set de d
 
 ## Análisis Exploratorio
 ***
+
 Para realizar el analisis, pensamos verificar que informacion nos es mas util entre las siguientes tablas:
+
+- Nacimientos por departamento de residencia de la madre, según departamento de ocurrencia							
+
+- Nacimientos por estado civil de la madre, según departamento de su residencia							
+
+- Nacimientos vivos y muertos por tipo de parto, según departamento de residencia de la madre							
+
+- Nacimientos por sexo, según departamento de residencia de la madre y peso del niño(a) al nacer							
+
+- Nacimientos por grupos de edad de la madre, según departamento y municipio de su residencia							
+
+- Nacimientos por grupos de edad de la madre, según departamento y pueblo de pertenencia de la madre
+
+- Nacimientos por lugar donde ocurrió el nacimiento, según departamento y municipio de residencia de la madre	
+
 
 ### - Estadística Descriptiva
 
--	Nacimientos por departamento de residencia de la madre, según edades simples de la madre
+A continuación se muestran los nombres de cada dataframe y su estadística descriptiva por cada una de las tablas ya mencionadas.
 
-```{r echo=FALSE}
-
-print("Cantidad de filas")
-nrow(nac_por_dpto_edades_simples) #Cantidad de filas
-print("Cantidad de columnas")
-ncol(nac_por_dpto_edades_simples) #Cantidad de columnas
-print("Estructura de los datos")
-str(nac_por_dpto_edades_simples) #Estructura de los datos
-print("Ultimas filas")
-tail(nac_por_dpto_edades_simples,3) #Muestra las últimas filas
-
-# 1.0 Data Introduction
-
-nac_por_dpto_edades_simples %>% filter(Edad != "Todas las edades") %>% select(-2) %>% introduce()
-nac_por_dpto_edades_simples %>% filter(Edad != "Todas las edades") %>% select(-2) %>% plot_intro()
-
-# 2.0 Missing Values
-
-nac_por_dpto_edades_simples %>% filter(Edad != "Todas las edades") %>% select(-2) %>% profile_missing()
-
-# 3.0 Continuos Features
-
-nac_por_dpto_edades_simples %>% filter(Edad != "Todas las edades") %>% select(-2) %>% plot_density()
-nac_por_dpto_edades_simples %>% filter(Edad != "Todas las edades") %>% select(-2) %>% plot_histogram()
-
-# 4.0 Categorical Features
-
-#nac_por_dpto_edades_simples %>% filter(Edad != "Todas las edades") %>% select(-2) %>% plot_prcomp()
-# nac_por_dpto_edades_simples %>% filter(Edad != "Todas las edades") %>% select(-2) %>% plot_bar()
-nac_por_dpto_edades_simples %>% filter(Edad != "Todas las edades") %>% select(-2) %>% plot_qq()
-nac_por_dpto_edades_simples %>% filter(Edad != "Todas las edades") %>% select(-2) %>% plot_boxplot(by="anio")
-#nac_por_dpto_edades_simples %>% filter(Edad != "Todas las edades") %>% select(-2) %>% plot_scatterplot(by="Edad")
-
-# 5.0 Relationships
-
-# nac_por_dpto_edades_simples %>% filter(Edad != "Todas las edades") %>% select(-2) %>% plot_correlation()
-
-```
-
-
-- Nacimientos por departamento de residencia de la madre, segun departamento de ocurrencia
-
-```{r echo=FALSE}
-
-print("Cantidad de filas")
-nrow(nac_por_dpto) #Cantidad de filas
-print("Cantidad de columnas")
-ncol(nac_por_dpto) #Cantidad de columnas
-print("Estructura de los datos")
-str(nac_por_dpto) #Estructura de los datos
-print("Ultimas filas")
-tail(nac_por_dpto,3) #Muestra las últimas filas
-
-# 1.0 Data Introduction
-
-nac_por_dpto %>% filter(Mes != "Todos los meses") %>% filter(Departamento.de.residencia != "Todos los departamentos") %>% select(-3) %>% introduce()
-nac_por_dpto %>% filter(Mes != "Todos los meses") %>% filter(Departamento.de.residencia != "Todos los departamentos") %>% select(-3) %>% plot_intro()
-
-# 2.0 Missing Values
-
-nac_por_dpto %>% filter(Mes != "Todos los meses") %>% filter(Departamento.de.residencia != "Todos los departamentos") %>% select(-3) %>% profile_missing()
-
-# 3.0 Continuos Features
-
-nac_por_dpto %>% filter(Mes != "Todos los meses") %>% filter(Departamento.de.residencia != "Todos los departamentos") %>% select(-3) %>% plot_density()
-nac_por_dpto %>% filter(Mes != "Todos los meses") %>% filter(Departamento.de.residencia != "Todos los departamentos") %>% select(-3) %>% plot_histogram()
-
-# 4.0 Categorical Features
-
-nac_por_dpto %>% filter(Mes != "Todos los meses") %>% filter(Departamento.de.residencia != "Todos los departamentos") %>% select(-3) %>% plot_bar()
-
-nac_por_dpto %>% filter(Mes != "Todos los meses") %>% filter(Departamento.de.residencia != "Todos los departamentos") %>% select(-3) %>% plot_qq()
-nac_por_dpto %>% filter(Mes != "Todos los meses") %>% filter(Departamento.de.residencia != "Todos los departamentos") %>% select(-3) %>% plot_boxplot(by="anio")
-
-# 5.0 Relationships
-
-# nac_por_dpto %>% filter(Mes != "Todos los meses") %>% filter(Departamento.de.residencia != "Todos los departamentos") %>% select(-3) %>% plot_correlation()
-
-```
-
-- *	Nacimientos por estado civil de la madre, según departamento de su residencia
-
-```{r echo=FALSE}
-
-print("Cantidad de filas")
-nrow(nac_por_estado_civil) #Cantidad de filas
-print("Cantidad de columnas")
-ncol(nac_por_estado_civil) #Cantidad de columnas
-print("Estructura de los datos")
-str(nac_por_estado_civil) #Estructura de los datos
-print("Ultimas filas")
-tail(nac_por_estado_civil,3) #Muestra las últimas filas
-
-# 1.0 Data Introduction
-
-nac_por_estado_civil %>% filter(Departamento.de.residencia != "Todos los departamentos") %>% select(-2) %>% introduce()
-nac_por_estado_civil %>% filter(Departamento.de.residencia != "Todos los departamentos") %>% select(-2) %>% plot_intro()
-
-# 2.0 Missing Values
-
-nac_por_estado_civil %>% filter(Departamento.de.residencia != "Todos los departamentos") %>% select(-2) %>% profile_missing()
-
-# 3.0 Continuos Features
-
-nac_por_estado_civil %>% filter(Departamento.de.residencia != "Todos los departamentos") %>% select(-2) %>% plot_density()
-nac_por_estado_civil %>% filter(Departamento.de.residencia != "Todos los departamentos") %>% select(-2) %>% plot_histogram()
-
-# 4.0 Categorical Features
-
-nac_por_estado_civil %>% filter(Departamento.de.residencia != "Todos los departamentos") %>% select(-2) %>% plot_bar()
-nac_por_estado_civil %>% filter(Departamento.de.residencia != "Todos los departamentos") %>% select(-2) %>% plot_qq(by="anio")
-nac_por_estado_civil %>% filter(Departamento.de.residencia != "Todos los departamentos") %>% select(-2) %>% plot_boxplot(by="anio")
-
-# 5.0 Relationships
-
-nac_por_estado_civil %>% filter(Departamento.de.residencia != "Todos los departamentos") %>% select(-2) %>% plot_correlation()
-
-```
-
--	Nacimientos por estado civil de la madre, según grupos de edad
-
-```{r echo=FALSE}
-
-print("Cantidad de filas")
-nrow(nac_por_estado_civil_por_edad) #Cantidad de filas
-print("Cantidad de columnas")
-ncol(nac_por_estado_civil_por_edad) #Cantidad de columnas
-print("Estructura de los datos")
-str(nac_por_estado_civil_por_edad) #Estructura de los datos
-print("Ultimas filas")
-tail(nac_por_estado_civil_por_edad,3) #Muestra las últimas filas
-
-# 1.0 Data Introduction
-
-nac_por_estado_civil_por_edad %>% filter(Grupos.de.edad != "Todas las edades") %>% select(-2) %>% introduce()
-nac_por_estado_civil_por_edad %>% filter(Grupos.de.edad != "Todas las edades") %>% select(-2) %>% plot_intro()
-
-# 2.0 Missing Values
-
-nac_por_estado_civil_por_edad %>% filter(Grupos.de.edad != "Todas las edades") %>% select(-2) %>% profile_missing()
-
-# 3.0 Continuos Features
-
-nac_por_estado_civil_por_edad %>% filter(Grupos.de.edad != "Todas las edades") %>% select(-2) %>% plot_density()
-nac_por_estado_civil_por_edad %>% filter(Grupos.de.edad != "Todas las edades") %>% select(-2) %>% plot_histogram()
-
-# 4.0 Categorical Features
-
-nac_por_estado_civil_por_edad %>% filter(Grupos.de.edad != "Todas las edades") %>% select(-2) %>% plot_bar()
-nac_por_estado_civil_por_edad %>% filter(Grupos.de.edad != "Todas las edades") %>% select(-2) %>% plot_qq(by="anio")
-nac_por_estado_civil_por_edad %>% filter(Grupos.de.edad != "Todas las edades") %>% select(-2) %>% plot_boxplot(by="anio")
-
-# 5.0 Relationships
-
-nac_por_estado_civil_por_edad %>% filter(Grupos.de.edad != "Todas las edades") %>% select(-2) %>% plot_correlation()
-
-```
-
--	Nacimientos por estado civil del padre, según grupos de edad
-
-```{r echo=FALSE}
-
-print("Cantidad de filas")
-nrow(nac_por_estado_civil_padre_por_edad) #Cantidad de filas
-print("Cantidad de columnas")
-ncol(nac_por_estado_civil_padre_por_edad) #Cantidad de columnas
-print("Estructura de los datos")
-str(nac_por_estado_civil_padre_por_edad) #Estructura de los datos
-print("Ultimas filas")
-tail(nac_por_estado_civil_padre_por_edad,3) #Muestra las últimas filas
-
-# 1.0 Data Introduction
-
-nac_por_estado_civil_padre_por_edad %>% filter(Grupos.de.edad != "Todas las edades") %>% select(-2) %>% introduce()
-nac_por_estado_civil_padre_por_edad %>% filter(Grupos.de.edad != "Todas las edades") %>% select(-2) %>% plot_intro()
-
-# 2.0 Missing Values
-
-nac_por_estado_civil_padre_por_edad %>% filter(Grupos.de.edad != "Todas las edades") %>% select(-2) %>% profile_missing()
-
-# 3.0 Continuos Features
-
-nac_por_estado_civil_padre_por_edad %>% filter(Grupos.de.edad != "Todas las edades") %>% select(-2) %>% plot_density()
-nac_por_estado_civil_padre_por_edad %>% filter(Grupos.de.edad != "Todas las edades") %>% select(-2) %>% plot_histogram()
-
-# 4.0 Categorical Features
-
-nac_por_estado_civil_padre_por_edad %>% filter(Grupos.de.edad != "Todas las edades") %>% select(-2) %>% plot_bar()
-nac_por_estado_civil_padre_por_edad %>% filter(Grupos.de.edad != "Todas las edades") %>% select(-2) %>% plot_qq(by="anio")
-nac_por_estado_civil_padre_por_edad %>% filter(Grupos.de.edad != "Todas las edades") %>% select(-2) %>% plot_boxplot(by="anio")
-
-# 5.0 Relationships
-
-nac_por_estado_civil_padre_por_edad %>% filter(Grupos.de.edad != "Todas las edades") %>% select(-2) %>% plot_correlation()
-
-```
-
--	Nacimientos por grupos de edad de la madre, según departamento y municipio de su residencia
-
-```{r echo=FALSE}
-
-print("Cantidad de filas")
-nrow(nac_edad_madre_departamento_municipio) #Cantidad de filas
-print("Cantidad de columnas")
-ncol(nac_edad_madre_departamento_municipio) #Cantidad de columnas
-print("Estructura de los datos")
-str(nac_edad_madre_departamento_municipio) #Estructura de los datos
-print("Ultimas filas")
-tail(nac_edad_madre_departamento_municipio,3) #Muestra las últimas filas
-
-# 1.0 Data Introduction
-
-nac_edad_madre_departamento_municipio %>% filter(Departamento.de.residencia != "Todos los departamentos") %>% filter(Municipios != "Todos los municipios") %>% select(-3) %>% introduce()
-nac_edad_madre_departamento_municipio %>% filter(Departamento.de.residencia != "Todos los departamentos") %>% filter(Municipios != "Todos los municipios") %>% select(-3) %>% plot_intro()
-
-# 2.0 Missing Values
-
-nac_edad_madre_departamento_municipio %>% filter(Departamento.de.residencia != "Todos los departamentos") %>% filter(Municipios != "Todos los municipios") %>% select(-3) %>% profile_missing()
-
-# 3.0 Continuos Features
-
-nac_edad_madre_departamento_municipio %>% filter(Departamento.de.residencia != "Todos los departamentos") %>% filter(Municipios != "Todos los municipios") %>% select(-3) %>% plot_density()
-nac_edad_madre_departamento_municipio %>% filter(Departamento.de.residencia != "Todos los departamentos") %>% filter(Municipios != "Todos los municipios") %>% select(-3) %>% plot_histogram()
-
-# 4.0 Categorical Features
-
-nac_edad_madre_departamento_municipio %>% filter(Departamento.de.residencia != "Todos los departamentos") %>% filter(Municipios != "Todos los municipios") %>% select(-3) %>% plot_bar()
-
-# 5.0 Relationships
-
-nac_edad_madre_departamento_municipio %>% filter(Departamento.de.residencia != "Todos los departamentos") %>% filter(Municipios != "Todos los municipios") %>% select(-3) %>% plot_correlation()
-
-```
-
-- Nacimientos por grupos de edad de la madre, según grandes grupos ocupacionales de la madre
-
-```{r echo=FALSE}
-
-print("Cantidad de filas")
-nrow(nac_edad_madre_ocupacion) #Cantidad de filas
-print("Cantidad de columnas")
-ncol(nac_edad_madre_ocupacion) #Cantidad de columnas
-print("Estructura de los datos")
-str(nac_edad_madre_ocupacion) #Estructura de los datos
-print("Ultimas filas")
-tail(nac_edad_madre_ocupacion,3) #Muestra las últimas filas
-
-# 1.0 Data Introduction
-
-nac_edad_madre_ocupacion %>% filter(Grupos.ocupacionales != "Todos los grupos ocupacionales") %>% select(-2) %>% introduce()
-nac_edad_madre_ocupacion %>% filter(Grupos.ocupacionales != "Todos los grupos ocupacionales") %>% select(-2) %>% plot_intro()
-
-# 2.0 Missing Values
-
-nac_edad_madre_ocupacion %>% filter(Grupos.ocupacionales != "Todos los grupos ocupacionales") %>% select(-2) %>% profile_missing()
-
-# 3.0 Continuos Features
-
-nac_edad_madre_ocupacion %>% filter(Grupos.ocupacionales != "Todos los grupos ocupacionales") %>% select(-2) %>% plot_density()
-nac_edad_madre_ocupacion %>% filter(Grupos.ocupacionales != "Todos los grupos ocupacionales") %>% select(-2) %>% plot_histogram()
-
-# 4.0 Categorical Features
-
-nac_edad_madre_ocupacion %>% filter(Grupos.ocupacionales != "Todos los grupos ocupacionales") %>% select(-2) %>% plot_bar()
-
-# 5.0 Relationships
-
-# nac_edad_madre_ocupacion %>% filter(Grupos.ocupacionales != "Todos los grupos ocupacionales") %>% select(-2) %>% plot_correlation()
-
-```
-
-- Nacimientos por edad de la madre, según departamento de residencia, área geográfica de ocurrencia, y grupo étnico de la madre
-
-```{r echo=FALSE}
-
-print("Cantidad de filas")
-nrow(nac_edad_madre_depto_area_etnia) #Cantidad de filas
-print("Cantidad de columnas")
-ncol(nac_edad_madre_depto_area_etnia) #Cantidad de columnas
-print("Estructura de los datos")
-str(nac_edad_madre_depto_area_etnia) #Estructura de los datos
-print("Ultimas filas")
-tail(nac_edad_madre_depto_area_etnia,3) #Muestra las últimas filas
-
-# 1.0 Data Introduction
-
-nac_edad_madre_depto_area_etnia %>% filter(Departamento.de.ocurrencia != "Todos los departamentos") %>% filter(Pueblo.de.pertenencia.de.la.madre != "Todos los grupos étnicos") %>% select(-3) %>% introduce()
-nac_edad_madre_depto_area_etnia %>% filter(Departamento.de.ocurrencia != "Todos los departamentos") %>% filter(Pueblo.de.pertenencia.de.la.madre != "Todos los grupos étnicos") %>% select(-3) %>% plot_intro()
-
-# 2.0 Missing Values
-
-nac_edad_madre_depto_area_etnia %>% filter(Departamento.de.ocurrencia != "Todos los departamentos") %>% filter(Pueblo.de.pertenencia.de.la.madre != "Todos los grupos étnicos") %>% select(-3) %>% profile_missing()
-
-# 3.0 Continuos Features
-
-nac_edad_madre_depto_area_etnia %>% filter(Departamento.de.ocurrencia != "Todos los departamentos") %>% filter(Pueblo.de.pertenencia.de.la.madre != "Todos los grupos étnicos") %>% select(-3) %>% plot_density()
-nac_edad_madre_depto_area_etnia %>% filter(Departamento.de.ocurrencia != "Todos los departamentos") %>% filter(Pueblo.de.pertenencia.de.la.madre != "Todos los grupos étnicos") %>% select(-3) %>% plot_histogram()
-
-# 4.0 Categorical Features
-
-nac_edad_madre_depto_area_etnia %>% filter(Departamento.de.ocurrencia != "Todos los departamentos") %>% filter(Pueblo.de.pertenencia.de.la.madre != "Todos los grupos étnicos") %>% select(-3) %>% plot_bar()
-
-# 5.0 Relationships
-
-nac_edad_madre_depto_area_etnia %>% filter(Departamento.de.ocurrencia != "Todos los departamentos") %>% filter(Pueblo.de.pertenencia.de.la.madre != "Todos los grupos étnicos") %>% select(-3) %>% plot_correlation()
-
-```
-
-- Nacimientos por escolaridad de la madre, según número de hijos(as) tenidos
-
-```{r echo=FALSE}
-
-print("Cantidad de filas")
-nrow(nac_escolaridad_madre) #Cantidad de filas
-print("Cantidad de columnas")
-ncol(nac_escolaridad_madre) #Cantidad de columnas
-print("Estructura de los datos")
-str(nac_escolaridad_madre) #Estructura de los datos
-print("Ultimas filas")
-tail(nac_escolaridad_madre,3) #Muestra las últimas filas
-
-# 1.0 Data Introduction
-
-nac_escolaridad_madre %>% filter(Número.de.hijos.as. != "Todos los hijos") %>% select(-2) %>% introduce()
-nac_escolaridad_madre %>% filter(Número.de.hijos.as. != "Todos los hijos") %>% select(-2) %>% plot_intro()
-
-# 2.0 Missing Values
-
-nac_escolaridad_madre %>% filter(Número.de.hijos.as. != "Todos los hijos") %>% select(-2) %>% profile_missing()
-
-# 3.0 Continuos Features
-
-nac_escolaridad_madre %>% filter(Número.de.hijos.as. != "Todos los hijos") %>% select(-2) %>% plot_density()
-nac_escolaridad_madre %>% filter(Número.de.hijos.as. != "Todos los hijos") %>% select(-2) %>% plot_histogram()
-
-# 4.0 Categorical Features
-
-nac_escolaridad_madre %>% filter(Número.de.hijos.as. != "Todos los hijos") %>% select(-2) %>% plot_bar()
-nac_escolaridad_madre %>% filter(Número.de.hijos.as. != "Todos los hijos") %>% select(-2) %>% plot_qq(by="anio")
-nac_escolaridad_madre %>% filter(Número.de.hijos.as. != "Todos los hijos") %>% select(-2) %>% plot_boxplot(by="anio")
-
-# 5.0 Relationships
-
-nac_escolaridad_madre %>% filter(Número.de.hijos.as. != "Todos los hijos") %>% select(-2) %>% plot_correlation()
-
-```
+- Nacimientos por departamento de residencia de la madre, según departamento de ocurrencia
 
 ```{r echo=FALSE}
 data.frame("Variable"=c(colnames(dpto_res_ocu)), "Tipo de Variable"=c("Cualitativa Nominal", "Cuantitativa Discreta","Cuantitativa Discreta","Cuantitativa Discreta", "Cuantitativa Discreta","Cuantitativa Discreta","Cuantitativa Discreta", "Cuantitativa Discreta","Cuantitativa Discreta","Cuantitativa Discreta", "Cuantitativa Discreta","Cuantitativa Discreta","Cuantitativa Discreta", "Cuantitativa Discreta","Cuantitativa Discreta","Cuantitativa Discreta", "Cuantitativa Discreta","Cuantitativa Discreta","Cuantitativa Discreta", "Cuantitativa Discreta","Cuantitativa Discreta","Cuantitativa Discreta", "Cuantitativa Discreta","Cuantitativa Discreta","Cuantitativa Discreta", "Cuantitativa Discreta","Cuantitativa Discreta"))
 ```
 
+Resumen estadístico de variables:
+
+```{r echo=FALSE}
+smry1 <- dpto_res_ocu %>% select(2:26)
+summary(smry1)
+```
+
+- Nacimientos por estado civil de la madre, según departamento de su residencia							
+```{r echo=FALSE}
+data.frame("Variable"=c(colnames(nac_por_estado_civil)), "Tipo de Variable"=c("Cualitativa Nominal", "Cuantitativa Discreta","Cuantitativa Discreta","Cuantitativa Discreta", "Cuantitativa Discreta","Cuantitativa Discreta","Cuantitativa Discreta"))
+smry2 <- nac_por_estado_civil %>% select(2:6)
+summary(smry2)
+```
+- Nacimientos vivos y muertos por tipo de parto, según departamento de residencia de la madre		
+
+Clasificación de variables:
+```{r echo=FALSE}
+data.frame("Variable"=c(colnames(nac_vivos_muertos_por_dpto)), "Tipo de Variable"=c("Cualitativa Nominal", "Cuantitativa Discreta","Cuantitativa Discreta","Cuantitativa Discreta", "Cuantitativa Discreta","Cuantitativa Discreta","Cuantitativa Discreta","Cuantitativa Discreta","Cuantitativa Discreta"))
+
+```
+
+Resumen estadístico de variables:
+
+```{r echo=FALSE}
+smry3 <- nac_vivos_muertos_por_dpto %>% select(2:7)
+summary(smry3)
+```
+
+- Nacimientos por sexo, según departamento de residencia de la madre y peso del niño(a) al nacer							
+
+Clasificación de variables:
+```{r echo=FALSE}
+data.frame("Variable"=c(colnames(nac_depto_sexo_peso)), "Tipo de Variable"=c("Cualitativa Nominal", "Cuantitativa Discreta","Cuantitativa Discreta","Cuantitativa Discreta", "Cuantitativa Discreta","Cuantitativa Discreta"))
+```
+
+Resumen estadístico de variables:
+
+```{r echo=FALSE}
+smry4 <- nac_depto_sexo_peso %>% select(2:5)
+summary(smry4)
+```
+
+- Nacimientos por grupos de edad de la madre, según departamento y municipio de su residencia
+
+Clasificación de variables:
+```{r echo=FALSE}
+data.frame("Variable"=c(colnames(nac_edad_madre_departamento_municipio)), "Tipo de Variable"=c("Cualitativa Nominal", "Cualitativa Nominal","Cuantitativa Discreta","Cuantitativa Discreta", "Cuantitativa Discreta","Cuantitativa Discreta","Cuantitativa Discreta", "Cuantitativa Discreta","Cuantitativa Discreta","Cuantitativa Discreta", "Cuantitativa Discreta","Cuantitativa Discreta","Cuantitativa Discreta", "Cuantitativa Discreta"))
+```
+
+Resumen estadístico de variables:
+
+```{r echo=FALSE}
+smry5 <- nac_edad_madre_departamento_municipio %>% select(3:13)
+summary(smry5)
+```
+
+- Nacimientos por grupos de edad de la madre, según departamento y pueblo de pertenencia de la madre
+
+Clasificación de variables:
+```{r echo=FALSE}
+data.frame("Variable"=c(colnames(nac_edad_madre_depto_area_etnia)), "Tipo de Variable"=c("Cualitativa Nominal", "Cualitativa Nominal","Cuantitativa Discreta","Cuantitativa Discreta", "Cuantitativa Discreta","Cuantitativa Discreta","Cuantitativa Discreta", "Cuantitativa Discreta","Cuantitativa Discreta","Cuantitativa Discreta", "Cuantitativa Discreta","Cuantitativa Discreta","Cuantitativa Discreta", "Cuantitativa Discreta"))
+```
+
+Resumen estadístico de variables:
+
+```{r echo=FALSE}
+smry6 <- nac_edad_madre_depto_area_etnia %>% select(2:13)
+summary(smry6)
+```
+
+- Nacimientos por lugar donde ocurrió el nacimiento, según departamento y municipio de residencia de la madre	
+
+Clasificación de variables:
+```{r echo=FALSE}
+data.frame("Variable"=c(colnames(nac_lugar)), "Tipo de Variable"=c("Cualitativa Nominal", "Cualitativa Nominal","Cuantitativa Discreta","Cuantitativa Discreta", "Cuantitativa Discreta","Cuantitativa Discreta","Cuantitativa Discreta", "Cuantitativa Discreta","Cuantitativa Discreta","Cuantitativa Discreta", "Cuantitativa Discreta","Cuantitativa Discreta"))
+```
+
+Resumen estadístico de variables:
+
+```{r echo=FALSE}
+smry7 <- nac_lugar %>% select(3:11)
+summary(smry7)
+
+```
 
 ### - Gráficos  Exploratorios
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
