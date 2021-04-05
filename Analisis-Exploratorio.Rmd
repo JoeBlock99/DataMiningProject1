@@ -71,15 +71,39 @@ A continuación, mostramos una clasificación de las variables por cada set de d
     * Edad: variable cuantitativa discreta.
     * Departamento: Variable cualitativa nominal
 
+```{r echo=FALSE}
+nac_por_dpto_edades_simples %>% filter(Edad != "Todas las edades") %>% select(-2) %>% introduce()
+```
+
+* Nacimientos por departamento de residencia de la madre, segun departamento de ocurrencia
+    * Mes: Variable cualitativa ordinal
+    * Departamento: Variable cualitativa nominal
+    * Total: Cuantitativa discreta
+    * Hombres: Cuantitativa discreta
+    * Mujeres: Cuantitativa discreta
+    * Año: Cuantitativa discreta
+
+```{r echo=FALSE}
+nac_por_dpto %>% filter(Mes != "Todos los meses") %>% filter(Departamento.de.residencia != "Todos los departamentos") %>% select(-3) %>% introduce()
+```
+
 *	Nacimientos por estado civil de la madre, según departamento de su residencia
     
     * Departamento: Variable cualitativa nominal
     * Estado Civil: Variable cualitativa nominal
+
+```{r echo=FALSE}
+nac_por_estado_civil %>% filter(Departamento.de.residencia != "Todos los departamentos") %>% select(-2) %>% introduce()
+```
     
 *	Nacimientos por estado civil de la madre, según grupos de edad
 
     * Grupo de Edad: Variable cuantitativa discreta
     * Estado Civil: Variable cualitativa nominal
+    
+```{r echo=FALSE}
+nac_por_estado_civil_por_edad %>% filter(Grupos.de.edad != "Todas las edades") %>% select(-2) %>% introduce()
+```
 
 *	Nacimientos por grupos de edad de la madre, según grupos de edad del padre
 
@@ -96,11 +120,19 @@ A continuación, mostramos una clasificación de las variables por cada set de d
     * Departamento: Variable cualitativa nominal
     * Municipio: Variable cualitativa nominal
     * Grupo de Edad: Variable cuantitativa discreta
+    
+```{r echo=FALSE}
+nac_edad_madre_departamento_municipio %>% filter(Departamento.de.residencia != "Todos los departamentos") %>% filter(Municipios != "Todos los municipios") %>% select(-3) %>% introduce()
+```
 
 *	Nacimientos por grupos de edad de la madre, según grandes grupos ocupacionales de la madre
 
     * Grupos Ocupacionales: Variable cualitativa nominal
     * Grupo de Edad: Variable cuantitativa discreta
+
+```{r echo=FALSE}
+nac_edad_madre_ocupacion %>% filter(Grupos.ocupacionales != "Todos los grupos ocupacionales") %>% select(-2) %>% introduce()
+```
 
 *	Nacimientos por edad de la madre, según departamento de residencia, área geográfica de ocurrencia, y grupo étnico de la madre
 
@@ -109,10 +141,18 @@ A continuación, mostramos una clasificación de las variables por cada set de d
     * Grupo Etnico: Variable cualitativa nominal
     * Grupo de Edad: Variable cuantitativa discreta
 
+```{r echo=FALSE}
+nac_edad_madre_depto_area_etnia %>% filter(Departamento.de.ocurrencia != "Todos los departamentos") %>% filter(Pueblo.de.pertenencia.de.la.madre != "Todos los grupos étnicos") %>% select(-3) %>% introduce()
+```
+
 *	Nacimientos por escolaridad de la madre, según número de hijos(as) tenidos
 
     * Numero de hijos: variable cuantitativa discreta
     * Escolaridad de la madre: varibale cualitativa nominal
+
+```{r echo=FALSE}
+nac_escolaridad_madre %>% filter(Número.de.hijos.as. != "Todos los hijos") %>% select(-2) %>% introduce()
+```
 
 ## Análisis Exploratorio
 ***
@@ -154,6 +194,17 @@ Resumen estadístico de variables:
 ```{r echo=FALSE}
 smry2 <- nac_por_estado_civil %>% select(2:6)
 summary(smry2)
+```
+- Nacimientos por departamento
+
+Dentro de las preguntas interesantes, orientadas a nuestra problematica, surgio la curiosidad por saber cuantos nacimientos hubo a lo largo de 10 años en todos los departamentos de la republica. Para resolver esta duda se utilizo el data set de nacimientos por  departamento. Obtuvimos los siguientes resultados:
+
+```{r echo=FALSE}
+
+nac_por_dpto_todas_las_edades <- nac_por_dpto_edades_simples %>% filter(Edad == "Todas las edades") %>% select(-1, -2)
+
+# Plot of births per city per year
+barplot(as.matrix(nac_por_dpto_todas_las_edades %>% select(-25)), beside=TRUE, las=2)
 ```
 - Nacimientos vivos y muertos por tipo de parto, según departamento de residencia de la madre		
 
@@ -279,7 +330,48 @@ ggplot(data=nac_depto_sexo_peso0, aes(x=anio, y=Total, group=1)) + geom_line() +
 
 d <- melt(list(Suchitepequez = nac_depto_sexo_peso1,Zacapa = nac_depto_sexo_peso2,Totonicapan = nac_depto_sexo_peso3,Solola = nac_depto_sexo_peso4,Santa_Rosa = nac_depto_sexo_peso5,San_Marcos = nac_depto_sexo_peso6, Sacatepequez = nac_depto_sexo_peso7), id.vars = c("anio", "Total"))
 ggplot(d, aes(x=anio, y=Total, colour = L1)) + geom_line() + geom_point() + ggtitle("Nacimientos por año en departamentos de Guatemala") + theme(axis.text.x = element_text(angle = 90, vjust = 0.5)) + scale_x_continuous("Año", labels = as.character(nac_depto_sexo_peso1$anio), breaks = nac_depto_sexo_peso1$anio)
+```
+Si analizamos individualmente los departamentos observamos que las cifras van en aumento, alcanzan un maximo y luego descienden.
 
+
+
+```{r echo=FALSE}
+plot_boxplot(nac_por_dpto_todas_las_edades, by="anio")
+```
+
+Tambien nos preguntamos como se distribuian los datos en relacion con los nacimientos, el peso del bebe y su departamento de nacimiento. Se obtuvieron los siguientes resultados:
+
+```{r echo=FALSE}
+
+listado_de_departamentos <- nac_depto_sexo_peso$Departamento.de.residencia
+listado_de_departamentos <- listado_de_departamentos[!duplicated(listado_de_departamentos)]
+
+for (variable in listado_de_departamentos) {
+  print(variable)
+  nac_guatemala_sexo_peso <- nac_depto_sexo_peso %>% filter(Departamento.de.residencia == variable) %>% filter(Peso != "Todos los pesos") %>% select(-1, -4, -5)
+nac_guatemala_sexo_peso_clean <- aggregate(nac_guatemala_sexo_peso$Total, by=list(nac_guatemala_sexo_peso$Peso), FUN = sum)
+barplot(nac_guatemala_sexo_peso_clean$x, names.arg = nac_guatemala_sexo_peso_clean$Group.1, las=2)
+}
+
+#nac_guatemala_sexo_peso <- nac_depto_sexo_peso %>% filter(Departamento.de.residencia == "Guatemala") %>% filter(Peso != "Todos los pesos") %>% select(-1, -4, -5)
+#nac_guatemala_sexo_peso_clean <- aggregate(nac_guatemala_sexo_peso$Total, by=list(nac_guatemala_sexo_peso$Peso), FUN = sum)
+#barplot(nac_guatemala_sexo_peso_clean$x, names.arg = nac_guatemala_sexo_peso_clean$Group.1, las=2)
+
+```
+
+
+Luego de esto se quizo ver como era la distribucion de nacimientos por edades, se obtuvieron los siguientes resultados:
+
+```{r echo=FALSE}
+nac_por_edad <- nac_por_dpto_edades_simples %>% filter(Edad != "Todas las edades") %>% select(1, 2, 27)
+nac_por_edad <- aggregate(nac_por_dpto_edades_simples$Total, by=list(nac_por_dpto_edades_simples$Edad), FUN=sum)
+nac_por_edad <- head(nac_por_edad, - 1)
+barplot(nac_por_edad$x, names.arg = nac_por_edad$Group.1, las=2)
+```
+
+- Nacimientos por departamento
+
+```{r echo=FALSE}
 d2 <- melt(list(Retalhuleu = nac_depto_sexo_peso8,Quiche = nac_depto_sexo_peso9,Quetzaltenango = nac_depto_sexo_peso10,Peten = nac_depto_sexo_peso11,Jutiapa = nac_depto_sexo_peso12,Jalapa = nac_depto_sexo_peso13, Izabal = nac_depto_sexo_peso14), id.vars = c("anio", "Total"))
 ggplot(d2, aes(x=anio, y=Total, colour = L1)) + geom_line() + geom_point() + ggtitle("Nacimientos por año en departamentos de Guatemala") + theme(axis.text.x = element_text(angle = 90, vjust = 0.5)) + scale_x_continuous("Año", labels = as.character(nac_depto_sexo_peso1$anio), breaks = nac_depto_sexo_peso1$anio)
 
