@@ -12,7 +12,10 @@ knitr::opts_chunk$set(echo = TRUE)
 library(ggplot2)
 library(DataExplorer)
 library(tidyverse)
-
+library(reshape2)
+library(grid)
+library(corrplot)
+ 
 # Load Data
 load("DataMiningP1Project.RData")
 
@@ -137,10 +140,6 @@ A continuación se muestran los nombres de cada dataframe y su estadística desc
 
 - Nacimientos por departamento de residencia de la madre, según departamento de ocurrencia
 
-```{r echo=FALSE}
-data.frame("Variable"=c(colnames(dpto_res_ocu)), "Tipo de Variable"=c("Cualitativa Nominal", "Cuantitativa Discreta","Cuantitativa Discreta","Cuantitativa Discreta", "Cuantitativa Discreta","Cuantitativa Discreta","Cuantitativa Discreta", "Cuantitativa Discreta","Cuantitativa Discreta","Cuantitativa Discreta", "Cuantitativa Discreta","Cuantitativa Discreta","Cuantitativa Discreta", "Cuantitativa Discreta","Cuantitativa Discreta","Cuantitativa Discreta", "Cuantitativa Discreta","Cuantitativa Discreta","Cuantitativa Discreta", "Cuantitativa Discreta","Cuantitativa Discreta","Cuantitativa Discreta", "Cuantitativa Discreta","Cuantitativa Discreta","Cuantitativa Discreta", "Cuantitativa Discreta","Cuantitativa Discreta"))
-```
-
 Resumen estadístico de variables:
 
 ```{r echo=FALSE}
@@ -148,19 +147,15 @@ smry1 <- dpto_res_ocu %>% select(2:26)
 summary(smry1)
 ```
 
-- Nacimientos por estado civil de la madre, según departamento de su residencia							
+- Nacimientos por estado civil de la madre, según departamento de su residencia				
+
+Resumen estadístico de variables:
+
 ```{r echo=FALSE}
-data.frame("Variable"=c(colnames(nac_por_estado_civil)), "Tipo de Variable"=c("Cualitativa Nominal", "Cuantitativa Discreta","Cuantitativa Discreta","Cuantitativa Discreta", "Cuantitativa Discreta","Cuantitativa Discreta","Cuantitativa Discreta"))
 smry2 <- nac_por_estado_civil %>% select(2:6)
 summary(smry2)
 ```
 - Nacimientos vivos y muertos por tipo de parto, según departamento de residencia de la madre		
-
-Clasificación de variables:
-```{r echo=FALSE}
-data.frame("Variable"=c(colnames(nac_vivos_muertos_por_dpto)), "Tipo de Variable"=c("Cualitativa Nominal", "Cuantitativa Discreta","Cuantitativa Discreta","Cuantitativa Discreta", "Cuantitativa Discreta","Cuantitativa Discreta","Cuantitativa Discreta","Cuantitativa Discreta","Cuantitativa Discreta"))
-
-```
 
 Resumen estadístico de variables:
 
@@ -171,11 +166,6 @@ summary(smry3)
 
 - Nacimientos por sexo, según departamento de residencia de la madre y peso del niño(a) al nacer							
 
-Clasificación de variables:
-```{r echo=FALSE}
-data.frame("Variable"=c(colnames(nac_depto_sexo_peso)), "Tipo de Variable"=c("Cualitativa Nominal", "Cuantitativa Discreta","Cuantitativa Discreta","Cuantitativa Discreta", "Cuantitativa Discreta","Cuantitativa Discreta"))
-```
-
 Resumen estadístico de variables:
 
 ```{r echo=FALSE}
@@ -184,11 +174,6 @@ summary(smry4)
 ```
 
 - Nacimientos por grupos de edad de la madre, según departamento y municipio de su residencia
-
-Clasificación de variables:
-```{r echo=FALSE}
-data.frame("Variable"=c(colnames(nac_edad_madre_departamento_municipio)), "Tipo de Variable"=c("Cualitativa Nominal", "Cualitativa Nominal","Cuantitativa Discreta","Cuantitativa Discreta", "Cuantitativa Discreta","Cuantitativa Discreta","Cuantitativa Discreta", "Cuantitativa Discreta","Cuantitativa Discreta","Cuantitativa Discreta", "Cuantitativa Discreta","Cuantitativa Discreta","Cuantitativa Discreta", "Cuantitativa Discreta"))
-```
 
 Resumen estadístico de variables:
 
@@ -199,11 +184,6 @@ summary(smry5)
 
 - Nacimientos por grupos de edad de la madre, según departamento y pueblo de pertenencia de la madre
 
-Clasificación de variables:
-```{r echo=FALSE}
-data.frame("Variable"=c(colnames(nac_edad_madre_depto_area_etnia)), "Tipo de Variable"=c("Cualitativa Nominal", "Cualitativa Nominal","Cuantitativa Discreta","Cuantitativa Discreta", "Cuantitativa Discreta","Cuantitativa Discreta","Cuantitativa Discreta", "Cuantitativa Discreta","Cuantitativa Discreta","Cuantitativa Discreta", "Cuantitativa Discreta","Cuantitativa Discreta","Cuantitativa Discreta", "Cuantitativa Discreta"))
-```
-
 Resumen estadístico de variables:
 
 ```{r echo=FALSE}
@@ -212,11 +192,6 @@ summary(smry6)
 ```
 
 - Nacimientos por lugar donde ocurrió el nacimiento, según departamento y municipio de residencia de la madre	
-
-Clasificación de variables:
-```{r echo=FALSE}
-data.frame("Variable"=c(colnames(nac_lugar)), "Tipo de Variable"=c("Cualitativa Nominal", "Cualitativa Nominal","Cuantitativa Discreta","Cuantitativa Discreta", "Cuantitativa Discreta","Cuantitativa Discreta","Cuantitativa Discreta", "Cuantitativa Discreta","Cuantitativa Discreta","Cuantitativa Discreta", "Cuantitativa Discreta","Cuantitativa Discreta"))
-```
 
 Resumen estadístico de variables:
 
@@ -229,50 +204,125 @@ summary(smry7)
 ### - Gráficos  Exploratorios
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 #Separar la info para dar graficos 
-library(tidyverse)
-dpto_res_ocu_tot <- dpto_res_ocu %>% filter(...1 == "Todos los departamentos")
-dpto_res_ocuf = dpto_res_ocu %>% filter(...1 != "Todos los departamentos")
+#Guatemala
+#Zacapa
+#Totonicapán
+#Suchitepéquez
+#Sololá
+#Santa Rosa
+#San Marcos
+#Sacatepéquez
+
+#Retalhuleu
+#Quiché
+#Quetzaltenango 
+#Petén
+#Jutiapa
+#Jalapa
+#Izabal
+
+#Huehuetenango
+#Escuintla
+#El Progreso
+#Chiquimula
+#Chimaltenango
+#Baja Verapaz
+#Alta Verapaz
+
+nac_depto_sexo_peso0 <- nac_depto_sexo_peso %>% filter(Departamento.de.residencia == "Guatemala" & Peso == "Todos los pesos")
+
+nac_depto_sexo_peso1 <- nac_depto_sexo_peso %>% filter(Departamento.de.residencia == "Suchitepéquez" & Peso == "Todos los pesos")
+
+nac_depto_sexo_peso2 <- nac_depto_sexo_peso %>% filter(Departamento.de.residencia == "Zacapa" & Peso == "Todos los pesos")
+
+nac_depto_sexo_peso3 <- nac_depto_sexo_peso %>% filter(Departamento.de.residencia == "Totonicapán" & Peso == "Todos los pesos")
+
+nac_depto_sexo_peso4 <- nac_depto_sexo_peso %>% filter(Departamento.de.residencia == "Sololá" & Peso == "Todos los pesos")
+
+nac_depto_sexo_peso5 <- nac_depto_sexo_peso %>% filter(Departamento.de.residencia == "Santa Rosa" & Peso == "Todos los pesos")
+
+nac_depto_sexo_peso6 <- nac_depto_sexo_peso %>% filter(Departamento.de.residencia == "San Marcos" & Peso == "Todos los pesos")
+
+nac_depto_sexo_peso7 <- nac_depto_sexo_peso %>% filter(Departamento.de.residencia == "Sacatepéquez" & Peso == "Todos los pesos")
+
+nac_depto_sexo_peso8 <- nac_depto_sexo_peso %>% filter(Departamento.de.residencia == "Retalhuleu" & Peso == "Todos los pesos")
+
+nac_depto_sexo_peso9 <- nac_depto_sexo_peso %>% filter(Departamento.de.residencia == "Quiché" & Peso == "Todos los pesos")
+
+nac_depto_sexo_peso10 <- nac_depto_sexo_peso %>% filter(Departamento.de.residencia == "Quetzaltenango" & Peso == "Todos los pesos")
+
+nac_depto_sexo_peso11 <- nac_depto_sexo_peso %>% filter(Departamento.de.residencia == "Petén" & Peso == "Todos los pesos")
+
+nac_depto_sexo_peso12 <- nac_depto_sexo_peso %>% filter(Departamento.de.residencia == "Jutiapa" & Peso == "Todos los pesos")
+
+nac_depto_sexo_peso13 <- nac_depto_sexo_peso %>% filter(Departamento.de.residencia == "Jalapa" & Peso == "Todos los pesos")
+
+nac_depto_sexo_peso14 <- nac_depto_sexo_peso %>% filter(Departamento.de.residencia == "Izabal" & Peso == "Todos los pesos")
+
+nac_depto_sexo_peso15 <- nac_depto_sexo_peso %>% filter(Departamento.de.residencia == "Huehuetenango" & Peso == "Todos los pesos")
+
+nac_depto_sexo_peso16 <- nac_depto_sexo_peso %>% filter(Departamento.de.residencia == "Escuintla" & Peso == "Todos los pesos")
+
+nac_depto_sexo_peso17 <- nac_depto_sexo_peso %>% filter(Departamento.de.residencia == "El Progreso" & Peso == "Todos los pesos")
+
+nac_depto_sexo_peso18 <- nac_depto_sexo_peso %>% filter(Departamento.de.residencia == "Chiquimula" & Peso == "Todos los pesos")
+
+nac_depto_sexo_peso19 <- nac_depto_sexo_peso %>% filter(Departamento.de.residencia == "Chimaltenango" & Peso == "Todos los pesos")
+
+nac_depto_sexo_peso20 <- nac_depto_sexo_peso %>% filter(Departamento.de.residencia == "Baja Verapaz" & Peso == "Todos los pesos")
+
+nac_depto_sexo_peso21 <- nac_depto_sexo_peso %>% filter(Departamento.de.residencia == "Alta Verapaz" & Peso == "Todos los pesos")
+
+#Graficar Guatemala por aparte y luego se grafica de 7 en 7.
+
+ggplot(data=nac_depto_sexo_peso0, aes(x=anio, y=Total, group=1)) + geom_line() + geom_point() + ggtitle("Nacimientos por año en Guatemala(departamento)") + theme(axis.text.x = element_text(angle = 90, vjust = 0.5)) + scale_x_continuous("Año", labels = as.character(nac_depto_sexo_peso1$anio), breaks = nac_depto_sexo_peso1$anio)
+
+d <- melt(list(Suchitepequez = nac_depto_sexo_peso1,Zacapa = nac_depto_sexo_peso2,Totonicapan = nac_depto_sexo_peso3,Solola = nac_depto_sexo_peso4,Santa_Rosa = nac_depto_sexo_peso5,San_Marcos = nac_depto_sexo_peso6, Sacatepequez = nac_depto_sexo_peso7), id.vars = c("anio", "Total"))
+ggplot(d, aes(x=anio, y=Total, colour = L1)) + geom_line() + geom_point() + ggtitle("Nacimientos por año en departamentos de Guatemala") + theme(axis.text.x = element_text(angle = 90, vjust = 0.5)) + scale_x_continuous("Año", labels = as.character(nac_depto_sexo_peso1$anio), breaks = nac_depto_sexo_peso1$anio)
+
+d2 <- melt(list(Retalhuleu = nac_depto_sexo_peso8,Quiche = nac_depto_sexo_peso9,Quetzaltenango = nac_depto_sexo_peso10,Peten = nac_depto_sexo_peso11,Jutiapa = nac_depto_sexo_peso12,Jalapa = nac_depto_sexo_peso13, Izabal = nac_depto_sexo_peso14), id.vars = c("anio", "Total"))
+ggplot(d2, aes(x=anio, y=Total, colour = L1)) + geom_line() + geom_point() + ggtitle("Nacimientos por año en departamentos de Guatemala") + theme(axis.text.x = element_text(angle = 90, vjust = 0.5)) + scale_x_continuous("Año", labels = as.character(nac_depto_sexo_peso1$anio), breaks = nac_depto_sexo_peso1$anio)
+
+d3 <- melt(list(Huehuetenango = nac_depto_sexo_peso15,Escuintla = nac_depto_sexo_peso16,El_Progreso = nac_depto_sexo_peso17,Chiquimula = nac_depto_sexo_peso18,Chimaltenango = nac_depto_sexo_peso19,Baja_Verapaz = nac_depto_sexo_peso20, Alta_Verapaz = nac_depto_sexo_peso21), id.vars = c("anio", "Total"))
+ggplot(d3, aes(x=anio, y=Total, colour = L1)) + geom_line() + geom_point() + ggtitle("Nacimientos por año en departamentos de Guatemala") + theme(axis.text.x = element_text(angle = 90, vjust = 0.5)) + scale_x_continuous("Año", labels = as.character(nac_depto_sexo_peso1$anio), breaks = nac_depto_sexo_peso1$anio)
+
 
 #Graficar
-library(ggplot2)
-library(reshape2)
-library(grid)
 #Cantidad de nacimientos en el transcurso del tiempo 
 #por cada departamento.
 #Selecciono la info para tener los departamentos en una variable
-deptotanio <- dpto_res_ocu_tot %>% select(3,4,5,27)
-d <- melt(deptotanio, id.vars="anio")
-ggplot(d, aes(x = anio,value)) + geom_line() + facet_wrap(~variable, ncol = 1, scales = "free")
-#Se repite...
-deptotanio <- dpto_res_ocu_tot %>% select(6,7,8,27)
-d <- melt(deptotanio, id.vars="anio")
-ggplot(d, aes(x = anio,value)) + geom_line() + facet_wrap(~variable, ncol = 1, scales = "free")
-deptotanio <- dpto_res_ocu_tot %>% select(8,10,11,27)
-d <- melt(deptotanio, id.vars="anio")
-ggplot(d, aes(x = anio,value)) + geom_line() + facet_wrap(~variable, ncol = 1, scales = "free")
-deptotanio <- dpto_res_ocu_tot %>% select(12,13,14,27)
-d <- melt(deptotanio, id.vars="anio")
-ggplot(d, aes(x = anio,value)) + geom_line() + facet_wrap(~variable, ncol = 1, scales = "free")
-deptotanio <- dpto_res_ocu_tot %>% select(15,16,17,27)
-d <- melt(deptotanio, id.vars="anio")
-ggplot(d, aes(x = anio,value)) + geom_line() + facet_wrap(~variable, ncol = 1, scales = "free")
-deptotanio <- dpto_res_ocu_tot %>% select(18,19,20,27)
-d <- melt(deptotanio, id.vars="anio")
-ggplot(d, aes(x = anio,value)) + geom_line() + facet_wrap(~variable, ncol = 1, scales = "free")
-deptotanio <- dpto_res_ocu_tot %>% select(21,22,23,27)
-d <- melt(deptotanio, id.vars="anio")
-ggplot(d, aes(x = anio,value)) + geom_line() + facet_wrap(~variable, ncol = 1, scales = "free")
-deptotanio <- dpto_res_ocu_tot %>% select(24,25,26,27)
-d <- melt(deptotanio, id.vars="anio")
-ggplot(d, aes(x = anio,value)) + geom_line() + facet_wrap(~variable, ncol = 1, scales = "free")
+#deptotanio <- dpto_res_ocu_tot %>% select(3,4,5,27)
+#d <- melt(deptotanio, id.vars="anio")
+#ggplot(d, aes(x = anio,value)) + geom_line() + facet_wrap(~variable, #ncol = 1, scales = "free")
+##Se repite...
+#deptotanio <- dpto_res_ocu_tot %>% select(6,7,8,27)
+#d <- melt(deptotanio, id.vars="anio")
+#ggplot(d, aes(x = anio,value)) + geom_line() + facet_wrap(~variable, #ncol = 1, scales = "free")
+#deptotanio <- dpto_res_ocu_tot %>% select(8,10,11,27)
+#d <- melt(deptotanio, id.vars="anio")
+#ggplot(d, aes(x = anio,value)) + geom_line() + facet_wrap(~variable, #ncol = 1, scales = "free")
+#deptotanio <- dpto_res_ocu_tot %>% select(12,13,14,27)
+#d <- melt(deptotanio, id.vars="anio")
+#ggplot(d, aes(x = anio,value)) + geom_line() + facet_wrap(~variable, #ncol = 1, scales = "free")
+#deptotanio <- dpto_res_ocu_tot %>% select(15,16,17,27)
+#d <- melt(deptotanio, id.vars="anio")
+#ggplot(d, aes(x = anio,value)) + geom_line() + facet_wrap(~variable, #ncol = 1, scales = "free")
+#deptotanio <- dpto_res_ocu_tot %>% select(18,19,20,27)
+#d <- melt(deptotanio, id.vars="anio")
+#ggplot(d, aes(x = anio,value)) + geom_line() + facet_wrap(~variable, #ncol = 1, scales = "free")
+#deptotanio <- dpto_res_ocu_tot %>% select(21,22,23,27)
+#d <- melt(deptotanio, id.vars="anio")
+#ggplot(d, aes(x = anio,value)) + geom_line() + facet_wrap(~variable, #ncol = 1, scales = "free")
+#deptotanio <- dpto_res_ocu_tot %>% select(24,25,26,27)
+#d <- melt(deptotanio, id.vars="anio")
+#ggplot(d, aes(x = anio,value)) + geom_line() + facet_wrap(~variable, #ncol = 1, scales = "free")
 ```
 
 ### - Correlaciones  Entre  las  Variables
 
-Para hacer el estudio de correlación para cada tabla, solo se puede aplicar a variables cuantitativas, se investigó si se puede convertir las variables cuantitativas a numeros diferentes aleatorios, pero las únicas formas que encontramos eran muy complejas en cuestion de tiempo. Por esta razón, se hizo el estudio de correlaión solo entre vaariables cuantitativas actuales.
+Para hacer el estudio de correlación para cada tabla, solo se puede aplicar a variables cuantitativas, se investigó si se puede convertir las variables cuantitativas a numeros diferentes aleatorios, pero las únicas formas que encontramos eran muy complejas en cuestion de tiempo. Por esta razón, se hizo el estudio de correlaión solo entre variables cuantitativas actuales.
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 # Check correlation
-library(corrplot)
 frstselect <- subset (dpto_res_ocu, select = c(2:27))
 M <- cor(frstselect)
 col <- colorRampPalette(c("#BB4444", "#EE9988", "#FFFFFF", "#77AADD", "#4477AA"))
