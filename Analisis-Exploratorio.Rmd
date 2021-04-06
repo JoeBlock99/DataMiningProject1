@@ -525,8 +525,81 @@ corrplot(M8,  method = "color", col = col(200), number.cex = .9,
 
 ### - Variables Categóricas
 ### - Número de Clusters
+
+Para analizar de mejor manera la informacion se hara un agrupamiento. Por lo que se hara una grafica de codo para determinar la cantidad de grupos adecuados para el analisis de datos.
+
+```{r echo=FALSE}
+
+library(tidyverse)  # data manipulation
+library(cluster)    # clustering algorithms
+library(factoextra)
+
+elbow <- nac_por_dpto_edades_simples %>% filter(Edad != "Todas las edades") %>% select(-1, -27)
+
+avg_sil <- function(k) {
+  km.res <- kmeans(na.omit(elbow), centers = k, nstart = 25)
+  ss <- silhouette(km.res$cluster, dist(elbow))
+  mean(ss[, 3])
+}
+k.values <- 2:14
+avg_sil_values <- sapply(k.values, avg_sil)
+plot(k.values, avg_sil_values,
+       type = "b", pch = 19, frame = FALSE, 
+       xlab = "Number of clusters K",
+       ylab = "Average Silhouettes")
+
+```
+
+Para realizar la grafica de codo se seleccionaron las variables cuantitativas que consideramos mas relevantes que en este caso fueron la cantidad de nacimientos por departamento.
+
+El grafico antes mostrado nos indica que podemos hacer una eleccion de 3 o 5 clusters por lo que se decidira utilizar 3 clusters para el analisis de datos.
+
+
 ### - Agrupamiento
+
+```{r echo=FALSE, warning=FALSE}
+elbow <- nac_por_dpto_edades_simples %>% filter(Edad != "Todas las edades") %>% select(-1, -27)
+
+
+mydata <- elbow
+a<- data.matrix(mydata)
+km<-kmeans(a, 3, iter.max = 10, nstart = 1)
+plot(a, col = km$cluster)
+points(km$centers, col = 1:5, type= "p",pch = 8, cex = 10)
+
+```
+
+Luego del agrupamiento se obtuvo la grafica anterior similar a la anterior, sin embargo, dada la cantidad de datos y la cercania entre valores no se puede apreciar con certeza los clusters generados. Por lo que que decidimos separar los clusters por variables especificas. Por ejemplo, por departamento y su total de nacimientos.
+
+De esta manera se pudo apreciar mejor la division entre grupoos. Y se realizo asi con todas las variables que considermaos necesarias para el analisis.
+
 ### - Calidad del Agrupamiento
+
+```{r echo=FALSE}
+
+set.seed(123)
+
+elbow <- nac_por_dpto_edades_simples %>% filter(Edad != "Todas las edades") %>% select(-1, -27)
+
+# function to compute total within-cluster sum of square 
+wss <- function(k) {
+  kmeans(elbow, k, nstart = 10 )$tot.withinss
+}
+
+# Compute and plot wss for k = 1 to k = 15
+k.values <- 1:15
+
+# extract wss for 2-15 clusters
+wss_values <- map_dbl(k.values, wss)
+
+plot(k.values, wss_values,
+       type="b", pch = 19, frame = FALSE, 
+       xlab="Number of clusters K",
+       ylab="Total within-clusters sum of squares")
+
+```
+
+Al utilizar el metodo de la silueta podemos identificar el numero correcto de clusters a tratar que es de 3, el mimsmo que se eligio previamente. 
 
 ## Hallazgos y conclusiones
 ***
