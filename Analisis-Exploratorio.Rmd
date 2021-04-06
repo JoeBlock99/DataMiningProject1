@@ -153,6 +153,35 @@ nac_edad_madre_depto_area_etnia %>% filter(Departamento.de.ocurrencia != "Todos 
 ```{r echo=FALSE}
 nac_escolaridad_madre %>% filter(Número.de.hijos.as. != "Todos los hijos") %>% select(-2) %>% introduce()
 ```
+Tambien se revisó que la mayoría de variables no tubieran duplicados por tíldes, principalmente en la columnas de departamentos y mucicipios.
+
+```{r echo=FALSE}
+
+print("dpto_res_ocu")
+unique(dpto_res_ocu$...1)
+
+print("nac_edad_madre_departamento_municipio")
+unique(nac_edad_madre_departamento_municipio$Departamento.de.residencia)
+unique(nac_edad_madre_departamento_municipio$Municipios)
+
+print("nac_depto_sexo_peso")
+unique(nac_depto_sexo_peso$Departamento.de.residencia)
+
+print("nac_por_estado_civil")
+unique(nac_depto_sexo_peso$Departamento.de.residencia)
+
+print("nac_vivos_muertos_por_dpto")
+unique(nac_vivos_muertos_por_dpto$Departamento.de.residencia)
+
+print("nac_edad_madre_depto_area_etnia")
+unique(nac_edad_madre_depto_area_etnia$Departamento.de.ocurrencia)
+unique(nac_edad_madre_depto_area_etnia$Pueblo.de.pertenencia.de.la.madre)
+
+```
+En las últimas dos tablas, podemos notar que hay repetidas ciertas palabras por tilde o escritura, los errores notorios son los siguientes:
+- tíldes
+-Xinka/Xinca
+
 
 ## Análisis Exploratorio
 ***
@@ -185,6 +214,7 @@ Resumen estadístico de variables:
 ```{r echo=FALSE}
 smry1 <- dpto_res_ocu %>% select(2:26)
 summary(smry1)
+unique(dpto_res_ocu$...1)
 ```
 
 - Nacimientos por estado civil de la madre, según departamento de su residencia				
@@ -195,17 +225,7 @@ Resumen estadístico de variables:
 smry2 <- nac_por_estado_civil %>% select(2:6)
 summary(smry2)
 ```
-- Nacimientos por departamento
 
-Dentro de las preguntas interesantes, orientadas a nuestra problematica, surgio la curiosidad por saber cuantos nacimientos hubo a lo largo de 10 años en todos los departamentos de la republica. Para resolver esta duda se utilizo el data set de nacimientos por  departamento. Obtuvimos los siguientes resultados:
-
-```{r echo=FALSE}
-
-nac_por_dpto_todas_las_edades <- nac_por_dpto_edades_simples %>% filter(Edad == "Todas las edades") %>% select(-1, -2)
-
-# Plot of births per city per year
-barplot(as.matrix(nac_por_dpto_todas_las_edades %>% select(-25)), beside=TRUE, las=2)
-```
 - Nacimientos vivos y muertos por tipo de parto, según departamento de residencia de la madre		
 
 Resumen estadístico de variables:
@@ -220,6 +240,7 @@ summary(smry3)
 Resumen estadístico de variables:
 
 ```{r echo=FALSE}
+nac_depto_sexo_peso$Mujeres = abs(nac_depto_sexo_peso$Mujeres)
 smry4 <- nac_depto_sexo_peso %>% select(2:5)
 summary(smry4)
 ```
@@ -253,6 +274,18 @@ summary(smry7)
 ```
 
 ### - Gráficos  Exploratorios
+
+- Nacimientos por departamento
+
+Dentro de las preguntas interesantes, orientadas a nuestra problematica, surgio la curiosidad por saber cuantos nacimientos hubo a lo largo de 10 años en todos los departamentos de la republica. Para resolver esta duda se utilizo el data set de nacimientos por  departamento. Obtuvimos los siguientes resultados:
+
+```{r echo=FALSE}
+
+nac_por_dpto_todas_las_edades <- nac_por_dpto_edades_simples %>% filter(Edad == "Todas las edades") %>% select(-1, -2)
+
+# Plot of births per city per year
+barplot(as.matrix(nac_por_dpto_todas_las_edades %>% select(-25)), beside=TRUE, las=2)
+```
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 #Separar la info para dar graficos 
 #Guatemala
@@ -346,28 +379,7 @@ ggplot(d3, aes(x=anio, y=Total, colour = L1)) + geom_line() + geom_point() + ggt
 #deptotanio <- dpto_res_ocu_tot %>% select(3,4,5,27)
 #d <- melt(deptotanio, id.vars="anio")
 #ggplot(d, aes(x = anio,value)) + geom_line() + facet_wrap(~variable, #ncol = 1, scales = "free")
-##Se repite...
-#deptotanio <- dpto_res_ocu_tot %>% select(6,7,8,27)
-#d <- melt(deptotanio, id.vars="anio")
-#ggplot(d, aes(x = anio,value)) + geom_line() + facet_wrap(~variable, #ncol = 1, scales = "free")
-#deptotanio <- dpto_res_ocu_tot %>% select(8,10,11,27)
-#d <- melt(deptotanio, id.vars="anio")
-#ggplot(d, aes(x = anio,value)) + geom_line() + facet_wrap(~variable, #ncol = 1, scales = "free")
-#deptotanio <- dpto_res_ocu_tot %>% select(12,13,14,27)
-#d <- melt(deptotanio, id.vars="anio")
-#ggplot(d, aes(x = anio,value)) + geom_line() + facet_wrap(~variable, #ncol = 1, scales = "free")
-#deptotanio <- dpto_res_ocu_tot %>% select(15,16,17,27)
-#d <- melt(deptotanio, id.vars="anio")
-#ggplot(d, aes(x = anio,value)) + geom_line() + facet_wrap(~variable, #ncol = 1, scales = "free")
-#deptotanio <- dpto_res_ocu_tot %>% select(18,19,20,27)
-#d <- melt(deptotanio, id.vars="anio")
-#ggplot(d, aes(x = anio,value)) + geom_line() + facet_wrap(~variable, #ncol = 1, scales = "free")
-#deptotanio <- dpto_res_ocu_tot %>% select(21,22,23,27)
-#d <- melt(deptotanio, id.vars="anio")
-#ggplot(d, aes(x = anio,value)) + geom_line() + facet_wrap(~variable, #ncol = 1, scales = "free")
-#deptotanio <- dpto_res_ocu_tot %>% select(24,25,26,27)
-#d <- melt(deptotanio, id.vars="anio")
-#ggplot(d, aes(x = anio,value)) + geom_line() + facet_wrap(~variable, #ncol = 1, scales = "free")
+
 ```
 Si analizamos individualmente los departamentos observamos que las cifras van en aumento, alcanzan un maximo y luego descienden.
 
@@ -424,7 +436,6 @@ corrplot(M,  method = "color", col = col(200), order = "hclust", number.cex = .3
          sig.level = 0.50, insig = "blank", 
          # hide correlation coefficient on the principal diagonal
          diag = FALSE)
-
 scndselect <- subset (nac_edad_madre_departamento_municipio, select = c(3:14))
 M2 <- cor(scndselect)
 corrplot(M2,  method = "color", col = col(200), order = "hclust", number.cex = .7,
@@ -446,6 +457,7 @@ corrplot(M3,  method = "color", col = col(200), order = "hclust", number.cex = 1
          sig.level = 0.50, insig = "blank", 
          # hide correlation coefficient on the principal diagonal
          diag = FALSE)
+
 frthselect <- subset (nac_por_estado_civil, select = c(2:7))
 M4 <- cor(frthselect)
 corrplot(M4,  method = "color", col = col(200), order = "hclust", number.cex = 1.5,
@@ -467,7 +479,6 @@ corrplot(M5,  method = "color", col = col(200), order = "hclust", number.cex = 1
          sig.level = 0.50, insig = "blank", 
          # hide correlation coefficient on the principal diagonal
          diag = FALSE)
-
 sthselect <- subset (nac_edad_madre_depto_area_etnia, select = c(3:14))
 sthselect = sthselect[rowSums(is.na(sthselect)) == 0, ]
 M6 <- cor(sthselect)
@@ -479,6 +490,37 @@ corrplot(M6,  method = "color", col = col(200), order = "hclust", number.cex = .
          sig.level = 0.50, insig = "blank", 
          # hide correlation coefficient on the principal diagonal
          diag = FALSE)
+
+svnthselect <- subset (nac_por_dpto_edades_simples, select = c(2:24))
+svnthselect = svnthselect[rowSums(is.na(svnthselect)) == 0, ]
+M7 <- cor(svnthselect)
+corrplot(M7,  method = "color", col = col(200), order = "hclust", number.cex = .5,
+         addCoef.col = "black", # Add coefficient of correlation
+         tl.col = "black", 
+         # Text label color and rotation
+         # Combine with significance
+         sig.level = 0.2, insig = "blank", 
+         # hide correlation coefficient on the principal diagonal
+         diag = FALSE)
+
+
+M8 <- cor(fthselect,frthselect)
+corrplot(M8,  method = "color", col = col(200), number.cex = .9,
+         addCoef.col = "black", # Add coefficient of correlation
+         tl.col = "black", 
+         # Text label color and rotation
+         # Combine with significance
+         sig.level = 0.9)
+
+#M11 <- cor(scndselect,frthselect)
+#corrplot(M11,  method = "color", col = col(200), number.cex = .5,
+#         addCoef.col = "black", # Add coefficient of correlation
+#         tl.col = "black", 
+#         # Text label color and rotation
+#         # Combine with significance
+#         sig.level = 0.9)
+
+
 ```
 
 ### - Variables Categóricas
