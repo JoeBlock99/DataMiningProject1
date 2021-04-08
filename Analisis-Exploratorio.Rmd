@@ -371,14 +371,6 @@ ggplot(d2, aes(x=anio, y=Total, colour = L1)) + geom_line() + geom_point() + ggt
 d3 <- melt(list(Huehuetenango = nac_depto_sexo_peso15,Escuintla = nac_depto_sexo_peso16,El_Progreso = nac_depto_sexo_peso17,Chiquimula = nac_depto_sexo_peso18,Chimaltenango = nac_depto_sexo_peso19,Baja_Verapaz = nac_depto_sexo_peso20, Alta_Verapaz = nac_depto_sexo_peso21), id.vars = c("anio", "Total"))
 ggplot(d3, aes(x=anio, y=Total, colour = L1)) + geom_line() + geom_point() + ggtitle("Nacimientos por año en departamentos de Guatemala") + theme(axis.text.x = element_text(angle = 90, vjust = 0.5)) + scale_x_continuous("Año", labels = as.character(nac_depto_sexo_peso1$anio), breaks = nac_depto_sexo_peso1$anio)
 
-#Graficar
-#Cantidad de nacimientos en el transcurso del tiempo 
-#por cada departamento.
-#Selecciono la info para tener los departamentos en una variable
-#deptotanio <- dpto_res_ocu_tot %>% select(3,4,5,27)
-#d <- melt(deptotanio, id.vars="anio")
-#ggplot(d, aes(x = anio,value)) + geom_line() + facet_wrap(~variable, #ncol = 1, scales = "free")
-
 ```
 
 Porcentaje de mortandad por nacimiento en cada departamento:
@@ -442,6 +434,68 @@ ggplot(d5, aes(x=anio, y=prmort, colour = L1)) + geom_line() + geom_point() + gg
 d6 <- melt(list(Huehuetenango = nac_vivos_muertos_por_dpto15,Escuintla = nac_vivos_muertos_por_dpto16,El_Progreso = nac_vivos_muertos_por_dpto17,Chiquimula = nac_vivos_muertos_por_dpto18,Chimaltenango = nac_vivos_muertos_por_dpto19,Baja_Verapaz = nac_vivos_muertos_por_dpto20, Alta_Verapaz = nac_vivos_muertos_por_dpto21), id.vars = c("anio", "prmort"))
 ggplot(d6, aes(x=anio, y=prmort, colour = L1)) + geom_line() + geom_point() + ggtitle("Porcentaje de muertes por total de nacimientos en departamentos") + theme(axis.text.x = element_text(angle = 90, vjust = 0.5)) + scale_x_continuous("Año", labels = as.character(nac_vivos_muertos_por_dpto1$anio), breaks = nac_vivos_muertos_por_dpto1$anio)
 ```
+
+Porcentaje de mujeres solteras por cada anio en cada departamento.
+
+```{r echo=FALSE}
+#Se genera una columna con un porcentaje de muertes por nacimiento en pais por anio
+nac_por_estado_civil$prsoltera <- nac_por_estado_civil$Soltera / nac_por_estado_civil$Total
+nac_por_estado_civil$prsoltera = nac_por_estado_civil$prsoltera*100
+
+nac_por_estado_civil0 <- nac_por_estado_civil %>% filter(Departamento.de.residencia == "Guatemala")
+
+nac_por_estado_civil1 <-nac_por_estado_civil %>% filter(Departamento.de.residencia == "Suchitepéquez")
+
+nac_por_estado_civil2 <- nac_por_estado_civil %>% filter(Departamento.de.residencia == "Zacapa")
+
+nac_por_estado_civil3 <- nac_por_estado_civil %>% filter(Departamento.de.residencia == "Totonicapán")
+
+nac_por_estado_civil4 <- nac_por_estado_civil %>% filter(Departamento.de.residencia == "Sololá")
+
+nac_por_estado_civil5 <- nac_por_estado_civil %>% filter(Departamento.de.residencia == "Santa Rosa")
+
+nac_por_estado_civil6 <- nac_por_estado_civil %>% filter(Departamento.de.residencia == "San Marcos")
+
+nac_por_estado_civil7 <- nac_por_estado_civil %>% filter(Departamento.de.residencia == "Sacatepéquez")
+
+nac_por_estado_civil8 <- nac_por_estado_civil %>% filter(Departamento.de.residencia == "Retalhuleu")
+
+nac_por_estado_civil9 <- nac_por_estado_civil %>% filter(Departamento.de.residencia == "Quiché")
+
+nac_por_estado_civil10 <- nac_por_estado_civil %>% filter(Departamento.de.residencia == "Quetzaltenango")
+
+nac_por_estado_civil11 <- nac_por_estado_civil %>% filter(Departamento.de.residencia == "Petén")
+
+nac_por_estado_civil12 <- nac_por_estado_civil %>% filter(Departamento.de.residencia == "Jutiapa")
+
+nac_por_estado_civil13 <- nac_por_estado_civil %>% filter(Departamento.de.residencia == "Jalapa")
+
+nac_por_estado_civil14 <- nac_por_estado_civil %>% filter(Departamento.de.residencia == "Izabal")
+
+nac_por_estado_civil15 <- nac_por_estado_civil %>% filter(Departamento.de.residencia == "Huehuetenango")
+
+nac_por_estado_civil16 <- nac_por_estado_civil%>% filter(Departamento.de.residencia == "Escuintla")
+
+nac_por_estado_civil17 <- nac_por_estado_civil %>% filter(Departamento.de.residencia == "El Progreso")
+
+nac_por_estado_civil18 <- nac_por_estado_civil %>% filter(Departamento.de.residencia == "Chiquimula")
+
+nac_por_estado_civil19 <- nac_por_estado_civil %>% filter(Departamento.de.residencia == "Chimaltenango")
+
+nac_por_estado_civil20 <- nac_por_estado_civil %>% filter(Departamento.de.residencia == "Baja Verapaz")
+
+nac_por_estado_civil21 <- nac_por_estado_civil %>% filter(Departamento.de.residencia == "Alta Verapaz")
+
+d7 <- melt(list(Guatemala = nac_por_estado_civil0,Suchitepequez = nac_por_estado_civil1,Zacapa = nac_por_estado_civil2,Totonicapan = nac_por_estado_civil3,Solola = nac_por_estado_civil4,Santa_Rosa = nac_por_estado_civil5,San_Marcos = nac_por_estado_civil6, Sacatepequez = nac_por_estado_civil7), id.vars = c("anio", "prsoltera"))
+ggplot(d7, aes(x=anio, y=prsoltera, colour = L1)) + geom_line() + geom_point() + ggtitle("Porcentaje de mujeres solteras por anio") + theme(axis.text.x = element_text(angle = 90, vjust = 0.5)) + scale_x_continuous("Año", labels = as.character(nac_por_estado_civil1$anio), breaks = nac_por_estado_civil1$anio)
+
+d8 <- melt(list(Retalhuleu = nac_por_estado_civil8,Quiche = nac_por_estado_civil9,Quetzaltenango = nac_por_estado_civil10,Peten = nac_por_estado_civil11,Jutiapa = nac_por_estado_civil12,Jalapa = nac_por_estado_civil13, Izabal = nac_por_estado_civil14), id.vars = c("anio", "prsoltera"))
+ggplot(d8, aes(x=anio, y=prsoltera, colour = L1)) + geom_line() + geom_point() + ggtitle("Porcentaje de mujeres solteras por anio") + theme(axis.text.x = element_text(angle = 90, vjust = 0.5)) + scale_x_continuous("Año", labels = as.character(nac_por_estado_civil1$anio), breaks = nac_por_estado_civil1$anio)
+
+d9 <- melt(list(Huehuetenango = nac_por_estado_civil15,Escuintla = nac_por_estado_civil16,El_Progreso = nac_por_estado_civil17,Chiquimula = nac_por_estado_civil18,Chimaltenango = nac_por_estado_civil19,Baja_Verapaz = nac_por_estado_civil20, Alta_Verapaz = nac_por_estado_civil21), id.vars = c("anio", "prsoltera"))
+ggplot(d9, aes(x=anio, y=prsoltera, colour = L1)) + geom_line() + geom_point() + ggtitle("Porcentaje de mujeres solteras por anio") + theme(axis.text.x = element_text(angle = 90, vjust = 0.5)) + scale_x_continuous("Año", labels = as.character(nac_por_estado_civil1$anio), breaks = nac_por_estado_civil1$anio)
+```
+
 
 Si analizamos individualmente los departamentos observamos que las cifras van en aumento, alcanzan un maximo y luego descienden.
 
