@@ -729,6 +729,15 @@ Al utilizar el metodo de la silueta podemos identificar el numero correcto de cl
 
 ## Hallazgos y conclusiones
 ***
+Para realizar el análisis exploratorio se inició con la clasificación de las variables por cada uno de los sets de datos, iniciando por la variables que nos ayudaban a determinar el departamento de ocurrencia del nacimiento, entre estas variables están el mes, departamento y anio. 
+
+Después se procedió a hacer análisis por agrupamientos donde se clasificaron los datos por edad de la madre, estado civil de la misma, nacimientos por escolaridad según el numero de hijos tenidos, entre otros. 
+
+Pasando a la sección de la estadística descriptiva primero se procedió a hacer un analisis muy a grandes rasgos sobre las situación de nacimientos por cada departamento, durante los 10 anios. Dentro de esta seccion y también clasificado por departamento se indago sobre nacimientos por grupos de edad de la madre, según departamento y pueblo de pertenencia de la madre, nacimientos por grupos de edad de la madre, según departamento y municipio de su residencia, entre otros. 
+
+Pasando a los resultados y los hallazgos más relevante encontrados. Vemos que en la seccion de gráficos exploratorios existe una gran cantidad de diferencias entre la cantidad de nacidos por cada uno de los departamentos entre los departamentos con mayor cantidad de nacimientos se encuentran Guatemala, San Marcos y Huehuetenango. 
+
+***
 ### - Hallazgos en el análisis exploratorio
 ### - Nombre a los grupos
 ### - Conclusiones
