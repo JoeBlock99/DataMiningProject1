@@ -25,19 +25,30 @@ load("DataMiningP1Project.RData")
 
 ## Situación  Problemática
 ***
-En Guatemala pasa que al hacer inversiones en ciertas areas como la educacion, se hace la inversion sin pensar en que sectores es mas eficiente invertir en educacion y resulta ser una inversion con un bajo impacto en el pais, porque resulta que hay sectores que lo necesitan.
+En Guatemala se tiene uno de los índices de desnutrición infantil más altos de latinoamérica, al mismo tiempo que se tiene una muy baja tasa de alfabetización. También es bien conocido que el sistema de salud del país es muy precario y la mayoría de personas del interior del país no tienen acceso ni a un centro de salud o control natal, también la mayoría de los partos se dan con comadronas y no en centros asistidos por un médico. 
+
+Desde esta perspectiva de los dos puntos dos datos anteriores parece que como país no se brindan las condiciones y oportunidades necesarias para poder permitir florecer a la niñez. 
+
+Lo que buscamos con el siguiente trabajo es poder identificar cuáles son algunos de los factores más influyentes en los nacimientos y poder identificar patrones para plantear soluciones. Desde la búsqueda por departamentos, información que se pueda obtener de la madre, edades, etc. 
+
+Con identificar esto buscamos determinar el departamento en mayor necesidad de educación sexual, centros asistenciales, control prenatal, etc. En Guatemala pasa que al hacer inversiones en ciertas áreas como la educación, se hace la inversión sin pensar en qué sectores es más eficiente invertir en educación y resulta ser una inversión con un bajo impacto en el país, porque resulta que hay sectores que lo necesitan.
+
 
 ## Problema científico
 ***
 Con la informacion de nacimientos de 2009 a 2019 queremos hacer un analisis de datos para la inversion de educacion segun departamento tomando en cuenta cantidad de nacimientos por departamento y las condiciones de la madre de cada parto.
 
+Como segundo objetivo ya mencionado será identificar las condiciones de cada parto y las más comunes según el departamento. 
+
+
 ## Objetivos
 ***
-- Averiguar que variables influyen mas en que la madre este soltera con un modelo.
+- Determinar cuales son las variables más influyentes o repetitivas en que una madre sea soltera por medio de un modelo.
+- Identificar la correlación (si es que existe) entre el departamento con mayor tasa de nacimientos y predecir como esta aumentará.
 
-- Determinar mayor taza de nacimientos por departamento y determinar orden de mayor a menor crecimiento o probabilidad de crecimiento de taza de nacimientos.
+- Determinar los departamentos en los que más se debe invertir en educación sexual según los índices obtenidos. 
 
-- Decidir un orden de departamentos en los que se debe invertir en educacion segun los datos analizados.
+- Realizar hallazgos para posibles analisis de el set de datos explorado. 
 
 ## Descripción  de  los  datos
 ***
