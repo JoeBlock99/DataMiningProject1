@@ -737,6 +737,13 @@ Pasando a la sección de la estadística descriptiva primero se procedió a hace
 
 Pasando a los resultados y los hallazgos más relevante encontrados. Vemos que en la seccion de gráficos exploratorios existe una gran cantidad de diferencias entre la cantidad de nacidos por cada uno de los departamentos entre los departamentos con mayor cantidad de nacimientos se encuentran Guatemala, San Marcos y Huehuetenango. 
 
+También pudimos determinar que entre todos los 10 anios de los cuales se tenia registro el 2015 es donde se ve uno de los mayores incrementos en la taza de nacimiento, y después de esto podemos ver que en los últimos años hemos observado una tendencia al decremento en la taza de nacimiento, aunque esta no es altamente significativa  también puede ser indicativo de otros factores. 
+También se analizo las tendencias en los nacimientos a lo largo de los 10 anios, en este caso se decidió separar los departamentos en grupos de 7 y el ultimo de 8 departamentos, esta separación se hizo únicamente con objetivo de poder visualizarlo en un poco mas de orden, ya que  22 lineas habría sido difícil de comprender. 
+
+Consecuente a eso se prodecio a hacer el mismo análisis pero con el porcentaje de muertes por el total de nacimientosen departamentos. Siguiendo la misma mecánica de sepacion entre grupos de 7 departamentos para facilidad de comprensión. Uno de los hallazgos mas importantes en estas graficas es que el comportamiento de las graficas de muerte son mucho mas dispersas que las de nacimientos, pues las graficas de nacimientos se encontraban bastante constantes en la mayoría de los departamentos. Versus las de mortalidad que tienen aumentos muy en pico y disminuciones de igual manera. 
+
+En este caso encontrar una correlación entre nacimientos y muertes se hace bastante mas complicada pero se deja a futura exploración el poder determinar si existe alguna correlación entre estos 2 fenomenos.  Para finalizar con la parte de las graficas para los futuros análisis se agruparan por departamentos que tengan comportamientos similares entre nacimientos y muertes. Haciendo esto también se podrá determinar si existe alguna relación entre los comportamientos de las graficas y sus ubicaciones geográficas, abriendo la puerta a fenómenos económicos o ambientales localizados en cierto sector del país. 
+
 ***
 ### - Hallazgos en el análisis exploratorio
 ### - Nombre a los grupos
