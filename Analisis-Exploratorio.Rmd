@@ -371,7 +371,6 @@ ggplot(d2, aes(x=anio, y=Total, colour = L1)) + geom_line() + geom_point() + ggt
 d3 <- melt(list(Huehuetenango = nac_depto_sexo_peso15,Escuintla = nac_depto_sexo_peso16,El_Progreso = nac_depto_sexo_peso17,Chiquimula = nac_depto_sexo_peso18,Chimaltenango = nac_depto_sexo_peso19,Baja_Verapaz = nac_depto_sexo_peso20, Alta_Verapaz = nac_depto_sexo_peso21), id.vars = c("anio", "Total"))
 ggplot(d3, aes(x=anio, y=Total, colour = L1)) + geom_line() + geom_point() + ggtitle("Nacimientos por año en departamentos de Guatemala") + theme(axis.text.x = element_text(angle = 90, vjust = 0.5)) + scale_x_continuous("Año", labels = as.character(nac_depto_sexo_peso1$anio), breaks = nac_depto_sexo_peso1$anio)
 
-
 #Graficar
 #Cantidad de nacimientos en el transcurso del tiempo 
 #por cada departamento.
@@ -381,8 +380,70 @@ ggplot(d3, aes(x=anio, y=Total, colour = L1)) + geom_line() + geom_point() + ggt
 #ggplot(d, aes(x = anio,value)) + geom_line() + facet_wrap(~variable, #ncol = 1, scales = "free")
 
 ```
-Si analizamos individualmente los departamentos observamos que las cifras van en aumento, alcanzan un maximo y luego descienden.
 
+Porcentaje de mortandad por nacimiento en cada departamento:
+
+```{r echo=FALSE}
+#Se genera una columna con un porcentaje de muertes por nacimiento en pais por anio
+nac_vivos_muertos_por_dpto$prmort <- nac_vivos_muertos_por_dpto$Nacidos.muertos / nac_vivos_muertos_por_dpto$Total..
+nac_vivos_muertos_por_dpto$prmort = nac_vivos_muertos_por_dpto$prmort*100
+
+#Separar en grupos para graficar
+nac_vivos_muertos_por_dpto0 <- nac_vivos_muertos_por_dpto %>% filter(Departamento.de.residencia == "Guatemala")
+
+nac_vivos_muertos_por_dpto1 <-nac_vivos_muertos_por_dpto %>% filter(Departamento.de.residencia == "Suchitepéquez")
+
+nac_vivos_muertos_por_dpto2 <- nac_vivos_muertos_por_dpto %>% filter(Departamento.de.residencia == "Zacapa")
+
+nac_vivos_muertos_por_dpto3 <- nac_vivos_muertos_por_dpto %>% filter(Departamento.de.residencia == "Totonicapán")
+
+nac_vivos_muertos_por_dpto4 <- nac_vivos_muertos_por_dpto %>% filter(Departamento.de.residencia == "Sololá")
+
+nac_vivos_muertos_por_dpto5 <- nac_vivos_muertos_por_dpto %>% filter(Departamento.de.residencia == "Santa Rosa")
+
+nac_vivos_muertos_por_dpto6 <- nac_vivos_muertos_por_dpto %>% filter(Departamento.de.residencia == "San Marcos")
+
+nac_vivos_muertos_por_dpto7 <- nac_vivos_muertos_por_dpto %>% filter(Departamento.de.residencia == "Sacatepéquez")
+
+nac_vivos_muertos_por_dpto8 <- nac_vivos_muertos_por_dpto %>% filter(Departamento.de.residencia == "Retalhuleu")
+
+nac_vivos_muertos_por_dpto9 <- nac_vivos_muertos_por_dpto %>% filter(Departamento.de.residencia == "Quiché")
+
+nac_vivos_muertos_por_dpto10 <- nac_vivos_muertos_por_dpto %>% filter(Departamento.de.residencia == "Quetzaltenango")
+
+nac_vivos_muertos_por_dpto11 <- nac_vivos_muertos_por_dpto %>% filter(Departamento.de.residencia == "Petén")
+
+nac_vivos_muertos_por_dpto12 <- nac_vivos_muertos_por_dpto %>% filter(Departamento.de.residencia == "Jutiapa")
+
+nac_vivos_muertos_por_dpto13 <- nac_vivos_muertos_por_dpto %>% filter(Departamento.de.residencia == "Jalapa")
+
+nac_vivos_muertos_por_dpto14 <- nac_vivos_muertos_por_dpto %>% filter(Departamento.de.residencia == "Izabal")
+
+nac_vivos_muertos_por_dpto15 <- nac_vivos_muertos_por_dpto %>% filter(Departamento.de.residencia == "Huehuetenango")
+
+nac_vivos_muertos_por_dpto16 <- nac_vivos_muertos_por_dpto%>% filter(Departamento.de.residencia == "Escuintla")
+
+nac_vivos_muertos_por_dpto17 <- nac_vivos_muertos_por_dpto %>% filter(Departamento.de.residencia == "El Progreso")
+
+nac_vivos_muertos_por_dpto18 <- nac_vivos_muertos_por_dpto %>% filter(Departamento.de.residencia == "Chiquimula")
+
+nac_vivos_muertos_por_dpto19 <- nac_vivos_muertos_por_dpto %>% filter(Departamento.de.residencia == "Chimaltenango")
+
+nac_vivos_muertos_por_dpto20 <- nac_vivos_muertos_por_dpto %>% filter(Departamento.de.residencia == "Baja Verapaz")
+
+nac_vivos_muertos_por_dpto21 <- nac_vivos_muertos_por_dpto %>% filter(Departamento.de.residencia == "Alta Verapaz")
+
+d4 <- melt(list(Guatemala = nac_vivos_muertos_por_dpto0,Suchitepequez = nac_vivos_muertos_por_dpto1,Zacapa = nac_vivos_muertos_por_dpto2,Totonicapan = nac_vivos_muertos_por_dpto3,Solola = nac_vivos_muertos_por_dpto4,Santa_Rosa = nac_vivos_muertos_por_dpto5,San_Marcos = nac_vivos_muertos_por_dpto6, Sacatepequez = nac_vivos_muertos_por_dpto7), id.vars = c("anio", "prmort"))
+ggplot(d4, aes(x=anio, y=prmort, colour = L1)) + geom_line() + geom_point() + ggtitle("Porcentaje de muertes por total de nacimientos en departamentos") + theme(axis.text.x = element_text(angle = 90, vjust = 0.5)) + scale_x_continuous("Año", labels = as.character(nac_vivos_muertos_por_dpto1$anio), breaks = nac_vivos_muertos_por_dpto1$anio)
+
+d5 <- melt(list(Retalhuleu = nac_vivos_muertos_por_dpto8,Quiche = nac_vivos_muertos_por_dpto9,Quetzaltenango = nac_vivos_muertos_por_dpto10,Peten = nac_vivos_muertos_por_dpto11,Jutiapa = nac_vivos_muertos_por_dpto12,Jalapa = nac_vivos_muertos_por_dpto13, Izabal = nac_vivos_muertos_por_dpto14), id.vars = c("anio", "prmort"))
+ggplot(d5, aes(x=anio, y=prmort, colour = L1)) + geom_line() + geom_point() + ggtitle("Porcentaje de muertes por total de nacimientos en departamentos") + theme(axis.text.x = element_text(angle = 90, vjust = 0.5)) + scale_x_continuous("Año", labels = as.character(nac_vivos_muertos_por_dpto1$anio), breaks = nac_vivos_muertos_por_dpto1$anio)
+
+d6 <- melt(list(Huehuetenango = nac_vivos_muertos_por_dpto15,Escuintla = nac_vivos_muertos_por_dpto16,El_Progreso = nac_vivos_muertos_por_dpto17,Chiquimula = nac_vivos_muertos_por_dpto18,Chimaltenango = nac_vivos_muertos_por_dpto19,Baja_Verapaz = nac_vivos_muertos_por_dpto20, Alta_Verapaz = nac_vivos_muertos_por_dpto21), id.vars = c("anio", "prmort"))
+ggplot(d6, aes(x=anio, y=prmort, colour = L1)) + geom_line() + geom_point() + ggtitle("Porcentaje de muertes por total de nacimientos en departamentos") + theme(axis.text.x = element_text(angle = 90, vjust = 0.5)) + scale_x_continuous("Año", labels = as.character(nac_vivos_muertos_por_dpto1$anio), breaks = nac_vivos_muertos_por_dpto1$anio)
+```
+
+Si analizamos individualmente los departamentos observamos que las cifras van en aumento, alcanzan un maximo y luego descienden.
 
 
 ```{r echo=FALSE}
@@ -409,7 +470,6 @@ barplot(nac_guatemala_sexo_peso_clean$x, names.arg = nac_guatemala_sexo_peso_cle
 
 ```
 
-
 Luego de esto se quizo ver como era la distribucion de nacimientos por edades, se obtuvieron los siguientes resultados:
 
 ```{r echo=FALSE}
@@ -418,7 +478,6 @@ nac_por_edad <- aggregate(nac_por_dpto_edades_simples$Total, by=list(nac_por_dpt
 nac_por_edad <- head(nac_por_edad, - 1)
 barplot(nac_por_edad$x, names.arg = nac_por_edad$Group.1, las=2)
 ```
-
 
 ### - Correlaciones  Entre  las  Variables
 
@@ -524,6 +583,8 @@ corrplot(M8,  method = "color", col = col(200), number.cex = .9,
 ```
 
 ### - Variables Categóricas
+ Hacer arbol por tabla, para verificar que tabla puede predecir a que departamento pertenece cada fila de las tablas.
+ 
 ### - Número de Clusters
 
 Para analizar de mejor manera la informacion se hara un agrupamiento. Por lo que se hara una grafica de codo para determinar la cantidad de grupos adecuados para el analisis de datos.
