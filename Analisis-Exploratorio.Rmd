@@ -727,7 +727,7 @@ plot(k.values, wss_values,
 
 Al utilizar el metodo de la silueta podemos identificar el numero correcto de clusters a tratar que es de 3, el mimsmo que se eligio previamente. 
 
-## Hallazgos y conclusiones
+### - Hallazgos en el análisis exploratorio
 ***
 Para realizar el análisis exploratorio se inició con la clasificación de las variables por cada uno de los sets de datos, iniciando por la variables que nos ayudaban a determinar el departamento de ocurrencia del nacimiento, entre estas variables están el mes, departamento y anio. 
 
@@ -738,13 +738,27 @@ Pasando a la sección de la estadística descriptiva primero se procedió a hace
 Pasando a los resultados y los hallazgos más relevante encontrados. Vemos que en la seccion de gráficos exploratorios existe una gran cantidad de diferencias entre la cantidad de nacidos por cada uno de los departamentos entre los departamentos con mayor cantidad de nacimientos se encuentran Guatemala, San Marcos y Huehuetenango. 
 
 También pudimos determinar que entre todos los 10 anios de los cuales se tenia registro el 2015 es donde se ve uno de los mayores incrementos en la taza de nacimiento, y después de esto podemos ver que en los últimos años hemos observado una tendencia al decremento en la taza de nacimiento, aunque esta no es altamente significativa  también puede ser indicativo de otros factores. 
+
 También se analizo las tendencias en los nacimientos a lo largo de los 10 anios, en este caso se decidió separar los departamentos en grupos de 7 y el ultimo de 8 departamentos, esta separación se hizo únicamente con objetivo de poder visualizarlo en un poco mas de orden, ya que  22 lineas habría sido difícil de comprender. 
 
 Consecuente a eso se prodecio a hacer el mismo análisis pero con el porcentaje de muertes por el total de nacimientosen departamentos. Siguiendo la misma mecánica de sepacion entre grupos de 7 departamentos para facilidad de comprensión. Uno de los hallazgos mas importantes en estas graficas es que el comportamiento de las graficas de muerte son mucho mas dispersas que las de nacimientos, pues las graficas de nacimientos se encontraban bastante constantes en la mayoría de los departamentos. Versus las de mortalidad que tienen aumentos muy en pico y disminuciones de igual manera. 
 
-En este caso encontrar una correlación entre nacimientos y muertes se hace bastante mas complicada pero se deja a futura exploración el poder determinar si existe alguna correlación entre estos 2 fenomenos.  Para finalizar con la parte de las graficas para los futuros análisis se agruparan por departamentos que tengan comportamientos similares entre nacimientos y muertes. Haciendo esto también se podrá determinar si existe alguna relación entre los comportamientos de las graficas y sus ubicaciones geográficas, abriendo la puerta a fenómenos económicos o ambientales localizados en cierto sector del país. 
+En este caso encontrar una correlación entre nacimientos y muertes se hace bastante mas complicada pero se deja a futura exploración el poder determinar si existe alguna correlación entre estos 2 fenomenos.  Para finalizar con la parte de las graficas para los futuros análisis se agruparan por departamentos que tengan comportamientos similares entre nacimientos y muertes. Haciendo esto también se podrá determinar si existe alguna relación entre los comportamientos de las graficas y sus ubicaciones geográficas, abriendo la puerta a fenómenos económicos o ambientales localizados en cierto sector del país.
 
+Luego saltamos a la sección de cómo es la distribución de los datos dentro del porcentaje de las mujeres solteras por cada departamento, también a través de los 10 anios. En la primera grafica podemos ver que los comportamientos son bastante constantes y en el departamento de Guatemala se pude ver una pendiente positiva al mismo tiempo que vemos un comportamiento oscilatorio.  Otra observación importante es que en las graficas de Sololá y Suchitepéquez son muy similares en cuestión de cifras y tendencias a aumento. Pasando a la graficas la de Izabal es una de las que tiene una mayor pendiente en aumento. 
+Ya entrando a la parte de los nacimientos nos enfocamos bastante en el peso en que se registra al nacer. Esto con el objetivo de poder determinar en que departamento se tiene la tasa de nacimiento con nacidos bajo el peso ideal. También se investigó cual era el peso ideal para los recién nacidos y es un aproximado de 2.500 kg que se traduce a un aproximado de 5.51 libras. 
+
+Según podemos ver en las graficas la tendencia de peso en todo el país es de 7.49 libras. Entrando un poco a los departamentos donde mas se obtuvieron nacimientos bajos en peso son Suchitepéquez y Peten, pero sin ser cifras sumamente significativas. Esto puede que tenga que ver mas con nacimientos prematuros u otros factores no tomados en cuenta. 
+
+Por último una de las graficas que mas nos interesa indagar es la grafica de edad de las madres en todo el país. En esta queremos hacer notar que el rango de edades mas alto es entre los 18 y los 25 anios. Sin embargo tenemos un gran numero de embarazos en menos de edad, desde aproximadamente los 14 anios el crecimiento de embarazos entre niñas y adolescentes es una gran cantidad o porcentaje de todas las muestras.
+
+Lo anterior nos da la pauta para poder indagar dentro de los datos e información de las madres niñas u adolescentes.  
+ 
 ***
-### - Hallazgos en el análisis exploratorio
-### - Nombre a los grupos
+
+### - Analisis de los Clusters de Datos
+***
+***
 ### - Conclusiones
+***
+***
