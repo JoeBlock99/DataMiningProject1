@@ -753,12 +753,23 @@ Según podemos ver en las graficas la tendencia de peso en todo el país es de 7
 Por último una de las graficas que mas nos interesa indagar es la grafica de edad de las madres en todo el país. En esta queremos hacer notar que el rango de edades mas alto es entre los 18 y los 25 anios. Sin embargo tenemos un gran numero de embarazos en menos de edad, desde aproximadamente los 14 anios el crecimiento de embarazos entre niñas y adolescentes es una gran cantidad o porcentaje de todas las muestras.
 
 Lo anterior nos da la pauta para poder indagar dentro de los datos e información de las madres niñas u adolescentes.  
- 
 ***
 
 ### - Analisis de los Clusters de Datos
 ***
+En este caso podemos ver que el metodo de agrupacion fue correcto al ver la grafica de la siluera promedio obtuvimos un avergade de 0.74 lo cual indica que el agrupamiento es adecuado. 
+
+Para finalizar tenemos como resultado 3 clusters de informacion sobre los cuales se va a trabajar, en este caso se quiso saber mas acerca de los clusters por medio de arboles de desicion, sin embargo al momento de ejecutarse estos no fueron lo suficientemente accurate o precisos para poder ser tomados en cuenta dentro del analisis. 
+
 ***
 ### - Conclusiones
 ***
+- Obtuvimos mucha infomacion acerca de como el departamento de Guatemala tiene una gran tendencia a tener los indices mas altos en casi todos los analisis. Invesigando un poco mas esto puede deberse a que es el departamento mas poblado del pais.
+
+- Las tendencias en cifras de nacimiento ha disminuido en los ultimos anios, esto nos da paura para indagar sobre los departamentos donde esta tendencia fue mas marcada. 
+
+- Existe una gran tendencia a embarazos en ninas y adolescentes. Estos nos marca la pauta que tenemos la infomacion  necesaria para poder cumplir con nuestros objetivos iniciales. 
+- Las muertes tienen un comportamiento sumamente distinto a los nacimientos, pues en estos puede afectar una gran cantidad de factores. Concluimos que lo mejor sera clasificar las muertes por similitudes en el comportamiento de sus datos a travez de los anos para determinar si hay algun otro factor que influya en estos. 
+
+- 
 ***
