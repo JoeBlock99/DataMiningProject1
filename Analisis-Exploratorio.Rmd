@@ -553,87 +553,64 @@ frstselect <- subset (dpto_res_ocu, select = c(2:27))
 M <- cor(frstselect)
 col <- colorRampPalette(c("#BB4444", "#EE9988", "#FFFFFF", "#77AADD", "#4477AA"))
 corrplot(M,  method = "color", col = col(200), order = "hclust", number.cex = .35,
-         addCoef.col = "black", # Add coefficient of correlation
-         tl.col = "black", 
-         # Text label color and rotation
-         # Combine with significance
+         addCoef.col = "black",
+         tl.col = "black",
          sig.level = 0.50, insig = "blank", 
-         # hide correlation coefficient on the principal diagonal
          diag = FALSE)
 scndselect <- subset (nac_edad_madre_departamento_municipio, select = c(3:14))
 M2 <- cor(scndselect)
 corrplot(M2,  method = "color", col = col(200), order = "hclust", number.cex = .7,
-         addCoef.col = "black", # Add coefficient of correlation
-         tl.col = "black", 
-         # Text label color and rotation
-         # Combine with significance
-         sig.level = 0.50, insig = "blank", 
-         # hide correlation coefficient on the principal diagonal
+         addCoef.col = "black",
+         tl.col = "black",
+         sig.level = 0.50, insig = "blank",
          diag = FALSE)
 
 trdselect <- subset (nac_depto_sexo_peso, select = c(3:6))
 M3 <- cor(trdselect)
 corrplot(M3,  method = "color", col = col(200), order = "hclust", number.cex = 1.5,
-         addCoef.col = "black", # Add coefficient of correlation
-         tl.col = "black", 
-         # Text label color and rotation
-         # Combine with significance
-         sig.level = 0.50, insig = "blank", 
-         # hide correlation coefficient on the principal diagonal
+         addCoef.col = "black", 
+         tl.col = "black",
+         sig.level = 0.50, insig = "blank",
          diag = FALSE)
 
 frthselect <- subset (nac_por_estado_civil, select = c(2:7))
 M4 <- cor(frthselect)
 corrplot(M4,  method = "color", col = col(200), order = "hclust", number.cex = 1.5,
-         addCoef.col = "black", # Add coefficient of correlation
-         tl.col = "black", 
-         # Text label color and rotation
-         # Combine with significance
-         sig.level = 0.50, insig = "blank", 
-         # hide correlation coefficient on the principal diagonal
+         addCoef.col = "black",
+         tl.col = "black",
+         sig.level = 0.50, insig = "blank",
          diag = FALSE)
 fthselect <- subset (nac_vivos_muertos_por_dpto, select = c(2:9))
 fthselect = fthselect[rowSums(is.na(fthselect)) == 0, ]
 M5 <- cor(fthselect)
 corrplot(M5,  method = "color", col = col(200), order = "hclust", number.cex = 1,
-         addCoef.col = "black", # Add coefficient of correlation
-         tl.col = "black", 
-         # Text label color and rotation
-         # Combine with significance
+         addCoef.col = "black",
+         tl.col = "black",
          sig.level = 0.50, insig = "blank", 
-         # hide correlation coefficient on the principal diagonal
          diag = FALSE)
 sthselect <- subset (nac_edad_madre_depto_area_etnia, select = c(3:14))
 sthselect = sthselect[rowSums(is.na(sthselect)) == 0, ]
 M6 <- cor(sthselect)
 corrplot(M6,  method = "color", col = col(200), order = "hclust", number.cex = .8,
-         addCoef.col = "black", # Add coefficient of correlation
-         tl.col = "black", 
-         # Text label color and rotation
-         # Combine with significance
-         sig.level = 0.50, insig = "blank", 
-         # hide correlation coefficient on the principal diagonal
+         addCoef.col = "black", 
+         tl.col = "black",
+         sig.level = 0.50, insig = "blank",
          diag = FALSE)
 
 svnthselect <- subset (nac_por_dpto_edades_simples, select = c(2:24))
 svnthselect = svnthselect[rowSums(is.na(svnthselect)) == 0, ]
 M7 <- cor(svnthselect)
 corrplot(M7,  method = "color", col = col(200), order = "hclust", number.cex = .5,
-         addCoef.col = "black", # Add coefficient of correlation
-         tl.col = "black", 
-         # Text label color and rotation
-         # Combine with significance
-         sig.level = 0.2, insig = "blank", 
-         # hide correlation coefficient on the principal diagonal
+         addCoef.col = "black", 
+         tl.col = "black",
+         sig.level = 0.2, insig = "blank",
          diag = FALSE)
 
 
 M8 <- cor(fthselect,frthselect)
 corrplot(M8,  method = "color", col = col(200), number.cex = .9,
-         addCoef.col = "black", # Add coefficient of correlation
+         addCoef.col = "black", 
          tl.col = "black", 
-         # Text label color and rotation
-         # Combine with significance
          sig.level = 0.9)
 
 #M11 <- cor(scndselect,frthselect)
@@ -727,187 +704,6 @@ plot(k.values, avg_sil_values,
 
 Al utilizar el metodo de la silueta podemos identificar el numero correcto de clusters a tratar que es de 3, el mimsmo que se eligio previamente. 
 
-## - Clasificacion de departamentos por nececidad (media, alta y muy alta)
-
-
-En base al analisis exploratorio realizado se separaron las variables que consideramos aportan mayor valor a nuestro analisis sobre los factores que determinan la cantidad de educacion necesaria para cubrir. Estas mismas se utilizaron para determinar los clusters. De esta manera se eligieron los 3 grupos. 
-
-A partir de los clusters obtenidos y los percentiles se determino el rango de nececidad para cada grupo tomando en cuenta clusters y percentiles y aproximando entre sí. 
-
-1. Necesidad media: 0 a 1,000.
-2. Necesidad alta: 1,000 a 3,000
-3. Necesidad muy alta: 3,000 en adelante
-
-
-```{r echo=FALSE, warning=FALSE}
-library(plyr)
-nac_por_depto <- nac_por_dpto %>% filter(Mes != "Todos los meses") %>% filter(Departamento.de.residencia != "Todos los departamentos") %>% select(2, 3, 6)
-nac_por_depto$tipoDeNecesidad = cut(nac_por_depto$Total,c(0,1000,3000,10000), labels = c("1", "2", "3"))
-```
-
-## - Dividir Set de Datos (Entrenamiento y Prueba)
-
-Se utilizara el 70% de los datos para entrenamiento y el 30% restante para prueba. Es necesario brindar una cantidad sustancial de datos al algoritmo para entrenarlo y asi realizar un buen analisis y que el algoritmo pueda clasificar de manera correcta el set de datos. Se eligieron registros al azar para hacer la clasificacion.
-
-## - Arbol de Clasificacion
-
-```{r}
-library(rpart)
-library(caret)
-library(tree)
-library(rpart.plot)
-library(randomForest)
-
-# variable respuesta la clase de la flor
-porciento <- 70/100
-
-nac_vivos_muertos_por_dpto <- na.omit(nac_vivos_muertos_por_dpto)
-
-datosFTree <- subset (nac_vivos_muertos_por_dpto, select = -c(9))
-
-trainRowsNumber<-sample(1:nrow(datosFTree),porciento*nrow(datosFTree))
-train<-datosFTree[trainRowsNumber,]
-test<-datosFTree[-trainRowsNumber,]
-
-arbolModelo<-rpart(Departamento.de.residencia~.,datosFTree,method = "class")
-rpart.plot(arbolModelo)
-
-save(train,test,arbolModelo, file = "Variables.RData")
-load("Variables.RData")
-dt_model<-rpart(Departamento.de.residencia~.,train,method = "class")
-rpart.plot(dt_model)
-
-head(test)
-prediccion <- predict(arbolModelo, newdata = test)
-columnaMasAlta<-apply(prediccion, 1, function(x) colnames(prediccion)[which.max(x)])
-test$prediccion<-columnaMasAlta
-sapply(test, class)
-tabla <- table(test$prediccion,test$Departamento.de.residencia)
-# cfm<-confusionMatrix(tabla)
-# cfm
-
-
-{r echo=FALSE, warning=FALSE}
-# variable respuesta la clase de la flor
-porciento <- 70/100
-
-nac_por_estado_civil <- na.omit(nac_por_estado_civil)
-
-datosFTree <- subset (nac_por_estado_civil, select = -c(7))
-
-trainRowsNumber<-sample(1:nrow(datosFTree),porciento*nrow(datosFTree))
-train<-datosFTree[trainRowsNumber,]
-test<-datosFTree[-trainRowsNumber,]
-
-arbolModelo<-rpart(Departamento.de.residencia~.,datosFTree,method = "class")
-rpart.plot(arbolModelo)
-
-save(train,test,arbolModelo, file = "Variables.RData")
-load("Variables.RData")
-dt_model<-rpart(Departamento.de.residencia~.,train,method = "class")
-rpart.plot(dt_model)
-
-head(test)
-prediccion <- predict(arbolModelo, newdata = test)
-columnaMasAlta<-apply(prediccion, 1, function(x) colnames(prediccion)[which.max(x)])
-test$prediccion<-columnaMasAlta
-sapply(test, class)
-tabla <- table(test$prediccion,test$Departamento.de.residencia)
-# cfm<-confusionMatrix(tabla)
-# cfm
-
-
-{r echo=FALSE, warning=FALSE}
-# variable respuesta la clase de la flor
-porciento <- 70/100
-
-nac_depto_sexo_peso <- na.omit(nac_depto_sexo_peso)
-
-datosFTree <- subset (nac_depto_sexo_peso, select = -c(6))
-
-trainRowsNumber<-sample(1:nrow(datosFTree),porciento*nrow(datosFTree))
-train<-datosFTree[trainRowsNumber,]
-test<-datosFTree[-trainRowsNumber,]
-
-arbolModelo<-rpart(Departamento.de.residencia~.,datosFTree,method = "class")
-rpart.plot(arbolModelo)
-
-save(train,test,arbolModelo, file = "Variables.RData")
-load("Variables.RData")
-dt_model<-rpart(Departamento.de.residencia~.,train,method = "class")
-rpart.plot(dt_model)
-
-head(test)
-prediccion <- predict(arbolModelo, newdata = test)
-columnaMasAlta<-apply(prediccion, 1, function(x) colnames(prediccion)[which.max(x)])
-test$prediccion<-columnaMasAlta
-sapply(test, class)
-tabla <- table(test$prediccion,test$Departamento.de.residencia)
-# cfm<-confusionMatrix(tabla)
-# cfm
-
-{r echo=FALSE, warning=FALSE}
-# variable respuesta la clase de la flor
-porciento <- 70/100
-
-nac_edad_madre_departamento_municipio <- na.omit(nac_edad_madre_departamento_municipio)
-
-datosFTree <- subset (nac_edad_madre_departamento_municipio, select = -c(13, 14))
-
-trainRowsNumber<-sample(1:nrow(datosFTree),porciento*nrow(datosFTree))
-train<-datosFTree[trainRowsNumber,]
-test<-datosFTree[-trainRowsNumber,]
-
-arbolModelo<-rpart(Departamento.de.residencia~.,datosFTree,method = "class")
-rpart.plot(arbolModelo)
-
-save(train,test,arbolModelo, file = "Variables.RData")
-load("Variables.RData")
-dt_model<-rpart(Departamento.de.residencia~.,train,method = "class")
-rpart.plot(dt_model)
-
-head(test)
-prediccion <- predict(arbolModelo, newdata = test)
-columnaMasAlta<-apply(prediccion, 1, function(x) colnames(prediccion)[which.max(x)])
-test$prediccion<-columnaMasAlta
-sapply(test, class)
-tabla <- table(test$prediccion,test$Departamento.de.residencia)
-# cfm<-confusionMatrix(tabla)
-# cfm
-
-
-{r echo=FALSE, warning=FALSE}
-# variable respuesta la clase de la flor
-porciento <- 70/100
-
-nac_edad_madre_depto_area_etnia <- na.omit(nac_edad_madre_depto_area_etnia)
-
-datosFTree <- subset (nac_edad_madre_depto_area_etnia, select = -c(13, 14))
-
-trainRowsNumber<-sample(1:nrow(datosFTree),porciento*nrow(datosFTree))
-train<-datosFTree[trainRowsNumber,]
-test<-datosFTree[-trainRowsNumber,]
-
-arbolModelo<-rpart(Departamento.de.residencia~.,datosFTree,method = "class")
-rpart.plot(arbolModelo)
-
-save(train,test,arbolModelo, file = "Variables.RData")
-load("Variables.RData")
-dt_model<-rpart(Departamento.de.residencia~.,train,method = "class")
-rpart.plot(dt_model)
-
-head(test)
-prediccion <- predict(arbolModelo, newdata = test)
-columnaMasAlta<-apply(prediccion, 1, function(x) colnames(prediccion)[which.max(x)])
-test$prediccion<-columnaMasAlta
-sapply(test, class)
-tabla <- table(test$prediccion,test$Departamento.de.residencia)
-# cfm<-confusionMatrix(tabla)
-# cfm
-```
-
-
-
 ### - Hallazgos en el análisis exploratorio
 ***
 Para realizar el análisis exploratorio se inició con la clasificación de las variables por cada uno de los sets de datos, iniciando por la variables que nos ayudaban a determinar el departamento de ocurrencia del nacimiento, entre estas variables están el mes, departamento y anio. 
@@ -950,7 +746,6 @@ Para finalizar tenemos como resultado 3 clusters de informacion sobre los cuales
 - Las tendencias en cifras de nacimiento ha disminuido en los ultimos anios, esto nos da paura para indagar sobre los departamentos donde esta tendencia fue mas marcada. 
 
 - Existe una gran tendencia a embarazos en ninas y adolescentes. Estos nos marca la pauta que tenemos la infomacion  necesaria para poder cumplir con nuestros objetivos iniciales. 
-- Las muertes tienen un comportamiento sumamente distinto a los nacimientos, pues en estos puede afectar una gran cantidad de factores. Concluimos que lo mejor sera clasificar las muertes por similitudes en el comportamiento de sus datos a travez de los anos para determinar si hay algun otro factor que influya en estos. 
 
-- 
+- Las muertes tienen un comportamiento sumamente distinto a los nacimientos, pues en estos puede afectar una gran cantidad de factores. Concluimos que lo mejor sera clasificar las muertes por similitudes en el comportamiento de sus datos a travez de los anos para determinar si hay algun otro factor que influya en estos. 
 ***
