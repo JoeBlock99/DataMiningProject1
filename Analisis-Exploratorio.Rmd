@@ -25,19 +25,30 @@ load("DataMiningP1Project.RData")
 
 ## Situación  Problemática
 ***
-En Guatemala pasa que al hacer inversiones en ciertas areas como la educacion, se hace la inversion sin pensar en que sectores es mas eficiente invertir en educacion y resulta ser una inversion con un bajo impacto en el pais, porque resulta que hay sectores que lo necesitan.
+En Guatemala se tiene uno de los índices de desnutrición infantil más altos de latinoamérica, al mismo tiempo que se tiene una muy baja tasa de alfabetización. También es bien conocido que el sistema de salud del país es muy precario y la mayoría de personas del interior del país no tienen acceso ni a un centro de salud o control natal, también la mayoría de los partos se dan con comadronas y no en centros asistidos por un médico. 
+
+Desde esta perspectiva de los dos puntos dos datos anteriores parece que como país no se brindan las condiciones y oportunidades necesarias para poder permitir florecer a la niñez. 
+
+Lo que buscamos con el siguiente trabajo es poder identificar cuáles son algunos de los factores más influyentes en los nacimientos y poder identificar patrones para plantear soluciones. Desde la búsqueda por departamentos, información que se pueda obtener de la madre, edades, etc. 
+
+Con identificar esto buscamos determinar el departamento en mayor necesidad de educación sexual, centros asistenciales, control prenatal, etc. En Guatemala pasa que al hacer inversiones en ciertas áreas como la educación, se hace la inversión sin pensar en qué sectores es más eficiente invertir en educación y resulta ser una inversión con un bajo impacto en el país, porque resulta que hay sectores que lo necesitan.
+
 
 ## Problema científico
 ***
 Con la informacion de nacimientos de 2009 a 2019 queremos hacer un analisis de datos para la inversion de educacion segun departamento tomando en cuenta cantidad de nacimientos por departamento y las condiciones de la madre de cada parto.
 
+Como segundo objetivo ya mencionado será identificar las condiciones de cada parto y las más comunes según el departamento. 
+
+
 ## Objetivos
 ***
-- Averiguar que variables influyen mas en que la madre este soltera con un modelo.
+- Determinar cuales son las variables más influyentes o repetitivas en que una madre sea soltera por medio de un modelo.
+- Identificar la correlación (si es que existe) entre el departamento con mayor tasa de nacimientos y predecir como esta aumentará.
 
-- Determinar mayor taza de nacimientos por departamento y determinar orden de mayor a menor crecimiento o probabilidad de crecimiento de taza de nacimientos.
+- Determinar los departamentos en los que más se debe invertir en educación sexual según los índices obtenidos. 
 
-- Decidir un orden de departamentos en los que se debe invertir en educacion segun los datos analizados.
+- Realizar hallazgos para posibles analisis de el set de datos explorado. 
 
 ## Descripción  de  los  datos
 ***
@@ -778,8 +789,49 @@ tabla <- table(test$prediccion,test$Departamento.de.residencia)
 ```
 
 
-## Hallazgos y conclusiones
-***
 ### - Hallazgos en el análisis exploratorio
-### - Nombre a los grupos
+***
+Para realizar el análisis exploratorio se inició con la clasificación de las variables por cada uno de los sets de datos, iniciando por la variables que nos ayudaban a determinar el departamento de ocurrencia del nacimiento, entre estas variables están el mes, departamento y anio. 
+
+Después se procedió a hacer análisis por agrupamientos donde se clasificaron los datos por edad de la madre, estado civil de la misma, nacimientos por escolaridad según el numero de hijos tenidos, entre otros. 
+
+Pasando a la sección de la estadística descriptiva primero se procedió a hacer un analisis muy a grandes rasgos sobre las situación de nacimientos por cada departamento, durante los 10 anios. Dentro de esta seccion y también clasificado por departamento se indago sobre nacimientos por grupos de edad de la madre, según departamento y pueblo de pertenencia de la madre, nacimientos por grupos de edad de la madre, según departamento y municipio de su residencia, entre otros. 
+
+Pasando a los resultados y los hallazgos más relevante encontrados. Vemos que en la seccion de gráficos exploratorios existe una gran cantidad de diferencias entre la cantidad de nacidos por cada uno de los departamentos entre los departamentos con mayor cantidad de nacimientos se encuentran Guatemala, San Marcos y Huehuetenango. 
+
+También pudimos determinar que entre todos los 10 anios de los cuales se tenia registro el 2015 es donde se ve uno de los mayores incrementos en la taza de nacimiento, y después de esto podemos ver que en los últimos años hemos observado una tendencia al decremento en la taza de nacimiento, aunque esta no es altamente significativa  también puede ser indicativo de otros factores. 
+
+También se analizo las tendencias en los nacimientos a lo largo de los 10 anios, en este caso se decidió separar los departamentos en grupos de 7 y el ultimo de 8 departamentos, esta separación se hizo únicamente con objetivo de poder visualizarlo en un poco mas de orden, ya que  22 lineas habría sido difícil de comprender. 
+
+Consecuente a eso se prodecio a hacer el mismo análisis pero con el porcentaje de muertes por el total de nacimientosen departamentos. Siguiendo la misma mecánica de sepacion entre grupos de 7 departamentos para facilidad de comprensión. Uno de los hallazgos mas importantes en estas graficas es que el comportamiento de las graficas de muerte son mucho mas dispersas que las de nacimientos, pues las graficas de nacimientos se encontraban bastante constantes en la mayoría de los departamentos. Versus las de mortalidad que tienen aumentos muy en pico y disminuciones de igual manera. 
+
+En este caso encontrar una correlación entre nacimientos y muertes se hace bastante mas complicada pero se deja a futura exploración el poder determinar si existe alguna correlación entre estos 2 fenomenos.  Para finalizar con la parte de las graficas para los futuros análisis se agruparan por departamentos que tengan comportamientos similares entre nacimientos y muertes. Haciendo esto también se podrá determinar si existe alguna relación entre los comportamientos de las graficas y sus ubicaciones geográficas, abriendo la puerta a fenómenos económicos o ambientales localizados en cierto sector del país.
+
+Luego saltamos a la sección de cómo es la distribución de los datos dentro del porcentaje de las mujeres solteras por cada departamento, también a través de los 10 anios. En la primera grafica podemos ver que los comportamientos son bastante constantes y en el departamento de Guatemala se pude ver una pendiente positiva al mismo tiempo que vemos un comportamiento oscilatorio.  Otra observación importante es que en las graficas de Sololá y Suchitepéquez son muy similares en cuestión de cifras y tendencias a aumento. Pasando a la graficas la de Izabal es una de las que tiene una mayor pendiente en aumento. 
+Ya entrando a la parte de los nacimientos nos enfocamos bastante en el peso en que se registra al nacer. Esto con el objetivo de poder determinar en que departamento se tiene la tasa de nacimiento con nacidos bajo el peso ideal. También se investigó cual era el peso ideal para los recién nacidos y es un aproximado de 2.500 kg que se traduce a un aproximado de 5.51 libras. 
+
+Según podemos ver en las graficas la tendencia de peso en todo el país es de 7.49 libras. Entrando un poco a los departamentos donde mas se obtuvieron nacimientos bajos en peso son Suchitepéquez y Peten, pero sin ser cifras sumamente significativas. Esto puede que tenga que ver mas con nacimientos prematuros u otros factores no tomados en cuenta. 
+
+Por último una de las graficas que mas nos interesa indagar es la grafica de edad de las madres en todo el país. En esta queremos hacer notar que el rango de edades mas alto es entre los 18 y los 25 anios. Sin embargo tenemos un gran numero de embarazos en menos de edad, desde aproximadamente los 14 anios el crecimiento de embarazos entre niñas y adolescentes es una gran cantidad o porcentaje de todas las muestras.
+
+Lo anterior nos da la pauta para poder indagar dentro de los datos e información de las madres niñas u adolescentes.  
+***
+
+### - Analisis de los Clusters de Datos
+***
+En este caso podemos ver que el metodo de agrupacion fue correcto al ver la grafica de la siluera promedio obtuvimos un avergade de 0.74 lo cual indica que el agrupamiento es adecuado. 
+
+Para finalizar tenemos como resultado 3 clusters de informacion sobre los cuales se va a trabajar, en este caso se quiso saber mas acerca de los clusters por medio de arboles de desicion, sin embargo al momento de ejecutarse estos no fueron lo suficientemente accurate o precisos para poder ser tomados en cuenta dentro del analisis. 
+
+***
 ### - Conclusiones
+***
+- Obtuvimos mucha infomacion acerca de como el departamento de Guatemala tiene una gran tendencia a tener los indices mas altos en casi todos los analisis. Invesigando un poco mas esto puede deberse a que es el departamento mas poblado del pais.
+
+- Las tendencias en cifras de nacimiento ha disminuido en los ultimos anios, esto nos da paura para indagar sobre los departamentos donde esta tendencia fue mas marcada. 
+
+- Existe una gran tendencia a embarazos en ninas y adolescentes. Estos nos marca la pauta que tenemos la infomacion  necesaria para poder cumplir con nuestros objetivos iniciales. 
+- Las muertes tienen un comportamiento sumamente distinto a los nacimientos, pues en estos puede afectar una gran cantidad de factores. Concluimos que lo mejor sera clasificar las muertes por similitudes en el comportamiento de sus datos a travez de los anos para determinar si hay algun otro factor que influya en estos. 
+
+- 
+***
