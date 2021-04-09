@@ -153,6 +153,35 @@ nac_edad_madre_depto_area_etnia %>% filter(Departamento.de.ocurrencia != "Todos 
 ```{r echo=FALSE}
 nac_escolaridad_madre %>% filter(Número.de.hijos.as. != "Todos los hijos") %>% select(-2) %>% introduce()
 ```
+Tambien se revisó que la mayoría de variables no tubieran duplicados por tíldes, principalmente en la columnas de departamentos y mucicipios.
+
+```{r echo=FALSE}
+
+print("dpto_res_ocu")
+unique(dpto_res_ocu$...1)
+
+print("nac_edad_madre_departamento_municipio")
+unique(nac_edad_madre_departamento_municipio$Departamento.de.residencia)
+unique(nac_edad_madre_departamento_municipio$Municipios)
+
+print("nac_depto_sexo_peso")
+unique(nac_depto_sexo_peso$Departamento.de.residencia)
+
+print("nac_por_estado_civil")
+unique(nac_depto_sexo_peso$Departamento.de.residencia)
+
+print("nac_vivos_muertos_por_dpto")
+unique(nac_vivos_muertos_por_dpto$Departamento.de.residencia)
+
+print("nac_edad_madre_depto_area_etnia")
+unique(nac_edad_madre_depto_area_etnia$Departamento.de.ocurrencia)
+unique(nac_edad_madre_depto_area_etnia$Pueblo.de.pertenencia.de.la.madre)
+
+```
+En las últimas dos tablas, podemos notar que hay repetidas ciertas palabras por tilde o escritura, los errores notorios son los siguientes:
+- tíldes
+-Xinka/Xinca
+
 
 ## Análisis Exploratorio
 ***
@@ -185,6 +214,7 @@ Resumen estadístico de variables:
 ```{r echo=FALSE}
 smry1 <- dpto_res_ocu %>% select(2:26)
 summary(smry1)
+unique(dpto_res_ocu$...1)
 ```
 
 - Nacimientos por estado civil de la madre, según departamento de su residencia				
@@ -195,17 +225,7 @@ Resumen estadístico de variables:
 smry2 <- nac_por_estado_civil %>% select(2:6)
 summary(smry2)
 ```
-- Nacimientos por departamento
 
-Dentro de las preguntas interesantes, orientadas a nuestra problematica, surgio la curiosidad por saber cuantos nacimientos hubo a lo largo de 10 años en todos los departamentos de la republica. Para resolver esta duda se utilizo el data set de nacimientos por  departamento. Obtuvimos los siguientes resultados:
-
-```{r echo=FALSE}
-
-nac_por_dpto_todas_las_edades <- nac_por_dpto_edades_simples %>% filter(Edad == "Todas las edades") %>% select(-1, -2)
-
-# Plot of births per city per year
-barplot(as.matrix(nac_por_dpto_todas_las_edades %>% select(-25)), beside=TRUE, las=2)
-```
 - Nacimientos vivos y muertos por tipo de parto, según departamento de residencia de la madre		
 
 Resumen estadístico de variables:
@@ -220,6 +240,7 @@ summary(smry3)
 Resumen estadístico de variables:
 
 ```{r echo=FALSE}
+nac_depto_sexo_peso$Mujeres = abs(nac_depto_sexo_peso$Mujeres)
 smry4 <- nac_depto_sexo_peso %>% select(2:5)
 summary(smry4)
 ```
@@ -253,6 +274,18 @@ summary(smry7)
 ```
 
 ### - Gráficos  Exploratorios
+
+- Nacimientos por departamento
+
+Dentro de las preguntas interesantes, orientadas a nuestra problematica, surgio la curiosidad por saber cuantos nacimientos hubo a lo largo de 10 años en todos los departamentos de la republica. Para resolver esta duda se utilizo el data set de nacimientos por  departamento. Obtuvimos los siguientes resultados:
+
+```{r echo=FALSE}
+
+nac_por_dpto_todas_las_edades <- nac_por_dpto_edades_simples %>% filter(Edad == "Todas las edades") %>% select(-1, -2)
+
+# Plot of births per city per year
+barplot(as.matrix(nac_por_dpto_todas_las_edades %>% select(-25)), beside=TRUE, las=2)
+```
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 #Separar la info para dar graficos 
 #Guatemala
@@ -338,39 +371,133 @@ ggplot(d2, aes(x=anio, y=Total, colour = L1)) + geom_line() + geom_point() + ggt
 d3 <- melt(list(Huehuetenango = nac_depto_sexo_peso15,Escuintla = nac_depto_sexo_peso16,El_Progreso = nac_depto_sexo_peso17,Chiquimula = nac_depto_sexo_peso18,Chimaltenango = nac_depto_sexo_peso19,Baja_Verapaz = nac_depto_sexo_peso20, Alta_Verapaz = nac_depto_sexo_peso21), id.vars = c("anio", "Total"))
 ggplot(d3, aes(x=anio, y=Total, colour = L1)) + geom_line() + geom_point() + ggtitle("Nacimientos por año en departamentos de Guatemala") + theme(axis.text.x = element_text(angle = 90, vjust = 0.5)) + scale_x_continuous("Año", labels = as.character(nac_depto_sexo_peso1$anio), breaks = nac_depto_sexo_peso1$anio)
 
-
-#Graficar
-#Cantidad de nacimientos en el transcurso del tiempo 
-#por cada departamento.
-#Selecciono la info para tener los departamentos en una variable
-#deptotanio <- dpto_res_ocu_tot %>% select(3,4,5,27)
-#d <- melt(deptotanio, id.vars="anio")
-#ggplot(d, aes(x = anio,value)) + geom_line() + facet_wrap(~variable, #ncol = 1, scales = "free")
-##Se repite...
-#deptotanio <- dpto_res_ocu_tot %>% select(6,7,8,27)
-#d <- melt(deptotanio, id.vars="anio")
-#ggplot(d, aes(x = anio,value)) + geom_line() + facet_wrap(~variable, #ncol = 1, scales = "free")
-#deptotanio <- dpto_res_ocu_tot %>% select(8,10,11,27)
-#d <- melt(deptotanio, id.vars="anio")
-#ggplot(d, aes(x = anio,value)) + geom_line() + facet_wrap(~variable, #ncol = 1, scales = "free")
-#deptotanio <- dpto_res_ocu_tot %>% select(12,13,14,27)
-#d <- melt(deptotanio, id.vars="anio")
-#ggplot(d, aes(x = anio,value)) + geom_line() + facet_wrap(~variable, #ncol = 1, scales = "free")
-#deptotanio <- dpto_res_ocu_tot %>% select(15,16,17,27)
-#d <- melt(deptotanio, id.vars="anio")
-#ggplot(d, aes(x = anio,value)) + geom_line() + facet_wrap(~variable, #ncol = 1, scales = "free")
-#deptotanio <- dpto_res_ocu_tot %>% select(18,19,20,27)
-#d <- melt(deptotanio, id.vars="anio")
-#ggplot(d, aes(x = anio,value)) + geom_line() + facet_wrap(~variable, #ncol = 1, scales = "free")
-#deptotanio <- dpto_res_ocu_tot %>% select(21,22,23,27)
-#d <- melt(deptotanio, id.vars="anio")
-#ggplot(d, aes(x = anio,value)) + geom_line() + facet_wrap(~variable, #ncol = 1, scales = "free")
-#deptotanio <- dpto_res_ocu_tot %>% select(24,25,26,27)
-#d <- melt(deptotanio, id.vars="anio")
-#ggplot(d, aes(x = anio,value)) + geom_line() + facet_wrap(~variable, #ncol = 1, scales = "free")
 ```
-Si analizamos individualmente los departamentos observamos que las cifras van en aumento, alcanzan un maximo y luego descienden.
 
+Porcentaje de mortandad por nacimiento en cada departamento:
+
+```{r echo=FALSE}
+#Se genera una columna con un porcentaje de muertes por nacimiento en pais por anio
+nac_vivos_muertos_por_dpto$prmort <- nac_vivos_muertos_por_dpto$Nacidos.muertos / nac_vivos_muertos_por_dpto$Total..
+nac_vivos_muertos_por_dpto$prmort = nac_vivos_muertos_por_dpto$prmort*100
+
+#Separar en grupos para graficar
+nac_vivos_muertos_por_dpto0 <- nac_vivos_muertos_por_dpto %>% filter(Departamento.de.residencia == "Guatemala")
+
+nac_vivos_muertos_por_dpto1 <-nac_vivos_muertos_por_dpto %>% filter(Departamento.de.residencia == "Suchitepéquez")
+
+nac_vivos_muertos_por_dpto2 <- nac_vivos_muertos_por_dpto %>% filter(Departamento.de.residencia == "Zacapa")
+
+nac_vivos_muertos_por_dpto3 <- nac_vivos_muertos_por_dpto %>% filter(Departamento.de.residencia == "Totonicapán")
+
+nac_vivos_muertos_por_dpto4 <- nac_vivos_muertos_por_dpto %>% filter(Departamento.de.residencia == "Sololá")
+
+nac_vivos_muertos_por_dpto5 <- nac_vivos_muertos_por_dpto %>% filter(Departamento.de.residencia == "Santa Rosa")
+
+nac_vivos_muertos_por_dpto6 <- nac_vivos_muertos_por_dpto %>% filter(Departamento.de.residencia == "San Marcos")
+
+nac_vivos_muertos_por_dpto7 <- nac_vivos_muertos_por_dpto %>% filter(Departamento.de.residencia == "Sacatepéquez")
+
+nac_vivos_muertos_por_dpto8 <- nac_vivos_muertos_por_dpto %>% filter(Departamento.de.residencia == "Retalhuleu")
+
+nac_vivos_muertos_por_dpto9 <- nac_vivos_muertos_por_dpto %>% filter(Departamento.de.residencia == "Quiché")
+
+nac_vivos_muertos_por_dpto10 <- nac_vivos_muertos_por_dpto %>% filter(Departamento.de.residencia == "Quetzaltenango")
+
+nac_vivos_muertos_por_dpto11 <- nac_vivos_muertos_por_dpto %>% filter(Departamento.de.residencia == "Petén")
+
+nac_vivos_muertos_por_dpto12 <- nac_vivos_muertos_por_dpto %>% filter(Departamento.de.residencia == "Jutiapa")
+
+nac_vivos_muertos_por_dpto13 <- nac_vivos_muertos_por_dpto %>% filter(Departamento.de.residencia == "Jalapa")
+
+nac_vivos_muertos_por_dpto14 <- nac_vivos_muertos_por_dpto %>% filter(Departamento.de.residencia == "Izabal")
+
+nac_vivos_muertos_por_dpto15 <- nac_vivos_muertos_por_dpto %>% filter(Departamento.de.residencia == "Huehuetenango")
+
+nac_vivos_muertos_por_dpto16 <- nac_vivos_muertos_por_dpto%>% filter(Departamento.de.residencia == "Escuintla")
+
+nac_vivos_muertos_por_dpto17 <- nac_vivos_muertos_por_dpto %>% filter(Departamento.de.residencia == "El Progreso")
+
+nac_vivos_muertos_por_dpto18 <- nac_vivos_muertos_por_dpto %>% filter(Departamento.de.residencia == "Chiquimula")
+
+nac_vivos_muertos_por_dpto19 <- nac_vivos_muertos_por_dpto %>% filter(Departamento.de.residencia == "Chimaltenango")
+
+nac_vivos_muertos_por_dpto20 <- nac_vivos_muertos_por_dpto %>% filter(Departamento.de.residencia == "Baja Verapaz")
+
+nac_vivos_muertos_por_dpto21 <- nac_vivos_muertos_por_dpto %>% filter(Departamento.de.residencia == "Alta Verapaz")
+
+d4 <- melt(list(Guatemala = nac_vivos_muertos_por_dpto0,Suchitepequez = nac_vivos_muertos_por_dpto1,Zacapa = nac_vivos_muertos_por_dpto2,Totonicapan = nac_vivos_muertos_por_dpto3,Solola = nac_vivos_muertos_por_dpto4,Santa_Rosa = nac_vivos_muertos_por_dpto5,San_Marcos = nac_vivos_muertos_por_dpto6, Sacatepequez = nac_vivos_muertos_por_dpto7), id.vars = c("anio", "prmort"))
+ggplot(d4, aes(x=anio, y=prmort, colour = L1)) + geom_line() + geom_point() + ggtitle("Porcentaje de muertes por total de nacimientos en departamentos") + theme(axis.text.x = element_text(angle = 90, vjust = 0.5)) + scale_x_continuous("Año", labels = as.character(nac_vivos_muertos_por_dpto1$anio), breaks = nac_vivos_muertos_por_dpto1$anio)
+
+d5 <- melt(list(Retalhuleu = nac_vivos_muertos_por_dpto8,Quiche = nac_vivos_muertos_por_dpto9,Quetzaltenango = nac_vivos_muertos_por_dpto10,Peten = nac_vivos_muertos_por_dpto11,Jutiapa = nac_vivos_muertos_por_dpto12,Jalapa = nac_vivos_muertos_por_dpto13, Izabal = nac_vivos_muertos_por_dpto14), id.vars = c("anio", "prmort"))
+ggplot(d5, aes(x=anio, y=prmort, colour = L1)) + geom_line() + geom_point() + ggtitle("Porcentaje de muertes por total de nacimientos en departamentos") + theme(axis.text.x = element_text(angle = 90, vjust = 0.5)) + scale_x_continuous("Año", labels = as.character(nac_vivos_muertos_por_dpto1$anio), breaks = nac_vivos_muertos_por_dpto1$anio)
+
+d6 <- melt(list(Huehuetenango = nac_vivos_muertos_por_dpto15,Escuintla = nac_vivos_muertos_por_dpto16,El_Progreso = nac_vivos_muertos_por_dpto17,Chiquimula = nac_vivos_muertos_por_dpto18,Chimaltenango = nac_vivos_muertos_por_dpto19,Baja_Verapaz = nac_vivos_muertos_por_dpto20, Alta_Verapaz = nac_vivos_muertos_por_dpto21), id.vars = c("anio", "prmort"))
+ggplot(d6, aes(x=anio, y=prmort, colour = L1)) + geom_line() + geom_point() + ggtitle("Porcentaje de muertes por total de nacimientos en departamentos") + theme(axis.text.x = element_text(angle = 90, vjust = 0.5)) + scale_x_continuous("Año", labels = as.character(nac_vivos_muertos_por_dpto1$anio), breaks = nac_vivos_muertos_por_dpto1$anio)
+```
+
+Porcentaje de mujeres solteras por cada anio en cada departamento.
+
+```{r echo=FALSE}
+#Se genera una columna con un porcentaje de muertes por nacimiento en pais por anio
+nac_por_estado_civil$prsoltera <- nac_por_estado_civil$Soltera / nac_por_estado_civil$Total
+nac_por_estado_civil$prsoltera = nac_por_estado_civil$prsoltera*100
+
+nac_por_estado_civil0 <- nac_por_estado_civil %>% filter(Departamento.de.residencia == "Guatemala")
+
+nac_por_estado_civil1 <-nac_por_estado_civil %>% filter(Departamento.de.residencia == "Suchitepéquez")
+
+nac_por_estado_civil2 <- nac_por_estado_civil %>% filter(Departamento.de.residencia == "Zacapa")
+
+nac_por_estado_civil3 <- nac_por_estado_civil %>% filter(Departamento.de.residencia == "Totonicapán")
+
+nac_por_estado_civil4 <- nac_por_estado_civil %>% filter(Departamento.de.residencia == "Sololá")
+
+nac_por_estado_civil5 <- nac_por_estado_civil %>% filter(Departamento.de.residencia == "Santa Rosa")
+
+nac_por_estado_civil6 <- nac_por_estado_civil %>% filter(Departamento.de.residencia == "San Marcos")
+
+nac_por_estado_civil7 <- nac_por_estado_civil %>% filter(Departamento.de.residencia == "Sacatepéquez")
+
+nac_por_estado_civil8 <- nac_por_estado_civil %>% filter(Departamento.de.residencia == "Retalhuleu")
+
+nac_por_estado_civil9 <- nac_por_estado_civil %>% filter(Departamento.de.residencia == "Quiché")
+
+nac_por_estado_civil10 <- nac_por_estado_civil %>% filter(Departamento.de.residencia == "Quetzaltenango")
+
+nac_por_estado_civil11 <- nac_por_estado_civil %>% filter(Departamento.de.residencia == "Petén")
+
+nac_por_estado_civil12 <- nac_por_estado_civil %>% filter(Departamento.de.residencia == "Jutiapa")
+
+nac_por_estado_civil13 <- nac_por_estado_civil %>% filter(Departamento.de.residencia == "Jalapa")
+
+nac_por_estado_civil14 <- nac_por_estado_civil %>% filter(Departamento.de.residencia == "Izabal")
+
+nac_por_estado_civil15 <- nac_por_estado_civil %>% filter(Departamento.de.residencia == "Huehuetenango")
+
+nac_por_estado_civil16 <- nac_por_estado_civil%>% filter(Departamento.de.residencia == "Escuintla")
+
+nac_por_estado_civil17 <- nac_por_estado_civil %>% filter(Departamento.de.residencia == "El Progreso")
+
+nac_por_estado_civil18 <- nac_por_estado_civil %>% filter(Departamento.de.residencia == "Chiquimula")
+
+nac_por_estado_civil19 <- nac_por_estado_civil %>% filter(Departamento.de.residencia == "Chimaltenango")
+
+nac_por_estado_civil20 <- nac_por_estado_civil %>% filter(Departamento.de.residencia == "Baja Verapaz")
+
+nac_por_estado_civil21 <- nac_por_estado_civil %>% filter(Departamento.de.residencia == "Alta Verapaz")
+
+d7 <- melt(list(Guatemala = nac_por_estado_civil0,Suchitepequez = nac_por_estado_civil1,Zacapa = nac_por_estado_civil2,Totonicapan = nac_por_estado_civil3,Solola = nac_por_estado_civil4,Santa_Rosa = nac_por_estado_civil5,San_Marcos = nac_por_estado_civil6, Sacatepequez = nac_por_estado_civil7), id.vars = c("anio", "prsoltera"))
+ggplot(d7, aes(x=anio, y=prsoltera, colour = L1)) + geom_line() + geom_point() + ggtitle("Porcentaje de mujeres solteras por anio") + theme(axis.text.x = element_text(angle = 90, vjust = 0.5)) + scale_x_continuous("Año", labels = as.character(nac_por_estado_civil1$anio), breaks = nac_por_estado_civil1$anio)
+
+d8 <- melt(list(Retalhuleu = nac_por_estado_civil8,Quiche = nac_por_estado_civil9,Quetzaltenango = nac_por_estado_civil10,Peten = nac_por_estado_civil11,Jutiapa = nac_por_estado_civil12,Jalapa = nac_por_estado_civil13, Izabal = nac_por_estado_civil14), id.vars = c("anio", "prsoltera"))
+ggplot(d8, aes(x=anio, y=prsoltera, colour = L1)) + geom_line() + geom_point() + ggtitle("Porcentaje de mujeres solteras por anio") + theme(axis.text.x = element_text(angle = 90, vjust = 0.5)) + scale_x_continuous("Año", labels = as.character(nac_por_estado_civil1$anio), breaks = nac_por_estado_civil1$anio)
+
+d9 <- melt(list(Huehuetenango = nac_por_estado_civil15,Escuintla = nac_por_estado_civil16,El_Progreso = nac_por_estado_civil17,Chiquimula = nac_por_estado_civil18,Chimaltenango = nac_por_estado_civil19,Baja_Verapaz = nac_por_estado_civil20, Alta_Verapaz = nac_por_estado_civil21), id.vars = c("anio", "prsoltera"))
+ggplot(d9, aes(x=anio, y=prsoltera, colour = L1)) + geom_line() + geom_point() + ggtitle("Porcentaje de mujeres solteras por anio") + theme(axis.text.x = element_text(angle = 90, vjust = 0.5)) + scale_x_continuous("Año", labels = as.character(nac_por_estado_civil1$anio), breaks = nac_por_estado_civil1$anio)
+```
+
+
+Si analizamos individualmente los departamentos observamos que las cifras van en aumento, alcanzan un maximo y luego descienden.
 
 
 ```{r echo=FALSE}
@@ -397,7 +524,6 @@ barplot(nac_guatemala_sexo_peso_clean$x, names.arg = nac_guatemala_sexo_peso_cle
 
 ```
 
-
 Luego de esto se quizo ver como era la distribucion de nacimientos por edades, se obtuvieron los siguientes resultados:
 
 ```{r echo=FALSE}
@@ -406,7 +532,6 @@ nac_por_edad <- aggregate(nac_por_dpto_edades_simples$Total, by=list(nac_por_dpt
 nac_por_edad <- head(nac_por_edad, - 1)
 barplot(nac_por_edad$x, names.arg = nac_por_edad$Group.1, las=2)
 ```
-
 
 ### - Correlaciones  Entre  las  Variables
 
@@ -424,7 +549,6 @@ corrplot(M,  method = "color", col = col(200), order = "hclust", number.cex = .3
          sig.level = 0.50, insig = "blank", 
          # hide correlation coefficient on the principal diagonal
          diag = FALSE)
-
 scndselect <- subset (nac_edad_madre_departamento_municipio, select = c(3:14))
 M2 <- cor(scndselect)
 corrplot(M2,  method = "color", col = col(200), order = "hclust", number.cex = .7,
@@ -446,6 +570,7 @@ corrplot(M3,  method = "color", col = col(200), order = "hclust", number.cex = 1
          sig.level = 0.50, insig = "blank", 
          # hide correlation coefficient on the principal diagonal
          diag = FALSE)
+
 frthselect <- subset (nac_por_estado_civil, select = c(2:7))
 M4 <- cor(frthselect)
 corrplot(M4,  method = "color", col = col(200), order = "hclust", number.cex = 1.5,
@@ -467,7 +592,6 @@ corrplot(M5,  method = "color", col = col(200), order = "hclust", number.cex = 1
          sig.level = 0.50, insig = "blank", 
          # hide correlation coefficient on the principal diagonal
          diag = FALSE)
-
 sthselect <- subset (nac_edad_madre_depto_area_etnia, select = c(3:14))
 sthselect = sthselect[rowSums(is.na(sthselect)) == 0, ]
 M6 <- cor(sthselect)
@@ -479,9 +603,42 @@ corrplot(M6,  method = "color", col = col(200), order = "hclust", number.cex = .
          sig.level = 0.50, insig = "blank", 
          # hide correlation coefficient on the principal diagonal
          diag = FALSE)
+
+svnthselect <- subset (nac_por_dpto_edades_simples, select = c(2:24))
+svnthselect = svnthselect[rowSums(is.na(svnthselect)) == 0, ]
+M7 <- cor(svnthselect)
+corrplot(M7,  method = "color", col = col(200), order = "hclust", number.cex = .5,
+         addCoef.col = "black", # Add coefficient of correlation
+         tl.col = "black", 
+         # Text label color and rotation
+         # Combine with significance
+         sig.level = 0.2, insig = "blank", 
+         # hide correlation coefficient on the principal diagonal
+         diag = FALSE)
+
+
+M8 <- cor(fthselect,frthselect)
+corrplot(M8,  method = "color", col = col(200), number.cex = .9,
+         addCoef.col = "black", # Add coefficient of correlation
+         tl.col = "black", 
+         # Text label color and rotation
+         # Combine with significance
+         sig.level = 0.9)
+
+#M11 <- cor(scndselect,frthselect)
+#corrplot(M11,  method = "color", col = col(200), number.cex = .5,
+#         addCoef.col = "black", # Add coefficient of correlation
+#         tl.col = "black", 
+#         # Text label color and rotation
+#         # Combine with significance
+#         sig.level = 0.9)
+
+
 ```
 
 ### - Variables Categóricas
+ Hacer arbol por tabla, para verificar que tabla puede predecir a que departamento pertenece cada fila de las tablas.
+ 
 ### - Número de Clusters
 
 Para analizar de mejor manera la informacion se hara un agrupamiento. Por lo que se hara una grafica de codo para determinar la cantidad de grupos adecuados para el analisis de datos.
@@ -492,19 +649,25 @@ library(tidyverse)  # data manipulation
 library(cluster)    # clustering algorithms
 library(factoextra)
 
+set.seed(123)
+
 elbow <- nac_por_dpto_edades_simples %>% filter(Edad != "Todas las edades") %>% select(-1, -27)
 
-avg_sil <- function(k) {
-  km.res <- kmeans(na.omit(elbow), centers = k, nstart = 25)
-  ss <- silhouette(km.res$cluster, dist(elbow))
-  mean(ss[, 3])
+# function to compute total within-cluster sum of square 
+wss <- function(k) {
+  kmeans(elbow, k, nstart = 10 )$tot.withinss
 }
-k.values <- 2:14
-avg_sil_values <- sapply(k.values, avg_sil)
-plot(k.values, avg_sil_values,
-       type = "b", pch = 19, frame = FALSE, 
-       xlab = "Number of clusters K",
-       ylab = "Average Silhouettes")
+
+# Compute and plot wss for k = 1 to k = 15
+k.values <- 1:15
+
+# extract wss for 2-15 clusters
+wss_values <- map_dbl(k.values, wss)
+
+plot(k.values, wss_values,
+       type="b", pch = 19, frame = FALSE, 
+       xlab="Number of clusters K",
+       ylab="Total within-clusters sum of squares")
 
 ```
 
@@ -535,29 +698,85 @@ De esta manera se pudo apreciar mejor la division entre grupoos. Y se realizo as
 
 ```{r echo=FALSE}
 
-set.seed(123)
-
 elbow <- nac_por_dpto_edades_simples %>% filter(Edad != "Todas las edades") %>% select(-1, -27)
 
-# function to compute total within-cluster sum of square 
-wss <- function(k) {
-  kmeans(elbow, k, nstart = 10 )$tot.withinss
+avg_sil <- function(k) {
+  km.res <- kmeans(na.omit(elbow), centers = k, nstart = 25)
+  ss <- silhouette(km.res$cluster, dist(elbow))
+  mean(ss[, 3])
 }
-
-# Compute and plot wss for k = 1 to k = 15
-k.values <- 1:15
-
-# extract wss for 2-15 clusters
-wss_values <- map_dbl(k.values, wss)
-
-plot(k.values, wss_values,
-       type="b", pch = 19, frame = FALSE, 
-       xlab="Number of clusters K",
-       ylab="Total within-clusters sum of squares")
+k.values <- 2:14
+avg_sil_values <- sapply(k.values, avg_sil)
+plot(k.values, avg_sil_values,
+       type = "b", pch = 19, frame = FALSE, 
+       xlab = "Number of clusters K",
+       ylab = "Average Silhouettes")
 
 ```
 
 Al utilizar el metodo de la silueta podemos identificar el numero correcto de clusters a tratar que es de 3, el mimsmo que se eligio previamente. 
+
+## - Clasificacion de departamentos por nececidad (media, alta y muy alta)
+
+
+En base al analisis exploratorio realizado se separaron las variables que consideramos aportan mayor valor a nuestro analisis sobre los factores que determinan la cantidad de educacion necesaria para cubrir. Estas mismas se utilizaron para determinar los clusters. De esta manera se eligieron los 3 grupos. 
+
+A partir de los clusters obtenidos y los percentiles se determino el rango de nececidad para cada grupo tomando en cuenta clusters y percentiles y aproximando entre sí. 
+
+1. Necesidad media: 0 a 1,000.
+2. Necesidad alta: 1,000 a 3,000
+3. Necesidad muy alta: 3,000 en adelante
+
+
+```{r echo=FALSE, warning=FALSE}
+library(plyr)
+nac_por_depto <- nac_por_dpto %>% filter(Mes != "Todos los meses") %>% filter(Departamento.de.residencia != "Todos los departamentos") %>% select(2, 3, 6)
+nac_por_depto$tipoDeNecesidad = cut(nac_por_depto$Total,c(0,1000,3000,10000), labels = c("1", "2", "3"))
+```
+
+## - Dividir Set de Datos (Entrenamiento y Prueba)
+
+Se utilizara el 70% de los datos para entrenamiento y el 30% restante para prueba. Es necesario brindar una cantidad sustancial de datos al algoritmo para entrenarlo y asi realizar un buen analisis y que el algoritmo pueda clasificar de manera correcta el set de datos. Se eligieron registros al azar para hacer la clasificacion.
+
+
+## - Arbol de Clasificacion
+
+```{r echo=FALSE, warning=FALSE}
+library(rpart)
+library(caret)
+library(tree)
+library(rpart.plot)
+library(randomForest)
+
+# variable respuesta la clase de la flor
+porciento <- 70/100
+
+nac_vivos_muertos_por_dpto <- na.omit(nac_vivos_muertos_por_dpto)
+
+datosFTree <- subset (nac_vivos_muertos_por_dpto, select = -c(9))
+
+trainRowsNumber<-sample(1:nrow(datosFTree),porciento*nrow(datosFTree))
+train<-datosFTree[trainRowsNumber,]
+test<-datosFTree[-trainRowsNumber,]
+
+arbolModelo<-rpart(Departamento.de.residencia~.,datosFTree,method = "class")
+rpart.plot(arbolModelo)
+
+save(train,test,arbolModelo, file = "Variables.RData")
+load("Variables.RData")
+dt_model<-rpart(Departamento.de.residencia~.,train,method = "class")
+rpart.plot(dt_model)
+
+head(test)
+prediccion <- predict(arbolModelo, newdata = test)
+columnaMasAlta<-apply(prediccion, 1, function(x) colnames(prediccion)[which.max(x)])
+test$prediccion<-columnaMasAlta
+sapply(test, class)
+tabla <- table(test$prediccion,test$Departamento.de.residencia)
+# cfm<-confusionMatrix(tabla)
+# cfm
+```
+
 
 ## Hallazgos y conclusiones
 ***
