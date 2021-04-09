@@ -749,10 +749,9 @@ nac_por_depto$tipoDeNecesidad = cut(nac_por_depto$Total,c(0,1000,3000,10000), la
 
 Se utilizara el 70% de los datos para entrenamiento y el 30% restante para prueba. Es necesario brindar una cantidad sustancial de datos al algoritmo para entrenarlo y asi realizar un buen analisis y que el algoritmo pueda clasificar de manera correcta el set de datos. Se eligieron registros al azar para hacer la clasificacion.
 
-
 ## - Arbol de Clasificacion
 
-```{r echo=FALSE, warning=FALSE}
+```{r}
 library(rpart)
 library(caret)
 library(tree)
@@ -786,7 +785,127 @@ sapply(test, class)
 tabla <- table(test$prediccion,test$Departamento.de.residencia)
 # cfm<-confusionMatrix(tabla)
 # cfm
+
+
+{r echo=FALSE, warning=FALSE}
+# variable respuesta la clase de la flor
+porciento <- 70/100
+
+nac_por_estado_civil <- na.omit(nac_por_estado_civil)
+
+datosFTree <- subset (nac_por_estado_civil, select = -c(7))
+
+trainRowsNumber<-sample(1:nrow(datosFTree),porciento*nrow(datosFTree))
+train<-datosFTree[trainRowsNumber,]
+test<-datosFTree[-trainRowsNumber,]
+
+arbolModelo<-rpart(Departamento.de.residencia~.,datosFTree,method = "class")
+rpart.plot(arbolModelo)
+
+save(train,test,arbolModelo, file = "Variables.RData")
+load("Variables.RData")
+dt_model<-rpart(Departamento.de.residencia~.,train,method = "class")
+rpart.plot(dt_model)
+
+head(test)
+prediccion <- predict(arbolModelo, newdata = test)
+columnaMasAlta<-apply(prediccion, 1, function(x) colnames(prediccion)[which.max(x)])
+test$prediccion<-columnaMasAlta
+sapply(test, class)
+tabla <- table(test$prediccion,test$Departamento.de.residencia)
+# cfm<-confusionMatrix(tabla)
+# cfm
+
+
+{r echo=FALSE, warning=FALSE}
+# variable respuesta la clase de la flor
+porciento <- 70/100
+
+nac_depto_sexo_peso <- na.omit(nac_depto_sexo_peso)
+
+datosFTree <- subset (nac_depto_sexo_peso, select = -c(6))
+
+trainRowsNumber<-sample(1:nrow(datosFTree),porciento*nrow(datosFTree))
+train<-datosFTree[trainRowsNumber,]
+test<-datosFTree[-trainRowsNumber,]
+
+arbolModelo<-rpart(Departamento.de.residencia~.,datosFTree,method = "class")
+rpart.plot(arbolModelo)
+
+save(train,test,arbolModelo, file = "Variables.RData")
+load("Variables.RData")
+dt_model<-rpart(Departamento.de.residencia~.,train,method = "class")
+rpart.plot(dt_model)
+
+head(test)
+prediccion <- predict(arbolModelo, newdata = test)
+columnaMasAlta<-apply(prediccion, 1, function(x) colnames(prediccion)[which.max(x)])
+test$prediccion<-columnaMasAlta
+sapply(test, class)
+tabla <- table(test$prediccion,test$Departamento.de.residencia)
+# cfm<-confusionMatrix(tabla)
+# cfm
+
+{r echo=FALSE, warning=FALSE}
+# variable respuesta la clase de la flor
+porciento <- 70/100
+
+nac_edad_madre_departamento_municipio <- na.omit(nac_edad_madre_departamento_municipio)
+
+datosFTree <- subset (nac_edad_madre_departamento_municipio, select = -c(13, 14))
+
+trainRowsNumber<-sample(1:nrow(datosFTree),porciento*nrow(datosFTree))
+train<-datosFTree[trainRowsNumber,]
+test<-datosFTree[-trainRowsNumber,]
+
+arbolModelo<-rpart(Departamento.de.residencia~.,datosFTree,method = "class")
+rpart.plot(arbolModelo)
+
+save(train,test,arbolModelo, file = "Variables.RData")
+load("Variables.RData")
+dt_model<-rpart(Departamento.de.residencia~.,train,method = "class")
+rpart.plot(dt_model)
+
+head(test)
+prediccion <- predict(arbolModelo, newdata = test)
+columnaMasAlta<-apply(prediccion, 1, function(x) colnames(prediccion)[which.max(x)])
+test$prediccion<-columnaMasAlta
+sapply(test, class)
+tabla <- table(test$prediccion,test$Departamento.de.residencia)
+# cfm<-confusionMatrix(tabla)
+# cfm
+
+
+{r echo=FALSE, warning=FALSE}
+# variable respuesta la clase de la flor
+porciento <- 70/100
+
+nac_edad_madre_depto_area_etnia <- na.omit(nac_edad_madre_depto_area_etnia)
+
+datosFTree <- subset (nac_edad_madre_depto_area_etnia, select = -c(13, 14))
+
+trainRowsNumber<-sample(1:nrow(datosFTree),porciento*nrow(datosFTree))
+train<-datosFTree[trainRowsNumber,]
+test<-datosFTree[-trainRowsNumber,]
+
+arbolModelo<-rpart(Departamento.de.residencia~.,datosFTree,method = "class")
+rpart.plot(arbolModelo)
+
+save(train,test,arbolModelo, file = "Variables.RData")
+load("Variables.RData")
+dt_model<-rpart(Departamento.de.residencia~.,train,method = "class")
+rpart.plot(dt_model)
+
+head(test)
+prediccion <- predict(arbolModelo, newdata = test)
+columnaMasAlta<-apply(prediccion, 1, function(x) colnames(prediccion)[which.max(x)])
+test$prediccion<-columnaMasAlta
+sapply(test, class)
+tabla <- table(test$prediccion,test$Departamento.de.residencia)
+# cfm<-confusionMatrix(tabla)
+# cfm
 ```
+
 
 
 ### - Hallazgos en el análisis exploratorio
