@@ -1,6 +1,6 @@
 ---
 title: "Presentación de Resultados"
-author: "Jose Block"
+author: "Juan De Leon, Maria Jose Castro, Jose Block"
 date: "23/5/2021"
 output: html_document
 ---
@@ -13,11 +13,14 @@ library(rpart)
 library(caret)
 library(tree)
 library(rpart.plot)
-library(randomForest)
 library(plyr)
 library(tidyverse)
-
-
+library(nnet)
+library(neural)
+library(neuralnet)
+#library(ggplot2)
+#library(PerformanceAnalytics)
+#library(plotly)
 
 # Load Data
 load("DataMiningP1Project.RData")
@@ -34,7 +37,7 @@ Para nuestro proyecto inicialmente se escogió la variable respuesta departament
 
 Para los conjuntos de entrenamiento, se escogieron las porciones de 80% entrenamiento a 20%. Estas medidas las obtuvimos de unos apuntes de un curso de machine learning extraido de: https://developers.google.com/machine-learning/crash-course/training-and-test-sets/splitting-data. El primer algoritmo que se va a utilizar es un arbol de clasificación para determinar una jerarquía de importancia entre los datos. Seguido de Redes Neuronales para comprobar que tanto se puede predecir con los datos que se tienen, o sea a que porcentaje de precisión se puede llegar.
 
-## - Arbol de Clasificacion
+## - Arboles de Clasificación
 
 ```{r echo=FALSE, warning=FALSE, message=FALSE}
 
@@ -64,6 +67,11 @@ test$RangosEdades<- as.factor(test$RangosEdades)
 
 cfm<-confusionMatrix(as.factor(test$prediccion),test$RangosEdades)
 cfm
+```
+ - Nacimientos por departamento según edad de la madre.
+
+En el primer arbol de decisión se logró una accuracy aproximadamente de 89%, la cual está bastante bien. Que tenga una alta accuracy, asegura que los datos que se extraigan de este modelo van a ser bastante certeros. En el gráfico del árbol podemos notar que la suma de las casillas con título "Menor de edad" dan un resultado aproximado de un 15% de mujeres menores de edad(18) que están teniendo un hijo. Otro dato relevante es que le siguen las mujeres de 18 a 28 años siendo el 22%. Las variables relevantes de departamentos que determinan al modelo son las siguientes: Escuintla, Chimaltenango, Petén, Guatemala y San Marcos.
+```{r echo=FALSE, warning=FALSE, message=FALSE}
 
 datosFTree1 <- subset (nac_por_estado_civil_por_edad, select = -c(7))
 
@@ -82,6 +90,11 @@ test1$Grupos.de.edad<- as.factor(test1$Grupos.de.edad)
 
 cfm1<-confusionMatrix(as.factor(test1$prediccion1),test1$Grupos.de.edad)
 cfm1
+```
+ - Nacimientos por estado civil según edad de la madre.
+
+En este arbol se tiene una accuracy aproximadamente de 60%, es relativamente baja, pero igualment se decidió contemplar los datos de este. Cuenta con un 10% con menos de 15 años, y 15% de 15 a 19 años. Por ultimo de 20 a 24 años, es el 18% siendo un total del 43% de las madres del país tienen menos de 25 años.
+```{r echo=FALSE, warning=FALSE, message=FALSE}
 
 datosFTree2 <- subset (nac_edad_madre_sexo_peso, select = -c(6))
 
@@ -101,3 +114,7 @@ test2$Edad.de.la.madre<- as.factor(test2$Edad.de.la.madre)
 cfm2<-confusionMatrix(as.factor(test2$prediccion2),test2$Edad.de.la.madre)
 cfm2
 ```
+ - Nacimientos por edad de la madre según sexo y peso de bebé.
+
+En este modelo se consiguió una accuracy de aproximadamente 37%, por lo que no se tomarán en cuenta los datos de este modelo. Se puede concluir tambien que la variable edad no define el sexo ni el peso del bebé, debido a su poca relación. 
+
