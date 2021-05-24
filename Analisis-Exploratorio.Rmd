@@ -173,7 +173,7 @@ unique(dpto_res_ocu$...1)
 
 print("nac_edad_madre_departamento_municipio")
 unique(nac_edad_madre_departamento_municipio$Departamento.de.residencia)
-unique(nac_edad_madre_departamento_municipio$Municipios)
+#unique(nac_edad_madre_departamento_municipio$Municipios)
 
 print("nac_depto_sexo_peso")
 unique(nac_depto_sexo_peso$Departamento.de.residencia)
@@ -528,11 +528,6 @@ for (variable in listado_de_departamentos) {
 nac_guatemala_sexo_peso_clean <- aggregate(nac_guatemala_sexo_peso$Total, by=list(nac_guatemala_sexo_peso$Peso), FUN = sum)
 barplot(nac_guatemala_sexo_peso_clean$x, names.arg = nac_guatemala_sexo_peso_clean$Group.1, las=2)
 }
-
-#nac_guatemala_sexo_peso <- nac_depto_sexo_peso %>% filter(Departamento.de.residencia == "Guatemala") %>% filter(Peso != "Todos los pesos") %>% select(-1, -4, -5)
-#nac_guatemala_sexo_peso_clean <- aggregate(nac_guatemala_sexo_peso$Total, by=list(nac_guatemala_sexo_peso$Peso), FUN = sum)
-#barplot(nac_guatemala_sexo_peso_clean$x, names.arg = nac_guatemala_sexo_peso_clean$Group.1, las=2)
-
 ```
 
 Luego de esto se quizo ver como era la distribucion de nacimientos por edades, se obtuvieron los siguientes resultados:
@@ -543,6 +538,15 @@ nac_por_edad <- aggregate(nac_por_dpto_edades_simples$Total, by=list(nac_por_dpt
 nac_por_edad <- head(nac_por_edad, - 1)
 barplot(nac_por_edad$x, names.arg = nac_por_edad$Group.1, las=2)
 ```
+A continuación se verá por departamento:
+
+```{r}
+nac_edad0 <- nac_por_dpto_edades_simples %>% filter(Edad %in% (10:15))
+
+summary(nac_edad0)
+
+```
+
 
 ### - Correlaciones  Entre  las  Variables
 
@@ -631,7 +635,7 @@ corrplot(M8,  method = "color", col = col(200), number.cex = .9,
 
 Para analizar de mejor manera la informacion se hara un agrupamiento. Por lo que se hara una grafica de codo para determinar la cantidad de grupos adecuados para el analisis de datos.
 
-```{r echo=FALSE}
+```{r echo=FALSE, message=FALSE}
 
 library(tidyverse)  # data manipulation
 library(cluster)    # clustering algorithms

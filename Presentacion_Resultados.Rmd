@@ -1,0 +1,103 @@
+---
+title: "Presentación de Resultados"
+author: "Jose Block"
+date: "23/5/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+# Import libraries
+library(rpart)
+library(caret)
+library(tree)
+library(rpart.plot)
+library(randomForest)
+library(plyr)
+library(tidyverse)
+
+
+
+# Load Data
+load("DataMiningP1Project.RData")
+```
+### -Introducción
+
+Para nuestro proyecto inicialmente se escogió la variable respuesta departamento de nacimiento, para poder determinar qué variables tienen mayor influencia en base a la diferenciación de departamentos.Se decidió cambiar de variable respuesta debido a que la clasificacion de departamentos era muy dificil de tratar y muchas variables por clasificar. Finalmente se decidieron las variables respuesta edad de madre. Se hará un algoritmo de arboles de clasificasión y dos redes neuronales por cada tabla en la que se va a trabajar. Los árboles de clasificación se usarán para verificar qué variables definen un cambio en en la clasificación de edad de la mujer. Los algoritmos de redes neuronales se usarán para comprobar la relación de la variable respuesta con el resto de variables usando diferentes combinaciones de cada algoritmo para obtener los mejores indices de "accuracy" posible. Las tablas que se usarán son las siguientes:
+
+ - Nacimientos por departamento según edad de la madre.
+ - Nacimientos por estado civil según edad de la madre.
+ - Nacimientos por edad de la madre según sexo y peso de bebé.
+ 
+### -Conjuntos de entrenamiento y prueba:
+
+Para los conjuntos de entrenamiento, se escogieron las porciones de 80% entrenamiento a 20%. Estas medidas las obtuvimos de unos apuntes de un curso de machine learning extraido de: https://developers.google.com/machine-learning/crash-course/training-and-test-sets/splitting-data. El primer algoritmo que se va a utilizar es un arbol de clasificación para determinar una jerarquía de importancia entre los datos. Seguido de Redes Neuronales para comprobar que tanto se puede predecir con los datos que se tienen, o sea a que porcentaje de precisión se puede llegar.
+
+## - Arbol de Clasificacion
+
+```{r echo=FALSE, warning=FALSE, message=FALSE}
+
+porciento <- 80/100
+
+set.seed(123)
+
+nac_por_dpto_edades_simples <- nac_por_dpto_edades_simples %>% filter(Edad != "Ignorado" & Edad != "Todas las edades")
+
+nac_por_dpto_edades_simples$Edad <- as.numeric(nac_por_dpto_edades_simples$Edad)
+nac_por_dpto_edades_simples$RangosEdades = cut(nac_por_dpto_edades_simples$Edad,c(0,17,28,38,59), labels = c("Menor de edad", "Joven mayor de edad", "Mayor de edad", "Edad avanzada"))
+
+datosFTree <- subset (nac_por_dpto_edades_simples, select = -c(1,27))
+
+trainRowsNumber<-sample(1:nrow(datosFTree),porciento*nrow(datosFTree))
+train<-datosFTree[trainRowsNumber,]
+test<-datosFTree[-trainRowsNumber,]
+arbolModelo<-rpart(RangosEdades~.,train,method = "class")
+rpart.plot(arbolModelo)
+
+prediccion <- predict(arbolModelo, newdata = test)
+columnaMasAlta<-apply(prediccion, 1, function(x) colnames(prediccion)[which.max(x)])
+test$prediccion<-columnaMasAlta
+
+test$prediccion<- as.factor(test$prediccion)
+test$RangosEdades<- as.factor(test$RangosEdades)
+
+cfm<-confusionMatrix(as.factor(test$prediccion),test$RangosEdades)
+cfm
+
+datosFTree1 <- subset (nac_por_estado_civil_por_edad, select = -c(7))
+
+trainRowsNumber1<-sample(1:nrow(datosFTree1),porciento*nrow(datosFTree1))
+train1<-datosFTree1[trainRowsNumber1,]
+test1<-datosFTree1[-trainRowsNumber1,]
+arbolModelo1<-rpart(Grupos.de.edad~.,train1,method = "class")
+rpart.plot(arbolModelo1)
+
+prediccion1 <- predict(arbolModelo1, newdata = test1)
+columnaMasAlta1<-apply(prediccion1, 1, function(x) colnames(prediccion1)[which.max(x)])
+test1$prediccion1<-columnaMasAlta1
+
+test1$prediccion1<- as.factor(test1$prediccion1)
+test1$Grupos.de.edad<- as.factor(test1$Grupos.de.edad)
+
+cfm1<-confusionMatrix(as.factor(test1$prediccion1),test1$Grupos.de.edad)
+cfm1
+
+datosFTree2 <- subset (nac_edad_madre_sexo_peso, select = -c(6))
+
+trainRowsNumber2<-sample(1:nrow(datosFTree2),porciento*nrow(datosFTree2))
+train2<-datosFTree2[trainRowsNumber2,]
+test2<-datosFTree2[-trainRowsNumber2,]
+arbolModelo2<-rpart(Edad.de.la.madre~.,train2,method = "class")
+rpart.plot(arbolModelo2)
+
+prediccion2 <- predict(arbolModelo2, newdata = test2)
+columnaMasAlta2<-apply(prediccion2, 1, function(x) colnames(prediccion2)[which.max(x)])
+test2$prediccion2<-columnaMasAlta2
+
+test2$prediccion2<- as.factor(test2$prediccion2)
+test2$Edad.de.la.madre<- as.factor(test2$Edad.de.la.madre)
+
+cfm2<-confusionMatrix(as.factor(test2$prediccion2),test2$Edad.de.la.madre)
+cfm2
+```
