@@ -118,3 +118,77 @@ cfm2
 
 En este modelo se consiguió una accuracy de aproximadamente 37%, por lo que no se tomarán en cuenta los datos de este modelo. Se puede concluir tambien que la variable edad no define el sexo ni el peso del bebé, debido a su poca relación. 
 
+## - Redes Neuronales
+```{r echo=FALSE, warning=FALSE, message=FALSE, include=FALSE}
+nac_por_dpto_edades_simples$RangosInt = cut(nac_por_dpto_edades_simples$Edad,c(0,17,28,38,59), labels = c(1, 2, 3, 4))
+datosNNET <- subset(nac_por_dpto_edades_simples, select = -c(1,27,28))
+
+trainRowsNumber3<-sample(1:nrow(datosNNET),porciento*nrow(datosNNET))
+train3<-datosNNET[trainRowsNumber3,]
+test3<-datosNNET[-trainRowsNumber3,]
+
+modeloCaret <- train(RangosInt~., data=train3, method="nnet",preProcess=c("scale","center"), na.action = na.omit, linout = TRUE)
+
+test3$prediccionCaret <- predict(modeloCaret, newdata = test3)
+
+u <- union(test3$prediccionCaret,test3$RangosInt)
+t <- table(factor(test3$prediccionCaret, u), factor(test3$RangosInt, u))
+```
+
+```{r echo=FALSE, warning=FALSE, message=FALSE}
+cfmCaret<-confusionMatrix(t)
+cfmCaret
+```
+
+
+ - Nacimientos por departamento según edad de la madre.
+ 
+ Con la accuracy aproximada de 93% del modelo se puede comprobar aún más la ceracidad de la información recolectada del arbol de clasificación. Concuerda en que La variable edad tiene mucho que ver entre departamentos, por lo que sí debería de ser parte de nuestra categorización de departamentos en los cuales invertir en educación.
+
+```{r echo=FALSE, warning=FALSE, message=FALSE, include=FALSE}
+datosNNET1 <- subset(nac_por_estado_civil_por_edad, select = -c(7))
+
+trainRowsNumber4<-sample(1:nrow(datosNNET1),porciento*nrow(datosNNET1))
+train4<-datosNNET1[trainRowsNumber4,]
+test4<-datosNNET1[-trainRowsNumber4,]
+
+modeloCaret1 <- train(Grupos.de.edad~., data=train4, method="nnet",preProcess=c("scale","center"), na.action = na.omit, linout = TRUE)
+
+test4$prediccionCaret1 <- predict(modeloCaret1, newdata = test4)
+
+u1 <- union(test4$prediccionCaret1,test4$Grupos.de.edad)
+t1 <- table(factor(test4$prediccionCaret1, u1), factor(test4$Grupos.de.edad, u1))
+```
+ 
+```{r echo=FALSE, warning=FALSE, message=FALSE}
+cfmCaret1<-confusionMatrix(t1)
+cfmCaret1
+```
+
+ - Nacimientos por estado civil según edad de la madre.
+ 
+ Este modelo con una accuracy aproximada a 86% respalda la información extraida del árbol de clasificación de esta tabla, ya que muestra que si hay mucha relación entre el estado civil de la madre y su edad. Por lo tanto, la edad juega un rol importante en una madre sin pareja, lo cual sí afecta al acceso de educación a estos casos.
+ 
+```{r echo=FALSE, warning=FALSE, message=FALSE, include=FALSE}
+datosNNET2 <- subset(nac_edad_madre_sexo_peso, select = -c(6))
+
+trainRowsNumber5<-sample(1:nrow(datosNNET2),porciento*nrow(datosNNET2))
+train5<-datosNNET2[trainRowsNumber5,]
+test5<-datosNNET2[-trainRowsNumber5,]
+
+modeloCaret2 <- train(Edad.de.la.madre~., data=train5, method="nnet",preProcess=c("scale","center"), na.action = na.omit, linout = TRUE)
+
+test5$prediccionCaret2 <- predict(modeloCaret2, newdata = test5)
+
+u2 <- union(test5$prediccionCaret2,test5$Edad.de.la.madre)
+t2 <- table(factor(test5$prediccionCaret2, u2), factor(test5$Edad.de.la.madre, u2))
+```
+
+```{r echo=FALSE, warning=FALSE, message=FALSE}
+cfmCaret2<-confusionMatrix(t2)
+cfmCaret2
+```
+
+ - Nacimientos por edad de la madre según sexo y peso de bebé.
+
+En este modelo se consiguió una accuracy de aproximadamente 37%, por lo que no se tomarán en cuenta los datos de este modelo.

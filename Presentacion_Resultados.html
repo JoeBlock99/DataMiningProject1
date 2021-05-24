@@ -426,6 +426,236 @@ summary {
 </ul>
 <p>En este modelo se consiguió una accuracy de aproximadamente 37%, por lo que no se tomarán en cuenta los datos de este modelo. Se puede concluir tambien que la variable edad no define el sexo ni el peso del bebé, debido a su poca relación.</p>
 </div>
+<div id="redes-neuronales" class="section level2">
+<h2>- Redes Neuronales</h2>
+<pre><code>## Confusion Matrix and Statistics
+## 
+##    
+##      1  2  3  4
+##   1  8  0  0  0
+##   2  0 22  0  0
+##   3  0  0 26  0
+##   4  6  0  1 37
+## 
+## Overall Statistics
+##                                           
+##                Accuracy : 0.93            
+##                  95% CI : (0.8611, 0.9714)
+##     No Information Rate : 0.37            
+##     P-Value [Acc &gt; NIR] : &lt; 2.2e-16       
+##                                           
+##                   Kappa : 0.901           
+##                                           
+##  Mcnemar&#39;s Test P-Value : NA              
+## 
+## Statistics by Class:
+## 
+##                      Class: 1 Class: 2 Class: 3 Class: 4
+## Sensitivity            0.5714     1.00   0.9630   1.0000
+## Specificity            1.0000     1.00   1.0000   0.8889
+## Pos Pred Value         1.0000     1.00   1.0000   0.8409
+## Neg Pred Value         0.9348     1.00   0.9865   1.0000
+## Prevalence             0.1400     0.22   0.2700   0.3700
+## Detection Rate         0.0800     0.22   0.2600   0.3700
+## Detection Prevalence   0.0800     0.22   0.2600   0.4400
+## Balanced Accuracy      0.7857     1.00   0.9815   0.9444</code></pre>
+<ul>
+<li>Nacimientos por departamento según edad de la madre.</li>
+</ul>
+<p>Con la accuracy aproximada de 93% del modelo se puede comprobar aún más la ceracidad de la información recolectada del arbol de clasificación. Concuerda en que La variable edad tiene mucho que ver entre departamentos, por lo que sí debería de ser parte de nuestra categorización de departamentos en los cuales invertir en educación.</p>
+<pre><code>## Confusion Matrix and Statistics
+## 
+##                   
+##                    15 - 19 Todas las edades Ignorado 35 - 39 45 - 49 20 - 24
+##   15 - 19                1                0        0       0       0       0
+##   Todas las edades       0                1        0       0       0       0
+##   Ignorado               0                0        2       0       0       0
+##   35 - 39                0                0        0       3       0       0
+##   45 - 49                0                0        0       0       6       0
+##   20 - 24                0                0        0       0       0       3
+##   50 y más               0                0        0       0       0       0
+##   30 - 34                0                0        0       0       0       0
+##   40 - 44                0                0        0       0       0       0
+##   Menos de 15            0                0        0       0       0       0
+##   25 - 29                0                0        0       0       0       0
+##   Menos de 18            0                0        0       0       0       0
+##   18 - 19                0                0        0       0       0       0
+##                   
+##                    50 y más 30 - 34 40 - 44 Menos de 15 25 - 29 Menos de 18
+##   15 - 19                 0       0       0           0       0           0
+##   Todas las edades        0       0       0           0       1           0
+##   Ignorado                0       0       0           0       0           0
+##   35 - 39                 0       0       0           0       0           0
+##   45 - 49                 0       0       0           0       0           0
+##   20 - 24                 0       0       0           0       0           0
+##   50 y más                1       0       0           0       0           0
+##   30 - 34                 0       1       0           0       0           0
+##   40 - 44                 0       0       1           0       0           0
+##   Menos de 15             0       0       0           0       0           1
+##   25 - 29                 0       0       0           0       0           0
+##   Menos de 18             0       0       0           0       0           0
+##   18 - 19                 0       0       0           0       0           0
+##                   
+##                    18 - 19
+##   15 - 19                1
+##   Todas las edades       0
+##   Ignorado               0
+##   35 - 39                0
+##   45 - 49                0
+##   20 - 24                0
+##   50 y más               0
+##   30 - 34                0
+##   40 - 44                0
+##   Menos de 15            0
+##   25 - 29                0
+##   Menos de 18            0
+##   18 - 19                0
+## 
+## Overall Statistics
+##                                           
+##                Accuracy : 0.8636          
+##                  95% CI : (0.6509, 0.9709)
+##     No Information Rate : 0.2727          
+##     P-Value [Acc &gt; NIR] : 1.191e-08       
+##                                           
+##                   Kappa : 0.8425          
+##                                           
+##  Mcnemar&#39;s Test P-Value : NA              
+## 
+## Statistics by Class:
+## 
+##                      Class: 15 - 19 Class: Todas las edades Class: Ignorado
+## Sensitivity                 1.00000                 1.00000         1.00000
+## Specificity                 0.95238                 0.95238         1.00000
+## Pos Pred Value              0.50000                 0.50000         1.00000
+## Neg Pred Value              1.00000                 1.00000         1.00000
+## Prevalence                  0.04545                 0.04545         0.09091
+## Detection Rate              0.04545                 0.04545         0.09091
+## Detection Prevalence        0.09091                 0.09091         0.09091
+## Balanced Accuracy           0.97619                 0.97619         1.00000
+##                      Class: 35 - 39 Class: 45 - 49 Class: 20 - 24
+## Sensitivity                  1.0000         1.0000         1.0000
+## Specificity                  1.0000         1.0000         1.0000
+## Pos Pred Value               1.0000         1.0000         1.0000
+## Neg Pred Value               1.0000         1.0000         1.0000
+## Prevalence                   0.1364         0.2727         0.1364
+## Detection Rate               0.1364         0.2727         0.1364
+## Detection Prevalence         0.1364         0.2727         0.1364
+## Balanced Accuracy            1.0000         1.0000         1.0000
+##                      Class: 50 y más Class: 30 - 34 Class: 40 - 44
+## Sensitivity                  1.00000        1.00000        1.00000
+## Specificity                  1.00000        1.00000        1.00000
+## Pos Pred Value               1.00000        1.00000        1.00000
+## Neg Pred Value               1.00000        1.00000        1.00000
+## Prevalence                   0.04545        0.04545        0.04545
+## Detection Rate               0.04545        0.04545        0.04545
+## Detection Prevalence         0.04545        0.04545        0.04545
+## Balanced Accuracy            1.00000        1.00000        1.00000
+##                      Class: Menos de 15 Class: 25 - 29 Class: Menos de 18
+## Sensitivity                          NA        0.00000            0.00000
+## Specificity                     0.95455        1.00000            1.00000
+## Pos Pred Value                       NA            NaN                NaN
+## Neg Pred Value                       NA        0.95455            0.95455
+## Prevalence                      0.00000        0.04545            0.04545
+## Detection Rate                  0.00000        0.00000            0.00000
+## Detection Prevalence            0.04545        0.00000            0.00000
+## Balanced Accuracy                    NA        0.50000            0.50000
+##                      Class: 18 - 19
+## Sensitivity                 0.00000
+## Specificity                 1.00000
+## Pos Pred Value                  NaN
+## Neg Pred Value              0.95455
+## Prevalence                  0.04545
+## Detection Rate              0.00000
+## Detection Prevalence        0.00000
+## Balanced Accuracy           0.50000</code></pre>
+<ul>
+<li>Nacimientos por estado civil según edad de la madre.</li>
+</ul>
+<p>Este modelo con una accuracy aproximada a 86% respalda la información extraida del árbol de clasificación de esta tabla, ya que muestra que si hay mucha relación entre el estado civil de la madre y su edad. Por lo tanto, la edad juega un rol importante en una madre sin pareja, lo cual sí afecta al acceso de educación a estos casos.</p>
+<pre><code>## Confusion Matrix and Statistics
+## 
+##                   
+##                    30 - 34 15 - 19 Todas las edades 45 - 49 Ignorado 35 - 39
+##   30 - 34               27      16                4       3        7      10
+##   15 - 19                5       8                1       0        0       0
+##   Todas las edades       0       1               40       0        0       0
+##   45 - 49                0       1                0      11       14       4
+##   Ignorado               0       0                0      11       13       0
+##   35 - 39                9       4                0       1        2      17
+##   25 - 29                6       5                0       0        0       0
+##   20 - 24                3       1                1       0        0       0
+##   40 - 44                0       0                0       5        8       1
+##   Menos de 15            0       0                0       4        8       0
+##   50 y más               0       0                0       0        0       0
+##                   
+##                    25 - 29 20 - 24 40 - 44 Menos de 15 50 y más
+##   30 - 34               20      17       5           4        7
+##   15 - 19                2       0       0           0        0
+##   Todas las edades       4       6       0           0        0
+##   45 - 49                0       0      12          16       20
+##   Ignorado               0       0       0          17        8
+##   35 - 39                3       0       2           2        1
+##   25 - 29                7       4       0           0        0
+##   20 - 24               13      15       0           0        0
+##   40 - 44                0       0      23           6        4
+##   Menos de 15            0       0       1           3       11
+##   50 y más               0       0       0           0        0
+## 
+## Overall Statistics
+##                                           
+##                Accuracy : 0.3388          
+##                  95% CI : (0.2967, 0.3829)
+##     No Information Rate : 0.1074          
+##     P-Value [Acc &gt; NIR] : &lt; 2.2e-16       
+##                                           
+##                   Kappa : 0.2727          
+##                                           
+##  Mcnemar&#39;s Test P-Value : NA              
+## 
+## Statistics by Class:
+## 
+##                      Class: 30 - 34 Class: 15 - 19 Class: Todas las edades
+## Sensitivity                 0.54000        0.22222                 0.86957
+## Specificity                 0.78571        0.98214                 0.97489
+## Pos Pred Value              0.22500        0.50000                 0.78431
+## Neg Pred Value              0.93681        0.94017                 0.98614
+## Prevalence                  0.10331        0.07438                 0.09504
+## Detection Rate              0.05579        0.01653                 0.08264
+## Detection Prevalence        0.24793        0.03306                 0.10537
+## Balanced Accuracy           0.66286        0.60218                 0.92223
+##                      Class: 45 - 49 Class: Ignorado Class: 35 - 39
+## Sensitivity                 0.31429         0.25000        0.53125
+## Specificity                 0.85078         0.91667        0.94690
+## Pos Pred Value              0.14103         0.26531        0.41463
+## Neg Pred Value              0.94089         0.91034        0.96614
+## Prevalence                  0.07231         0.10744        0.06612
+## Detection Rate              0.02273         0.02686        0.03512
+## Detection Prevalence        0.16116         0.10124        0.08471
+## Balanced Accuracy           0.58253         0.58333        0.73908
+##                      Class: 25 - 29 Class: 20 - 24 Class: 40 - 44
+## Sensitivity                 0.14286        0.35714        0.53488
+## Specificity                 0.96552        0.95928        0.94558
+## Pos Pred Value              0.31818        0.45455        0.48936
+## Neg Pred Value              0.90909        0.94013        0.95423
+## Prevalence                  0.10124        0.08678        0.08884
+## Detection Rate              0.01446        0.03099        0.04752
+## Detection Prevalence        0.04545        0.06818        0.09711
+## Balanced Accuracy           0.55419        0.65821        0.74023
+##                      Class: Menos de 15 Class: 50 y más
+## Sensitivity                    0.062500          0.0000
+## Specificity                    0.944954          1.0000
+## Pos Pred Value                 0.111111             NaN
+## Neg Pred Value                 0.901532          0.8946
+## Prevalence                     0.099174          0.1054
+## Detection Rate                 0.006198          0.0000
+## Detection Prevalence           0.055785          0.0000
+## Balanced Accuracy              0.503727          0.5000</code></pre>
+<ul>
+<li>Nacimientos por edad de la madre según sexo y peso de bebé.</li>
+</ul>
+<p>En este modelo se consiguió una accuracy de aproximadamente 37%, por lo que no se tomarán en cuenta los datos de este modelo.</p>
+</div>
 
 
 
