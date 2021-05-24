@@ -18,9 +18,9 @@ library(tidyverse)
 library(nnet)
 library(neural)
 library(neuralnet)
-#library(ggplot2)
+library(ggplot2)
 #library(PerformanceAnalytics)
-#library(plotly)
+library(plotly)
 
 # Load Data
 load("DataMiningP1Project.RData")
@@ -192,3 +192,34 @@ cfmCaret2
  - Nacimientos por edad de la madre según sexo y peso de bebé.
 
 En este modelo se consiguió una accuracy de aproximadamente 37%, por lo que no se tomarán en cuenta los datos de este modelo.
+
+- Clasification Tree(CT)
+ - Neural Net(NN)
+ - Nacimientos por departamento según edad de la madre(_dep_edad).
+ - Nacimientos por estado civil según edad de la madre(_estado_cvl_edad).
+ - Nacimientos por edad de la madre según sexo y peso de bebé(_edad_sexo_peso).
+```{r echo=FALSE, warning=FALSE, message=FALSE}
+modelos_prediccion <- c("CT_dep_edad", "NN_dep_edad", "CT_estado_cvl_edad", "NN_estado_cvl_edad", "CT_edad_sexo_peso", "NN_edad_sexo_peso")
+accuracies <- c(89, 93, 59.09, 86.36, 36.98, 33.88)
+
+comparacion_prediccion <- data.frame(modelos_prediccion, accuracies)
+
+fig_1 <- plot_ly(comparacion_prediccion, x = ~modelos_prediccion, y = ~accuracies, type = 'bar', text = paste(signif(accuracies,digits = 4),"%"), textposition = 'auto', name = '')
+fig_1<- fig_1 %>% layout(title="Precision del modelo vs Modelo Aplicado",yaxis = list(title = 'Accuracy(%)'),xaxis = list(title = 'Modelo Aplicado'), barmode = 'group')
+
+fig_1
+
+```
+## -Conclusiones
+
+ - Nacimientos por departamento según edad de la madre.
+De los modelos aplicados a esta tabla se puede concluir que en efecto la edad de las madres tiene mucha relación con el departamento de residencia. Pudimos ver también qué departamentos influían más en la decisión de prioridades del arbol de clasificación. Con este mismo pudimos obtener las porciones en que se divide la poblacion de madres según edad. Con el algoritmo de la red neuronal, pudimos asegurar la relación de la edad de las madres con cada departamento. También su alta accuracy nos da certeza de que esa variable será usada para poder determinar el departamento en qué invertir para educación.
+
+ - Nacimientos por estado civil según edad de la madre.
+En el caso de los modelos de esta tabla, se pudo ver una relación aceptable entre el estado civil y la edad, nuevamente nos otorga las proporciones de mujeres segun edad y estado civil. También nos permite ver qué variables influyen más en la variable edad. Por último, es importante mencionar que en el algoritmo de red neuronal se obtuvo una accuracy bastante alta, auque según su rango, muy inestable como el arbol de clasificación. Este resultado respalda los resultados del arbol de desición respecto a la relación entre las variables antes mencionadas. 
+ 
+ - Nacimientos por edad de la madre según sexo y peso de bebé.
+Ambos modelos aplicados a esta tabla dieron resultados menores al 40% de accuracy, por lo que no se puede confiar en los datos que nos muestra. Lo unico que se puede obtener de esta tabla es que hay una baja relación entre edad de la madre y el sexo y peso del bebé. Por lo que si se quiere concluir respecto al peso del bebé, habría que hacer un estudio de relación para esa variable de forma independiente o bien respaldarla con información fidedigna externa a la base de datos.
+
+- Conclusión final
+Los resultados de la aplicación de estos algoritmos no dán una conclusión directa a la pregunta principal del proyecto, simplemente presenta la relación entre variables que se quieren usar para poder determinar una respuesta a la pregunta. Por lo que a partir de estos resultados, se puede decidir como introducir la variable edad de la madre en el conjunto de variables que afectan al veredicto final de una forma jerárquica.
