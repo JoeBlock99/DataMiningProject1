@@ -295,7 +295,7 @@ Dentro de las preguntas interesantes, orientadas a nuestra problematica, surgio 
 nac_por_dpto_todas_las_edades <- nac_por_dpto_edades_simples %>% filter(Edad == "Todas las edades") %>% select(-1, -2)
 
 # Plot of births per city per year
-barplot(as.matrix(nac_por_dpto_todas_las_edades %>% select(-25)), beside=TRUE, las=2)
+bar<-barplot(as.matrix(nac_por_dpto_todas_las_edades %>% select(-25)), beside=TRUE, las=2,ylim=c(0,70000), names.arg= labels(nac_por_dpto_todas_las_edades %>% select(-25)))
 ```
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 #Separar la info para dar graficos 
